@@ -1,0 +1,6 @@
+minishell
+*.txt
+.vscode
+.DS_Store
+test
+test.h

@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 14:26:48 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/20 20:32:17 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    env_unset(t_env **env, char *key);
 
 void    lexer(t_cmd **cmds, char **input, t_env **env, int *error);
 int     valid_syntax(char **input, int *error);
-char    **tokenizer(char *input);
+void    tokenizer(char ***holderptr, char *input);
 char    *handle_quotes(char *str);
 char    *handle_in(char *str);
 char    *handle_out(char *str);

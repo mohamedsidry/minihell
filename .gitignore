@@ -4,3 +4,4 @@ minishell
 .DS_Store
 test
 test.h
+*.a

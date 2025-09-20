@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 19:30:06 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:45:02 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/20 20:31:39 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static char *extract_token(char *str);
 
-char **tokenizer(char *input)
+void tokenizer(char ***container, char *input)
 {
     t_list *lst_tokens;
-    char **arr_tokens;
     char *token;
     int idx;
     idx = 0;
@@ -38,9 +37,8 @@ char **tokenizer(char *input)
         idx += ft_strlen(token);
     }
     
-    arr_tokens = serializer(lst_tokens);
+    *container = serializer(lst_tokens);
     ft_lstclear(&lst_tokens, free);
-    return (arr_tokens);
 }
 
 static char *extract_token(char *str)

@@ -47,7 +47,7 @@ int main(int argc, char *argv[], char *env[])
         lexer(&commands, &input, &new_env, &error);
         print_commands(commands);
         cmd_clear(&commands);
-        free(input);
+        nullstr(&input);
     }
     env_handler(&new_env, NULL, DELETE);
     cmd_clear(&commands);

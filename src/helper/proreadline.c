@@ -13,11 +13,14 @@
 #include "../../include/main.h"
 
 static int balanced_quotes(char *input);
-static char *backup_readline(char *input);
+static void backup_readline(char **input);
 
 void proreadline(char **input, int *error)
 {
+    char *tmp;
 
+    tmp = NULL;
+    nullstr(input);
     *input = readline("minishell $> ");
     if (!(*input))
     {
@@ -25,22 +28,21 @@ void proreadline(char **input, int *error)
         exit(0);
     }
     if (balanced_quotes(*input))
-        *input = backup_readline(*input);
+        backup_readline(input);
     else
     {
-        *input = ltrim(*input, " \n", 1);
+        tmp = *input;
+        *input = ltrim(*input, " \n", 0);
+        free(tmp);
         add_history(*input);            
     }
     if (!(*input))
     {
-        error_message(" minishell: syntax error: unexpected end of file\n");
+        error_message("minishell: syntax error: unexpected end of file\n");
         *error = 258;
     }
     if (*input && !(*input[0]))
-    {
-        free(*input);
-        *input = NULL;
-    }
+        nullstr(input);
 }
 
 static int balanced_quotes(char *input)
@@ -60,26 +62,26 @@ static int balanced_quotes(char *input)
     return ((sqoutes & 1) || (dquotes & 1));
 }
 
-static char *backup_readline(char *input)
+static void backup_readline(char **input)
 {
-    char *newread;
-
-    while (balanced_quotes(input))
+    char *tmp;
+    tmp = NULL;
+    while (balanced_quotes(*input))
     {
-        newread = readline("> ");
-        if (!newread)
+        tmp = readline("> ");
+        if (!tmp)
         {
-            if (balanced_quotes(input))
+            if (balanced_quotes(*input))
                 error_message(" minishell: unexpected EOF while looking for matching `''\n");
-            free (input);
-            add_history(input);
-            return (NULL);
+            add_history(*input);
+            return ;
         }
-        input = concat3(input, newread, "\n", 1 | 2);
+        *input = concat3(*input, tmp, "\n", 1 | 2);
     }
-    newread = ltrim(input, "\t\n\v ", 1);
-    add_history(newread);
-    return (newread);
+    tmp = ltrim(*input, "\t\n\v ", 0);
+    nullstr(input);
+    *input = tmp;
+    add_history(*input);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:20:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 20:31:47 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 08:44:02 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ void lexer(t_cmd **cmds, char **input, t_env **env, int *error)
     (void)env;
     if (!input || !(*input) || !cmds)
         return ;
-    if (valid_syntax(input, error)) // check or leading | or "&&", "||" .
+    if (valid_syntax1(input, error)) // check or leading | or "&&", "||" .
         return ;
-    tokenizer(&tokens, *input); // generate array of tokens .
-    if (valid_syntax2(tokens, error)) // check after
-        return free2d(&tokens);
-    clean_tokens(tokens); // ">|", "&>", ">&" become ">" .
+    tokenizer(&tokens, *input, error); // generate array of tokens + validate syntax2 .
     if (valid_syntax3(tokens, error)) // validate next to sep .
         return free2d(&tokens);
     formater(cmds, tokens, error); // create commands struct and fill it !

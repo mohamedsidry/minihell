@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 20:32:17 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 08:43:17 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void    env_unset(t_env **env, char *key);
 // lexical tokenization
 
 void    lexer(t_cmd **cmds, char **input, t_env **env, int *error);
-int     valid_syntax(char **input, int *error);
-void    tokenizer(char ***holderptr, char *input);
+int     valid_syntax1(char **input, int *error);
+int     valid_syntax2(char **token, int *error);
+int     valid_syntax3(char **tokens,int *error);
+void    tokenizer(char ***holderptr, char *input, int *error);
 char    *handle_quotes(char *str);
 char    *handle_in(char *str);
 char    *handle_out(char *str);
 char    *handle_amp(char *str);
 char    *handle_txt(char *str);
 char    *handle_pipe(char *str);
-int     valid_syntax2(char **token, int *error);
-int     valid_syntax3(char **tokens,int *error);
 void    clean_tokens(char **tokens);
 void    formater(t_cmd **cmds, char **tokens, int *error);
 // command

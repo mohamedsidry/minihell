@@ -37,7 +37,10 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_addback.c \
 			src/cmd/cmd_clear.c \
 			src/cmd/cmd_crud.c \
-			src/cmd/cmd_last.c
+			src/cmd/cmd_last.c \
+			src/cmd/cmd_iter.c \
+			src/cmd/cmd_length.c \
+			src/cmd/cmd_trim.c
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

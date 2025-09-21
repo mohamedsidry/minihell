@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 10:19:41 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 11:07:34 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_cmd *cmd_last(t_cmd **cmds);
 size_t cmd_length(t_cmd *cmds);
 void cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
 t_cmd *cmd_trim(t_cmd *cmd);
+t_cmd *cmd_builtin(t_cmd *cmd);
 
 // helpers 
 void    proreadline(char **input, int *error);
@@ -80,4 +81,5 @@ int     is_operator(char *token);
 char    **serializer(t_list *list);
 t_list  *dserializer(char **arr);
 char    **append_array(char **arr, void *toadd);
+int     is_builtin(char *cmd);
 #endif //UTILS_H

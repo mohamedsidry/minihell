@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:20:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 10:21:18 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 11:06:12 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void lexer(t_cmd **cmds, char **input, t_env **env, int *error)
         return free2d(&tokens);
     formater(cmds, tokens, error); // create commands struct and fill it !
     cmd_iter(cmds, cmd_trim); // remove extra space in front of cmd .
+    cmd_iter(cmds, cmd_builtin);
     free2d(&tokens);
 }

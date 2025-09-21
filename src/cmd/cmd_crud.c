@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 10:27:07 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 11:12:54 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,10 @@ void cmd_read(t_cmd *command)
         idx = -1;
         printf("]\n");
     }
+    printf("IS BUILTIN : ");
+    if (command->isbuiltin)
+        printf("true\n");
+    else
+        printf("false\n");
     printf("SEPARATOR : '%s'\n", command->separator);
 }

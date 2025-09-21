@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:34:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 10:33:07 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int main(int argc, char *argv[], char *env[])
     {
         proreadline(&input, &error);
         lexer(&commands, &input, &new_env, &error);
+        print_commands(commands);
+        cmd_clear(&commands);
         free(input);
-        break;
     }
     env_handler(&new_env, NULL, DELETE);
     cmd_clear(&commands);

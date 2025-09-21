@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 13:58:11 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 21:55:46 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char *expand_handler(char *str, t_env *env)
     dquotes = 0;
     result = NULL;
     idx = 0;
+    if (!str || !env)
+        return (NULL);
     if (is_expandable(str))
     {
         while (*str)

@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 13:58:25 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 21:56:22 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,24 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     char *limiter;
     char *data;
     int toexpand;
+    char *tmp;
 
     data = NULL;
+    tmp = NULL;
     pipe_close(cmd->pip, r_end);
     limiter = expand_handler(cmd->files[idx], env);
     toexpand = (is_expandable(cmd->files[idx]) && !ft_strchr(cmd->files[idx], '\''));
     stripquotes(&limiter);
+    while (1)
+    {
+        tmp = readline(">");
+        if (toexpand)
+            data = expand_handler(tmp, env);
+        else
+            data = ft_strdup(tmp);
+        free(tmp);
+        /* code */
+    }
     //TODO: child tasks !
 }
 
@@ -85,6 +97,6 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
 static void parant_task(t_cmd *cmd, pid_t childpid)
 {
     pipe_close(cmd->pip, w_end);
-    wait();
+    waitpid(childpid, cmd->exitcode, 0);
     //TODO: parent task;
 }

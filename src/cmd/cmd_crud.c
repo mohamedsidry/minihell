@@ -78,7 +78,7 @@ void cmd_read(t_cmd *command)
         printf("]\n");
     }
     if (!command->files|| !command->files[0])
-        printf("SYMBOLS  : [null]\n");
+        printf("FILES  : [null]\n");
     else
     {
         printf("FILES : [");

@@ -24,7 +24,7 @@ SRC 	=	src/helper/proreadline.c \
 			src/helper/ltrim.c src/helper/is_space.c \
 			src/helper/ft_strcmp.c src/helper/ft_realloc.c \
 			src/helper/free2d.c src/helper/append_array.c \
-			src/helper/serializers.c \
+			src/helper/serializers.c src/helper/nullstr.c \
 			src/helper/is_operator.c src/helper/is_redirection.c src/helper/is_builtin.c \
 			src/env/env_handler.c src/env/env_crud.c \
 			src/env/node_crud.c src/env/helpers.c \

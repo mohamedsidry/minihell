@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:07:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 10:27:07 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void cmd_read(t_cmd *command)
         printf("No command !\n");
         return ;
     }
-    printf("FULLCOMMAND : %s\n", command->fullcmd);
+    printf("FULLCOMMAND : `%s`\n", command->fullcmd);
     
     if (!command->args || !command->args[0])
         printf("ARGS  : [null]\n");
@@ -56,9 +56,9 @@ void cmd_read(t_cmd *command)
         printf("ARGS : [");
         while (command->args[++idx])
         {
-            printf(" %s", command->args[idx]);
+            printf("%s", command->args[idx]);
             if (command->args[idx + 1])
-                printf(",");
+                printf(", ");
         }
         idx = -1;
         printf("]\n");
@@ -70,9 +70,9 @@ void cmd_read(t_cmd *command)
         printf("SYMBOLS : [");
         while (command->symbols[++idx])
         {
-            printf(" '%s'", command->symbols[idx]);
+            printf("%s", command->symbols[idx]);
             if (command->symbols[idx + 1])
-                printf(",");
+                printf(", ");
         }
         idx = -1;
         printf("]\n");
@@ -84,9 +84,9 @@ void cmd_read(t_cmd *command)
         printf("FILES : [");
         while (command->files[++idx])
         {
-            printf(" %s", command->files[idx]);
+            printf("%s", command->files[idx]);
             if (command->files[idx + 1])
-                printf(",");
+                printf(", ");
         }
         idx = -1;
         printf("]\n");

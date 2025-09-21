@@ -69,13 +69,22 @@ static int forkchild(pid_t *pidptr)
 static void child_task(t_cmd *cmd, t_env *env, size_t idx)
 {
     char *limiter;
-    
+    char *data;
+    int toexpand;
+
+    data = NULL;
+    pipe_close(cmd->pip, r_end);
     limiter = expand_handler(cmd->files[idx], env);
+    toexpand = (is_expandable(cmd->files[idx]) && !ft_strchr(cmd->files[idx], '\''));
+    stripquotes(&limiter);
     //TODO: child tasks !
 }
 
 
+
 static void parant_task(t_cmd *cmd, pid_t childpid)
 {
+    pipe_close(cmd->pip, w_end);
+    wait();
     //TODO: parent task;
 }

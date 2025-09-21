@@ -82,4 +82,6 @@ char    **serializer(t_list *list);
 t_list  *dserializer(char **arr);
 char    **append_array(char **arr, void *toadd);
 int     is_builtin(char *cmd);
+void    nullstr(char **ptr);
+
 #endif //UTILS_H

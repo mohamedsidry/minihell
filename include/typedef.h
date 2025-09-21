@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:54:39 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 12:50:36 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/21 12:12:17 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,18 @@ typedef struct s_cmd
     char **files;
     char **symbols;
     int isbuiltin;
+    int isbroken;
     char *heredoc_data;
+    int pip[2];
     int exitcode;
     struct s_cmd *next;
 } t_cmd;
 
+typedef enum e_pipends
+{
+    r_end = 1,
+    w_end = 2,
+    rw_end = 4,
+} t_pipends;
 
 #endif //TYPDEF_H

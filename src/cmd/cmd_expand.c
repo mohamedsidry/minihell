@@ -37,7 +37,6 @@ static void expand_args(t_cmd *cmd, t_env *env)
    while (cmd->args[idx])
    {
         result = expand_handler(cmd->args[idx], env);
-        printf("command expanded %s\n", cmd->args[idx]);
         //remove_quotes(&cmd->args[idx]);
         free(cmd->args[idx]);
         cmd->args[idx] = result;

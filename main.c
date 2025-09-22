@@ -12,7 +12,6 @@
 
 #include "include/main.h"
 
-void ll(void);
 
 
 void sg_handler(int sig_num)
@@ -21,7 +20,7 @@ void sg_handler(int sig_num)
 	{
 		printf("\n");
 		rl_on_new_line();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
@@ -50,7 +49,6 @@ int main(int argc, char *argv[], char *env[])
         cmd_clear(&commands);
         nullstr(&input);
     }
-    //atexit(ll);
     return (0);
 }
 

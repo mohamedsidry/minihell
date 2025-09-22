@@ -47,19 +47,19 @@ void proreadline(char **input, int *error)
 
 static int balanced_quotes(char *input)
 {
-    int sqoutes;
+    int squotes;
     int dquotes;
 
-    sqoutes = 0;
+    squotes = 0;
     dquotes = 0;
     
     while (*input)
     {
-        sqoutes += (*input == '\'' && !(dquotes & 1));
-        dquotes += (*input == '"' && !(sqoutes & 1));
+        squotes += (*input == '\'' && !(dquotes & 1));
+        dquotes += (*input == '"' && !(squotes & 1));
         input++;
     }
-    return ((sqoutes & 1) || (dquotes & 1));
+    return ((squotes & 1) || (dquotes & 1));
 }
 
 static void backup_readline(char **input)

@@ -34,15 +34,8 @@ char *expand_handler(char *str, t_env *env)
         if ((*str == '$') && !(squotes & 1))
             str += expand_it(str, env, &result);
         else
-        {
             str += appand_it(str, &result);
-            if (ft_strchr("'\"", *str))
-            {
-                squotes += (*str == '\'' && !(dquotes & 1));
-                dquotes += (*str == '"' && !(squotes & 1));
-                str++;
-            }
-        }
+        
     }
     return (result);
 }
@@ -50,32 +43,25 @@ char *expand_handler(char *str, t_env *env)
 static int expand_it(char *dollar, t_env *env, char **result)
 {
     char *ref;
+    size_t len;
 
     if (!result)
         return (0);
     ref = extract_ref(dollar);
     *result = concat3(*result, getvalue(env, ref + 1), NULL, 1);
+    len = ft_strlen(ref);
     free (ref);
-    return (ft_strlen(ref));
+    return (len);
 }
 
 static int appand_it(char *str, char **result)
 {
-    char *chunk;
-    int idx;
-    
-    idx = 0;
-    while (str[idx])
-    {
-        idx++;
-        if (is_breaker(str[idx]))
-            break;
-    }
-    chunk = ft_substr(str, 0, idx + 1);
-    if (str[idx] == '$' || ft_strchr("\"'", str[idx]))
-        idx--;
-    *result = concat3(*result, chunk, NULL, 1 | 2);
-    return (ft_strlen(chunk) - 1);
+    char *tmp;
+
+    tmp = NULL;
+    tmp = ft_substr(str, 0, 1);
+    *result = concat3(*result, tmp, NULL, 1 | 2);
+    return (1);
 }
 
 static char *extract_ref(char *str)

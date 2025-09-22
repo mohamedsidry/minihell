@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 11:49:46 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/22 13:15:29 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ size_t cmd_length(t_cmd *cmds);
 void cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
 t_cmd *cmd_trim(t_cmd *cmd);
 t_cmd *cmd_builtin(t_cmd *cmd);
+void cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf));
+t_cmd   *cmd_expand(t_cmd *cmd, void *reff);
 
 // helpers 
 void    proreadline(char **input, int *error);

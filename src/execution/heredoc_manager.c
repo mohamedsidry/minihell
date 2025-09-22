@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 11:34:40 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/22 13:16:44 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     pipe_close(cmd->pip, r_end);
     toexpand = (is_expandable(cmd->files[idx]) && !ft_strchr(cmd->files[idx], '"'));
     limiter = ft_strdup(cmd->files[idx]);
-    stripquotes(&limiter);
+    remove_quotes(&limiter);
     while (1)
     {
         tmp = readline("> ");

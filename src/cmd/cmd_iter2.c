@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   cmd_iter2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 13:15:37 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/22 12:59:29 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/22 13:02:17 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-void executor(t_cmd **cmds, t_env **env, int *error)
+void cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf))
 {
-    if (!cmds || !env)
+    t_cmd *head;
+    t_cmd *ret;
+
+    if (!cmds || !(*cmds) || !func)
         return ;
-    heredoc_manager(*cmds, *env);
-    cmd_iter2(cmds, *env, cmd_expand);
-    (void)error;
+    head = *cmds;
+    while (head)
+    {
+        ret = func(head, ref);
+        if (!ret)
+            return (cmd_clear(cmds));
+        head = head->next;
+    }
 }

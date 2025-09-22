@@ -44,7 +44,10 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_trim.c \
 			src/cmd/cmd_buildin.c \
 			src/execution/executor.c \
-			src/execution/heredoc_manager.c 
+			src/execution/heredoc_manager.c \
+			src/cmd/cmd_expand.c \
+			src/cmd/cmd_iter2.c
+
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

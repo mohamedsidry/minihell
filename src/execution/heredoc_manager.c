@@ -13,7 +13,9 @@
 #include "../../include/main.h"
 
 static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx);
+static int forkchild(pid_t *pidptr);
 static void child_task(t_cmd *cmd, t_env *env, size_t idx);
+static void parant_task(t_cmd *cmd, pid_t childpid);
 
 void heredoc_manager(t_cmd *cmds, t_env *env)
 {
@@ -22,7 +24,7 @@ void heredoc_manager(t_cmd *cmds, t_env *env)
     while (cmds)
     {
         idx = 0;
-        while (cmds->symbols[idx])
+        while (cmds->symbols && cmds->symbols[idx])
         {
             if (!ft_strcmp(cmds->symbols[idx], "<<"))
                 handle_heredoc(cmds, env, idx);
@@ -35,7 +37,6 @@ void heredoc_manager(t_cmd *cmds, t_env *env)
 static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx)
 {
     pid_t pid;
-    char *limiter;
     
     if (pipe_close(cmd->pip, rw_end))
         return ;
@@ -81,22 +82,41 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     stripquotes(&limiter);
     while (1)
     {
-        tmp = readline(">");
-        if (toexpand)
+        tmp = readline("> ");
+        if (!tmp)
+        {
+            pipe_close(cmd->pip, w_end);
+            nullstr(&data);
+            nullstr(&limiter);
+            exit(1);
+        }
+        else if (toexpand)
             data = expand_handler(tmp, env);
         else
             data = ft_strdup(tmp);
-        free(tmp);
-        /* code */
+        nullstr(&tmp);
+        if (!ft_strcmp(data, limiter))
+            break;
+        ft_putendl_fd(data, cmd->pip[1]);
+        nullstr(&data);
     }
-    //TODO: child tasks !
+    nullstr(&data);
+    pipe_close(cmd->pip, w_end);
+    exit (0);
 }
 
 
 
 static void parant_task(t_cmd *cmd, pid_t childpid)
 {
+    char *buffer;
+
+    buffer = ft_calloc(100, 1);
     pipe_close(cmd->pip, w_end);
-    waitpid(childpid, cmd->exitcode, 0);
+    waitpid(childpid, &cmd->exitcode, 0);
+    if (cmd->exitcode != 0)
+        printf("exitcode  %d!\n", cmd->exitcode);
+    read(cmd->pip[0], buffer, 99);
+    printf("from pipe : %s\n", buffer);
     //TODO: parent task;
 }

@@ -84,5 +84,13 @@ char    **append_array(char **arr, void *toadd);
 int     is_builtin(char *cmd);
 void    nullstr(char **ptr);
 void    stripquotes(char **str);
+int     is_expandable(char *str);
+int     pipe_close(int pipefds[2], t_pipends ends);
 
+// heredoc utils 
+void executor(t_cmd **cmds, t_env **env, int *error);
+void heredoc_manager(t_cmd *cmds, t_env *env);
+char *expand_handler(char *str, t_env *env);
+
+//
 #endif //UTILS_H

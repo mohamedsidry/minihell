@@ -13,16 +13,17 @@
 #include "../../include/main.h"
 
 static size_t count_set(char *str, char *set);
-static void strrmove(char **strptr, char *set);
+static void strremove(char **strptr, char *set);
 
 void stripquotes(char **str)
 {
     char target;
     char *tmp;
-    int sqoutes;
+    int squotes;
     int dquotes;
 
-    sqoutes = 0;
+    squotes = 0;
+    dquotes = 0;
     if (!str || !(*str))
         return ;
     if (!ft_strchr(*str, '\'') && !ft_strchr(*str, '"'))
@@ -30,9 +31,9 @@ void stripquotes(char **str)
     tmp = *str - 1;
     while(tmp++)
     {
-        sqoutes += (*tmp == '\'' & !(dquotes & 1));
-        sqoutes += (*tmp == '\'' & !(dquotes & 1));
-        if (sqoutes & 1 && *tmp == '\'')
+        squotes += (*tmp == '\'' && !(dquotes & 1));
+        dquotes += (*tmp == '\'' && !(squotes & 1));
+        if (squotes & 1 && *tmp == '\'')
             target = '\'';
         else if (dquotes & 1 && *tmp == '"')
             target = '"';
@@ -41,7 +42,7 @@ void stripquotes(char **str)
     }
     strremove(str, "$");
 }
-static void strrmove(char **strptr, char *set)
+static void strremove(char **strptr, char *set)
 {
     char *result;
     size_t counter;

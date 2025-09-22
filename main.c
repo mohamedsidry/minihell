@@ -45,6 +45,7 @@ int main(int argc, char *argv[], char *env[])
     {
         proreadline(&input, &error);
         lexer(&commands, &input, &new_env, &error);
+        executor(&commands, &new_env, &error);
         print_commands(commands);
         cmd_clear(&commands);
         nullstr(&input);

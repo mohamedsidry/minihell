@@ -21,12 +21,10 @@ char *expand_handler(char *str, t_env *env)
     char *result;
     int squotes;
     int dquotes;
-    int idx;
     
     squotes = 0;
     dquotes = 0;
     result = NULL;
-    idx = 0;
     if (!str || !env)
         return (NULL);
     if (is_expandable(str))
@@ -38,17 +36,18 @@ char *expand_handler(char *str, t_env *env)
             if (*str == '$' && !(squotes & 1))
                 str += expand_it(str, env, &result);
             else
-                str += append_it(str, &result);
-        }  
+                str += appand_it(str, &result);
+        }
+        return (result);
     }
     else
-    return (ft_strdup(str));
+        return (ft_strdup(str));
 }
 
 static int expand_it(char *dollar, t_env *env, char **result)
 {
     char *ref;
-    char *idx;
+    int idx;
 
     if (!result)
         return (0);
@@ -98,4 +97,5 @@ static int is_breaker(int c)
         return (1);
     if (c == '\'' || c == '"')
         return (1);
+    return (0);
 }

@@ -15,15 +15,17 @@
 
 int pipe_close(int pipefds[2], t_pipends ends)
 {
+    if (!pipefds)
+        return (0);
     if (pipefds[0] != -1 && (ends & r_end))
     {
-        if(close(pipefds[0]) == -1);
+        if(close(pipefds[0]) == -1)
             return (perror("minishell"), 1);
         pipefds[0] = -1;
     }
     if (pipefds[1] != -1 && (ends & w_end))
     {
-        if(close(pipefds[0]) == -1);
+        if(close(pipefds[1]) == -1)
             return (perror("minishell"), 1);
         pipefds[1] = -1;
     }

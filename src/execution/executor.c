@@ -14,7 +14,8 @@
 
 void executor(t_cmd **cmds, t_env **env, int *error)
 {
-    if (!cmds || *env)
+    if (!cmds || !env)
         return ;
     heredoc_manager(*cmds, *env);
+    (void)error;
 }

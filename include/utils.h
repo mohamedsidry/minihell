@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 21:44:48 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/22 11:49:46 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_list  *dserializer(char **arr);
 char    **append_array(char **arr, void *toadd);
 int     is_builtin(char *cmd);
 void    nullstr(char **ptr);
-void    stripquotes(char **str);
+void    remove_quotes(char **str);
 int     is_expandable(char *str);
 int     pipe_close(int pipefds[2], t_pipends ends);
 

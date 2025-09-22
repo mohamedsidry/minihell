@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 10:33:07 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/22 11:44:46 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int main(int argc, char *argv[], char *env[])
         cmd_clear(&commands);
         nullstr(&input);
     }
-    env_handler(&new_env, NULL, DELETE);
-    cmd_clear(&commands);
     //atexit(ll);
     return (0);
 }

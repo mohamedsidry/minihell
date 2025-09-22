@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   expand_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 21:55:46 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/22 10:38:46 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int expand_it(char *dollar, t_env *env, char **result)
     if (!result)
         return (0);
     ref = extract_ref(dollar);
-    idx = ft_strlen(ref) + 1;
+    idx = ft_strlen(ref) + 2;
     *result = concat3(*result, getvalue(env, ref), NULL, 1);
     free (ref);
     return (idx);
@@ -70,16 +70,18 @@ static int appand_it(char *str, char **result)
             break;
         idx++;
     }
-    chunk = ft_substr(str, 0, idx - 1);
+    if (str[idx] == '$')
+        idx--;
+    chunk = ft_substr(str, 0, idx);
     *result = concat3(*result, chunk, NULL, 1 | 2);
-    return (idx);
+    return (idx + 1);
 }
 
 static char *extract_ref(char *str)
 {
     int idx;
 
-    idx = 0;
+    idx = 1;
     while (str[idx])
     {
         if (is_breaker(str[idx]))

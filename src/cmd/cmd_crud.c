@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 11:12:54 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/22 08:04:26 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_cmd *cmd_create(void)
     command = ft_calloc(1, sizeof(t_cmd));
     if (!command)
         return (NULL);
+    command->pip[0] = -1;
+    command->pip[1] = -1;
     return (command);
 }
 

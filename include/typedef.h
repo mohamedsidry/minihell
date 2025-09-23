@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:54:39 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 12:12:17 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/23 11:29:55 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct s_cmd
     int isbroken;
     char *heredoc_data;
     int pip[2];
-    int exitcode;
+    char *exitcode;
+    char *prevcmd;
     struct s_cmd *next;
 } t_cmd;
 

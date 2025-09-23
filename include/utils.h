@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 13:15:29 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/23 14:34:23 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ t_cmd *cmd_trim(t_cmd *cmd);
 t_cmd *cmd_builtin(t_cmd *cmd);
 void cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf));
 t_cmd   *cmd_expand(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandstatus(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandprev(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandredirection(t_cmd *cmd, void *reff);
 
 // helpers 
 void    proreadline(char **input, int *error);
@@ -88,11 +91,14 @@ void    nullstr(char **ptr);
 void    remove_quotes(char **str);
 int     is_expandable(char *str);
 int     pipe_close(int pipefds[2], t_pipends ends);
+int     has_redirections(t_cmd *cmd);
 
 // heredoc utils 
 void executor(t_cmd **cmds, t_env **env, int *error);
 void heredoc_manager(t_cmd *cmds, t_env *env);
-char *expand_handler(char *str, t_env *env);
+char *expand_handler(char *str, t_env *env, t_cmd *cmd);
+
+
 
 //
 #endif //UTILS_H

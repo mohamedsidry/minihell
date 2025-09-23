@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:27:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 14:34:26 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/23 14:49:24 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ static void expand_args(t_cmd *cmd, t_env *env)
     idx = 0;
     if (!cmd || !cmd->args)
         return ;
-   while (cmd->args[idx])
+   while (cmd->args && cmd->args[idx])
    {
-        result = expand_handler(cmd->args[idx], env);
-        //remove_quotes(&cmd->args[idx]);
+        result = expand_handler(cmd->args[idx], env, cmd);
         free(cmd->args[idx]);
         cmd->args[idx] = result;
         idx++;

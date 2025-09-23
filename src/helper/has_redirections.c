@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_buildin.c                                      :+:      :+:    :+:   */
+/*   has_redirections.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 10:59:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 14:54:52 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/23 12:25:37 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/23 12:38:47 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-t_cmd *cmd_builtin(t_cmd *cmd)
+int has_redirections(t_cmd *cmd)
 {
+    int idx;
+
+    
     if (!cmd)
-        return (NULL);
-    if (!cmd->args)
-        return (NULL);
-    if (is_builtin(cmd->args[0]))
-        cmd->isbuiltin = 1;
-    return (cmd);
+        return (0);
+    while (cmd)
+    {
+        idx = -1;
+        while (cmd->symbols && cmd->symbols[++idx])
+        {
+            return (1);
+        }
+        cmd = cmd->next;
+    }
+    return (0);
 }

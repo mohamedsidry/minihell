@@ -6,17 +6,18 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 14:54:00 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/23 12:01:08 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static int expand_it(char *dollar, t_env *env, char **result);
+static int expand_it(char *dollar, t_env *env, t_cmd *cmd, char **result);
 static int appand_it(char *str, char **result);
 static char *extract_ref(char *str);
 static int is_breaker(int c);
-char *expand_handler(char *str, t_env *env)
+static int is_special(int c);
+char *expand_handler(char *str, t_env *env, t_cmd *cmd)
 {
     char *result;
     int squotes;
@@ -32,7 +33,7 @@ char *expand_handler(char *str, t_env *env)
         squotes += (*str == '\'' && !(dquotes & 1));
         dquotes += (*str == '"' && !(squotes & 1));
         if ((*str == '$') && !(squotes & 1))
-            str += expand_it(str, env, &result);
+            str += expand_it(str, env, cmd, &result);
         else
             str += appand_it(str, &result);
         
@@ -40,7 +41,7 @@ char *expand_handler(char *str, t_env *env)
     return (result);
 }
 
-static int expand_it(char *dollar, t_env *env, char **result)
+static int expand_it(char *dollar, t_env *env,  t_cmd *cmd, char **result)
 {
     char *ref;
     size_t len;
@@ -48,7 +49,16 @@ static int expand_it(char *dollar, t_env *env, char **result)
     if (!result)
         return (0);
     ref = extract_ref(dollar);
-    *result = concat3(*result, getvalue(env, ref + 1), NULL, 1);
+    if (!ft_strcmp(ref, "$0"))
+        *result = concat3(*result, getvalue(env, "_"), NULL, 1);
+    else if (!ft_strcmp(ref, "$?"))
+        *result = concat3(*result, cmd->exitcode, NULL, 1);
+    else if (!ft_strcmp(ref, "$$"))
+        *result = concat3(*result, "1337", NULL, 1);
+    else if (!ft_strcmp(ref, "$_"))
+        *result = concat3(*result, cmd->prevcmd, NULL, 1);
+    else
+        *result = concat3(*result, getvalue(env, ref + 1), NULL, 1);
     len = ft_strlen(ref);
     free (ref);
     return (len);
@@ -72,6 +82,8 @@ static char *extract_ref(char *str)
     while (str[idx])
     {
         idx++;
+        if (is_special(str[idx]) && idx++)
+            break;
         if (is_breaker(str[idx]))
             break ;
     }
@@ -80,11 +92,10 @@ static char *extract_ref(char *str)
 
 static int is_breaker(int c)
 {
-    if (is_space(c))
-        return (1);
-    if (c == '$')
-        return (1);
-    if (c == '\'' || c == '"')
-        return (1);
-    return (0);
+    return (!ft_isdigit(c) && !ft_isalpha(c));
+}
+
+static int is_special(int c)
+{
+    return ((int)ft_strchr("$~_?", c));
 }

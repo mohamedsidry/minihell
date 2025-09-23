@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 13:16:44 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/23 12:12:08 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void parant_task(t_cmd *cmd, pid_t childpid);
 void heredoc_manager(t_cmd *cmds, t_env *env)
 {
     size_t idx;
-
+    if (!cmds)
+        return ;
     while (cmds)
     {
         idx = 0;
@@ -77,7 +78,7 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     data = NULL;
     tmp = NULL;
     pipe_close(cmd->pip, r_end);
-    toexpand = (is_expandable(cmd->files[idx]) && !ft_strchr(cmd->files[idx], '"'));
+    toexpand = (!ft_strchr(cmd->files[idx], '\'') && !ft_strchr(cmd->files[idx], '"'));
     limiter = ft_strdup(cmd->files[idx]);
     remove_quotes(&limiter);
     while (1)
@@ -86,7 +87,7 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
         if (!tmp)
             break;
         if (toexpand && ft_strcmp(tmp, limiter))
-            data = expand_handler(tmp, env);
+            data = expand_handler(tmp, env, cmd);
         else
             data = ft_strdup(tmp);
         if (!ft_strcmp(data, limiter))
@@ -106,7 +107,11 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
 static void parant_task(t_cmd *cmd, pid_t childpid)
 {
     int status;
+    char *buffer;
 
+    buffer = ft_calloc(1024, 1);
     pipe_close(cmd->pip, w_end);
     waitpid(childpid, &status, 0);
+    read(cmd->pip[0], buffer, 1023);
+    printf("pipe data : %s\n", buffer);
 }

@@ -51,7 +51,8 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_expandstatus.c \
 			src/cmd/cmd_expandprev.c \
 			src/helper/has_redirections.c \
-			src/cmd/cmd_expandredirection.c 
+			src/cmd/cmd_expandredirection.c \
+			src/cmd/cmd_removequotes.c
 
 
 TEST = test/print_tokens.c test/print_commands.c

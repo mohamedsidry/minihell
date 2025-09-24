@@ -97,5 +97,10 @@ static int is_breaker(int c)
 
 static int is_special(int c)
 {
-    return ((int)ft_strchr("$~_?", c));
+    char *ret;
+
+    ret = ft_strchr("$~_?", c);
+    if (ret)
+        return (1);
+    return (0);
 }

@@ -15,13 +15,11 @@
 
 t_cmd *cmd_expandredirection(t_cmd *cmd, void *reff)
 {
-    t_env *env;
     int idx;
     char *expanded;
     
     expanded = NULL;
     idx = 0;
-    env = (t_env *)reff;
     if (!cmd || ! reff)
         return (NULL);
     while (cmd->symbols && cmd->symbols[idx])
@@ -30,7 +28,7 @@ t_cmd *cmd_expandredirection(t_cmd *cmd, void *reff)
             !ft_strcmp(cmd->symbols[idx], ">>") ||
             !ft_strcmp(cmd->symbols[idx], ">"))
         {
-            expanded = expand_handler(cmd->files[idx], reff, cmd);
+            expanded = expand_handler(cmd->files[idx], (t_env *)reff, cmd);
             if (expanded && !*expanded)
                 return(free(expanded), cmd);
             free(cmd->files[idx]);

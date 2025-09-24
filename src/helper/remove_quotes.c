@@ -12,7 +12,7 @@
 
 #include "../../include/main.h"
 
-void remove_quotes(char **str)
+char *remove_quotes(char **str, int usefree)
 {
     char *tmp;
     char *result;
@@ -21,18 +21,16 @@ void remove_quotes(char **str)
 
     
     if (!str || !(*str))
-        return ;
-    if (!ft_strchr(*str, '\'') && !ft_strchr(*str, '"'))
-        return ;
+        return (NULL);
     tmp = *str;
     result = ft_calloc(ft_strlen(*str) + 1, sizeof(char));
     idx = 0;
     while(*tmp)
     {
-         if (ft_strchr("'\"", *tmp))
+         if (ft_strchr("'\"", *tmp) && ft_strchr(tmp + 1, *tmp))
         {
             quote_char = *tmp;
-            tmp++; 
+            tmp++;
             while (*tmp && *tmp != quote_char)
             {
                 result[idx++] = *tmp;
@@ -47,6 +45,7 @@ void remove_quotes(char **str)
             tmp++;
         }
     }
-    nullstr(str);
-    *str = result;
+    if (usefree)
+        nullstr(str);
+    return (result);
 }

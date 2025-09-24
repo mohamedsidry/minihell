@@ -80,7 +80,7 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     pipe_close(cmd->pip, r_end);
     toexpand = (!ft_strchr(cmd->files[idx], '\'') && !ft_strchr(cmd->files[idx], '"'));
     limiter = ft_strdup(cmd->files[idx]);
-    remove_quotes(&limiter);
+    limiter = remove_quotes(&limiter, 1);
     while (1)
     {
         tmp = readline("> ");

@@ -24,8 +24,8 @@ void executor(t_cmd **cmds, t_env **env, int *error)
     heredoc_manager(*cmds, *env);
     cmd_iter2(cmds, *env, cmd_expand); // expand args ! 
     cmd_iter2(cmds, *env, cmd_expandredirection); // expand redirection ! 
-    //cmd_iter2(cmds, *error, cmd_removequotes); //TODO: remove quotes;
-    if (cmd_builtin(*cmds))
+    cmd_iter2(cmds, error, cmd_removequotes); //TODO: remove quotes;
+    if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
        exec_builtin(cmds, env, error);
     else
        exec_chain(cmds, env, error);

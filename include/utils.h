@@ -55,21 +55,22 @@ void    clean_tokens(char **tokens);
 void    formater(t_cmd **cmds, char **tokens, int *error);
 // command
 
-t_cmd *cmd_addback(t_cmd **cmds, t_cmd *cmd);
-void cmd_clear(t_cmd **cmds);
-t_cmd *cmd_create(void);
-void cmd_delete(t_cmd *command);
-void cmd_read(t_cmd *command);
-t_cmd *cmd_last(t_cmd **cmds);
-size_t cmd_length(t_cmd *cmds);
-void cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
-t_cmd *cmd_trim(t_cmd *cmd);
-t_cmd *cmd_builtin(t_cmd *cmd);
-void cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf));
+t_cmd   *cmd_addback(t_cmd **cmds, t_cmd *cmd);
+void    cmd_clear(t_cmd **cmds);
+t_cmd   *cmd_create(void);
+void    cmd_delete(t_cmd *command);
+void    cmd_read(t_cmd *command);
+t_cmd   *cmd_last(t_cmd **cmds);
+size_t  cmd_length(t_cmd *cmds);
+void    cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
+t_cmd   *cmd_trim(t_cmd *cmd);
+t_cmd   *cmd_builtin(t_cmd *cmd);
+void    cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf));
 t_cmd   *cmd_expand(t_cmd *cmd, void *reff);
 t_cmd   *cmd_expandstatus(t_cmd *cmd, void *reff);
 t_cmd   *cmd_expandprev(t_cmd *cmd, void *reff);
 t_cmd   *cmd_expandredirection(t_cmd *cmd, void *reff);
+t_cmd   *cmd_removequotes(t_cmd *cmd, void *reff);
 
 // helpers 
 void    proreadline(char **input, int *error);
@@ -88,7 +89,7 @@ t_list  *dserializer(char **arr);
 char    **append_array(char **arr, void *toadd);
 int     is_builtin(char *cmd);
 void    nullstr(char **ptr);
-void    remove_quotes(char **str);
+char    *remove_quotes(char **str, int usefree);
 int     is_expandable(char *str);
 int     pipe_close(int pipefds[2], t_pipends ends);
 int     has_redirections(t_cmd *cmd);

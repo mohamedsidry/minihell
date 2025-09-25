@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 14:34:23 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 11:23:16 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ void    cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
 t_cmd   *cmd_trim(t_cmd *cmd);
 t_cmd   *cmd_builtin(t_cmd *cmd);
 void    cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf));
-t_cmd   *cmd_expand(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandargs(t_cmd *cmd, void *reff);
 t_cmd   *cmd_expandstatus(t_cmd *cmd, void *reff);
 t_cmd   *cmd_expandprev(t_cmd *cmd, void *reff);
 t_cmd   *cmd_expandredirection(t_cmd *cmd, void *reff);
 t_cmd   *cmd_removequotes(t_cmd *cmd, void *reff);
+t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff);
+t_cmd   *cmd_findpaths(t_cmd *cmd, void *reff);
 
 // helpers 
 void    proreadline(char **input, int *error);
@@ -91,7 +93,8 @@ int     is_builtin(char *cmd);
 void    nullstr(char **ptr);
 char    *remove_quotes(char **str, int usefree);
 int     is_expandable(char *str);
-int     pipe_close(int pipefds[2], t_pipends ends);
+int     close_pipe(int pipefds[2], t_pipends ends);
+int     open_pipe(int pipefds[2]);
 int     has_redirections(t_cmd *cmd);
 
 // heredoc utils 

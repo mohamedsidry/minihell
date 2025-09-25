@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:59:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 14:54:52 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 09:42:42 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_cmd *cmd_builtin(t_cmd *cmd)
     if (!cmd)
         return (NULL);
     if (!cmd->args)
-        return (NULL);
+        return (cmd);
     if (is_builtin(cmd->args[0]))
         cmd->isbuiltin = 1;
     return (cmd);

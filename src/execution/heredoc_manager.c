@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 12:12:08 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 11:24:28 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx)
 {
     pid_t pid;
     
-    if (pipe_close(cmd->pip, rw_end))
+    if (close_pipe(cmd->pip, rw_end))
         return ;
-    if (pipe(cmd->pip))
-        return perror("minishell");
+    if (open_pipe(cmd->pip))
+        return ;
     if (forkchild(&pid))
     {
-        if (pipe_close(cmd->pip, rw_end))
-        return ;
+        if (close_pipe(cmd->pip, rw_end))
+            return ;
     }
     if (pid == 0)
         child_task(cmd, env, idx);
@@ -77,10 +77,9 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
 
     data = NULL;
     tmp = NULL;
-    pipe_close(cmd->pip, r_end);
+    close_pipe(cmd->pip, r_end);
     toexpand = (!ft_strchr(cmd->files[idx], '\'') && !ft_strchr(cmd->files[idx], '"'));
-    limiter = ft_strdup(cmd->files[idx]);
-    limiter = remove_quotes(&limiter, 1);
+    limiter = remove_quotes(&cmd->files[idx], 0);
     while (1)
     {
         tmp = readline("> ");
@@ -98,7 +97,7 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     }
     nullstr(&data);
     nullstr(&limiter);
-    pipe_close(cmd->pip, w_end);
+    close_pipe(cmd->pip, w_end);
     exit (0);
 }
 
@@ -107,11 +106,7 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
 static void parant_task(t_cmd *cmd, pid_t childpid)
 {
     int status;
-    char *buffer;
 
-    buffer = ft_calloc(1024, 1);
-    pipe_close(cmd->pip, w_end);
+    close_pipe(cmd->pip, w_end);
     waitpid(childpid, &status, 0);
-    read(cmd->pip[0], buffer, 1023);
-    printf("pipe data : %s\n", buffer);
 }

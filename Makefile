@@ -26,7 +26,7 @@ SRC 	=	src/helper/proreadline.c \
 			src/helper/free2d.c src/helper/append_array.c \
 			src/helper/serializers.c src/helper/nullstr.c \
 			src/helper/is_operator.c src/helper/is_redirection.c src/helper/is_builtin.c \
-			src/helper/remove_quotes.c src/helper/pipe_close.c src/helper/is_expandable.c src/helper/expand_handler.c \
+			src/helper/remove_quotes.c src/helper/pipe_handler.c src/helper/is_expandable.c src/helper/expand_handler.c \
 			src/helper/find_replace.c \
 			src/env/env_handler.c src/env/env_crud.c \
 			src/env/node_crud.c src/env/helpers.c \
@@ -46,13 +46,15 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_buildin.c \
 			src/execution/executor.c \
 			src/execution/heredoc_manager.c \
-			src/cmd/cmd_expand.c \
+			src/cmd/cmd_expandargs.c \
 			src/cmd/cmd_iter2.c \
 			src/cmd/cmd_expandstatus.c \
 			src/cmd/cmd_expandprev.c \
 			src/helper/has_redirections.c \
 			src/cmd/cmd_expandredirection.c \
-			src/cmd/cmd_removequotes.c
+			src/cmd/cmd_removequotes.c \
+			src/cmd/cmd_exandsplit.c \
+			src/cmd/cmd_findpaths.c
 
 
 TEST = test/print_tokens.c test/print_commands.c

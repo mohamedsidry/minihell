@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_expand.c                                       :+:      :+:    :+:   */
+/*   cmd_expandargs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:27:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 14:49:24 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 07:27:24 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static void expand_args(t_cmd *cmd, t_env *env);
-//static void expand_rediections(t_cmd *cmd, t_env *env);
-
-t_cmd   *cmd_expand(t_cmd *cmd, void *reff)
-{
-    t_env *env;
-    
-    env = (t_env *)reff;
-    expand_args(cmd, env);
-    //expand_rediections(cmd, env);
-    return (cmd);
-}
-
-
-static void expand_args(t_cmd *cmd, t_env *env)
+t_cmd   *cmd_expandargs(t_cmd *cmd, void *reff)
 {
     int idx;
     char *result;
+    t_env *env;
 
     idx = 0;
+    env = (t_env *)reff;
     if (!cmd || !cmd->args)
-        return ;
+        return (cmd);
    while (cmd->args && cmd->args[idx])
    {
         result = expand_handler(cmd->args[idx], env, cmd);
@@ -41,11 +29,5 @@ static void expand_args(t_cmd *cmd, t_env *env)
         cmd->args[idx] = result;
         idx++;
    }
+   return (cmd);
 }
-
-// static void expand_rediections(t_cmd *cmd, t_env *en)
-// {
-//     (void)cmd;
-//     (void)en;
-//     //TODO: expend files;
-// }

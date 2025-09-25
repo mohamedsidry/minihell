@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:02:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 08:57:51 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 09:57:37 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void smart_append(t_cmd *cmd, char **tokens, int *idx)
     if (tokens[*idx] && is_redirection(tokens[*idx]))
     {
         cmd->fullcmd = concat3(cmd->fullcmd, tokens[*idx], " ", 1);
-        cmd->symbols = append_array(cmd->symbols, ft_strdup(tokens[*idx]));
-        cmd->files = append_array(cmd->files, ft_strdup(tokens[1 + (*idx)]));
+        cmd->symbols = append_array(cmd->symbols, tokens[*idx]);
+        cmd->files = append_array(cmd->files, tokens[1 + (*idx)]);
         cmd->fullcmd = concat3(cmd->fullcmd, tokens[1 +(*idx)], " ", 1);
         (*idx) += 2;
     }

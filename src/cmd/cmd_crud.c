@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 08:04:26 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 09:30:40 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void cmd_delete(t_cmd *command)
     free2d(&command->args);
     free2d(&command->symbols);
     free2d(&command->files);
-    free(command->heredoc_data);
+    nullstr(&command->prevcmd);
+    nullstr(&command->exitcode);
     ft_bzero(command, sizeof(command));
     free(command);
 }

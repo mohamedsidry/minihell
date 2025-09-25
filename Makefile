@@ -63,7 +63,6 @@ SRC 	=	src/helper/proreadline.c \
 			src/builtins/export.c \
 			src/builtins/pwd.c \
 			src/builtins/unset.c \
-			src/builtins/utils.c 
  
 
 TEST = test/print_tokens.c test/print_commands.c

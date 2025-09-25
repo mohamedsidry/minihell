@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 17:26:36 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:44:09 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,5 @@ void	run_env(t_cmd *cmd, t_env **env);
 void    run_echo(t_cmd *cmd);
 void 	run_cd(t_cmd *cmd, t_env **env);
 void	close_theprogram(t_cmd *cmd, t_env **env);
-int		is_valid(char *key);
 
-
-//
 #endif //UTILS_H

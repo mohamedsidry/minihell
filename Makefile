@@ -6,7 +6,7 @@ NAME = minishell
 # Compiling flags
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
 CSTAGE = -c
 
 # Cleaning flags
@@ -24,8 +24,10 @@ SRC 	=	src/helper/proreadline.c \
 			src/helper/ltrim.c src/helper/is_space.c \
 			src/helper/ft_strcmp.c src/helper/ft_realloc.c \
 			src/helper/free2d.c src/helper/append_array.c \
-			src/helper/serializers.c \
-			src/helper/is_operator.c src/helper/is_redirection.c \
+			src/helper/serializers.c src/helper/nullstr.c \
+			src/helper/is_operator.c src/helper/is_redirection.c src/helper/is_builtin.c \
+			src/helper/remove_quotes.c src/helper/pipe_handler.c src/helper/is_expandable.c src/helper/expand_handler.c \
+			src/helper/find_replace.c \
 			src/env/env_handler.c src/env/env_crud.c \
 			src/env/node_crud.c src/env/helpers.c \
 			src/env/getprefix.c src/env/getsuffix.c \
@@ -37,7 +39,23 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_addback.c \
 			src/cmd/cmd_clear.c \
 			src/cmd/cmd_crud.c \
-			src/cmd/cmd_last.c
+			src/cmd/cmd_last.c \
+			src/cmd/cmd_iter.c \
+			src/cmd/cmd_length.c \
+			src/cmd/cmd_trim.c \
+			src/cmd/cmd_buildin.c \
+			src/execution/executor.c \
+			src/execution/heredoc_manager.c \
+			src/cmd/cmd_expandargs.c \
+			src/cmd/cmd_iter2.c \
+			src/cmd/cmd_expandstatus.c \
+			src/cmd/cmd_expandprev.c \
+			src/helper/has_redirections.c \
+			src/cmd/cmd_expandredirection.c \
+			src/cmd/cmd_removequotes.c \
+			src/cmd/cmd_exandsplit.c \
+			src/cmd/cmd_findpaths.c
+
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

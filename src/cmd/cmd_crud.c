@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:07:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 09:30:40 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_cmd *cmd_create(void)
     command = ft_calloc(1, sizeof(t_cmd));
     if (!command)
         return (NULL);
+    command->pip[0] = -1;
+    command->pip[1] = -1;
     return (command);
 }
 
@@ -32,7 +34,8 @@ void cmd_delete(t_cmd *command)
     free2d(&command->args);
     free2d(&command->symbols);
     free2d(&command->files);
-    free(command->heredoc_data);
+    nullstr(&command->prevcmd);
+    nullstr(&command->exitcode);
     ft_bzero(command, sizeof(command));
     free(command);
 }
@@ -47,7 +50,7 @@ void cmd_read(t_cmd *command)
         printf("No command !\n");
         return ;
     }
-    printf("FULLCOMMAND : %s\n", command->fullcmd);
+    printf("FULLCOMMAND : `%s`\n", command->fullcmd);
     
     if (!command->args || !command->args[0])
         printf("ARGS  : [null]\n");
@@ -56,9 +59,9 @@ void cmd_read(t_cmd *command)
         printf("ARGS : [");
         while (command->args[++idx])
         {
-            printf(" %s", command->args[idx]);
+            printf("%s", command->args[idx]);
             if (command->args[idx + 1])
-                printf(",");
+                printf(", ");
         }
         idx = -1;
         printf("]\n");
@@ -70,26 +73,31 @@ void cmd_read(t_cmd *command)
         printf("SYMBOLS : [");
         while (command->symbols[++idx])
         {
-            printf(" '%s'", command->symbols[idx]);
+            printf("%s", command->symbols[idx]);
             if (command->symbols[idx + 1])
-                printf(",");
+                printf(", ");
         }
         idx = -1;
         printf("]\n");
     }
     if (!command->files|| !command->files[0])
-        printf("SYMBOLS  : [null]\n");
+        printf("FILES  : [null]\n");
     else
     {
         printf("FILES : [");
         while (command->files[++idx])
         {
-            printf(" %s", command->files[idx]);
+            printf("%s", command->files[idx]);
             if (command->files[idx + 1])
-                printf(",");
+                printf(", ");
         }
         idx = -1;
         printf("]\n");
     }
+    printf("IS BUILTIN : ");
+    if (command->isbuiltin)
+        printf("true\n");
+    else
+        printf("false\n");
     printf("SEPARATOR : '%s'\n", command->separator);
 }

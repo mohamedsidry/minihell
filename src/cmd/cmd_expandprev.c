@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   cmd_expandprev.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:51:48 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 10:02:33 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/23 11:04:23 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/23 13:00:51 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "../../include/main.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include "../libft/libft.h"
-# include "utils.h"
-# include "typedef.h"
-# include "test.h"
-#endif //MAIN_H
+t_cmd *cmd_expandprev(t_cmd *cmd, void *reff)
+{
+    t_cmd *tmp;
+
+    if (!cmd || !reff)
+        return (cmd);
+    tmp = cmd;
+    tmp->prevcmd = ft_strdup(getvalue(((t_env *)reff), "_"));
+    tmp = tmp->next;
+    while (tmp)
+    {
+        tmp->prevcmd = ft_strdup("");
+        tmp = tmp->next;
+    }
+    return (cmd);
+}

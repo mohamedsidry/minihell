@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 22:54:52 by msidry            #+#    #+#             */
-/*   Updated: 2024/10/29 23:47:09 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/23 10:30:41 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strnstr(const char *haystak, const char *needle, size_t n)
 	i = 0;
 	if (!ft_strlen(needle))
 		return (hptr);
-	while (hptr[i] && i < n)
+	while (hptr && hptr[i] && i < n)
 	{
 		j = 0;
 		while (hptr[i + j] && hptr[i + j] == nptr[j] && j + i < n)

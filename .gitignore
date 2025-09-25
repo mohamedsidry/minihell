@@ -2,5 +2,7 @@ minishell
 *.txt
 .vscode
 .DS_Store
-test
-test.h
+#test
+#test.h
+*.a
+*.o

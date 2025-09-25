@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   cmd_trim.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:51:48 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 10:02:33 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/21 10:15:39 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/21 10:19:20 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "../../include/main.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include "../libft/libft.h"
-# include "utils.h"
-# include "typedef.h"
-# include "test.h"
-#endif //MAIN_H
+
+t_cmd *cmd_trim(t_cmd *cmd)
+{
+    char *trimed_cmd;
+    
+    trimed_cmd = ft_strtrim(cmd->fullcmd, "\n\t\v \b\r");
+    if (!trimed_cmd)
+        return (NULL);
+    free(cmd->fullcmd);
+    cmd->fullcmd = trimed_cmd;
+    return (cmd);
+}

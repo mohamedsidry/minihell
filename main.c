@@ -6,13 +6,12 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:34:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 11:00:26 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/main.h"
 
-void ll(void);
 
 
 void sg_handler(int sig_num)
@@ -45,12 +44,10 @@ int main(int argc, char *argv[], char *env[])
     {
         proreadline(&input, &error);
         lexer(&commands, &input, &new_env, &error);
-        free(input);
-        break;
+        executor(&commands, &new_env, &error);
+        cmd_clear(&commands);
+        nullstr(&input);
     }
-    env_handler(&new_env, NULL, DELETE);
-    cmd_clear(&commands);
-    //atexit(ll);
     return (0);
 }
 

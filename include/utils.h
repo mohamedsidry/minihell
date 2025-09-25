@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 14:26:48 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 11:23:16 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,38 @@ void    env_unset(t_env **env, char *key);
 // lexical tokenization
 
 void    lexer(t_cmd **cmds, char **input, t_env **env, int *error);
-int     valid_syntax(char **input, int *error);
-char    **tokenizer(char *input);
+int     valid_syntax1(char **input, int *error);
+int     valid_syntax2(char **token, int *error);
+int     valid_syntax3(char **tokens,int *error);
+void    tokenizer(char ***holderptr, char *input, int *error);
 char    *handle_quotes(char *str);
 char    *handle_in(char *str);
 char    *handle_out(char *str);
 char    *handle_amp(char *str);
 char    *handle_txt(char *str);
 char    *handle_pipe(char *str);
-int     valid_syntax2(char **token, int *error);
-int     valid_syntax3(char **tokens,int *error);
 void    clean_tokens(char **tokens);
 void    formater(t_cmd **cmds, char **tokens, int *error);
 // command
 
-t_cmd *cmd_addback(t_cmd **cmds, t_cmd *cmd);
-void cmd_clear(t_cmd **cmds);
-t_cmd *cmd_create(void);
-void cmd_delete(t_cmd *command);
-void cmd_read(t_cmd *command);
-t_cmd *cmd_last(t_cmd **cmds);
+t_cmd   *cmd_addback(t_cmd **cmds, t_cmd *cmd);
+void    cmd_clear(t_cmd **cmds);
+t_cmd   *cmd_create(void);
+void    cmd_delete(t_cmd *command);
+void    cmd_read(t_cmd *command);
+t_cmd   *cmd_last(t_cmd **cmds);
+size_t  cmd_length(t_cmd *cmds);
+void    cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
+t_cmd   *cmd_trim(t_cmd *cmd);
+t_cmd   *cmd_builtin(t_cmd *cmd);
+void    cmd_iter2(t_cmd **cmds, void *ref, t_cmd *(func)(t_cmd *cmd, void *rf));
+t_cmd   *cmd_expandargs(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandstatus(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandprev(t_cmd *cmd, void *reff);
+t_cmd   *cmd_expandredirection(t_cmd *cmd, void *reff);
+t_cmd   *cmd_removequotes(t_cmd *cmd, void *reff);
+t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff);
+t_cmd   *cmd_findpaths(t_cmd *cmd, void *reff);
 
 // helpers 
 void    proreadline(char **input, int *error);
@@ -77,4 +89,20 @@ int     is_operator(char *token);
 char    **serializer(t_list *list);
 t_list  *dserializer(char **arr);
 char    **append_array(char **arr, void *toadd);
+int     is_builtin(char *cmd);
+void    nullstr(char **ptr);
+char    *remove_quotes(char **str, int usefree);
+int     is_expandable(char *str);
+int     close_pipe(int pipefds[2], t_pipends ends);
+int     open_pipe(int pipefds[2]);
+int     has_redirections(t_cmd *cmd);
+
+// heredoc utils 
+void executor(t_cmd **cmds, t_env **env, int *error);
+void heredoc_manager(t_cmd *cmds, t_env *env);
+char *expand_handler(char *str, t_env *env, t_cmd *cmd);
+
+
+
+//
 #endif //UTILS_H

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   cmd_iter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:51:48 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 10:02:33 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/21 10:04:21 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/21 10:11:18 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "../../include/main.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include "../libft/libft.h"
-# include "utils.h"
-# include "typedef.h"
-# include "test.h"
-#endif //MAIN_H
+void cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd))
+{
+    t_cmd *head;
+    t_cmd *ret;
+
+    if (!cmds || !(*cmds) || !func)
+        return ;
+    head = *cmds;
+    while (head)
+    {
+        ret = func(head);
+        if (!ret)
+            return (cmd_clear(cmds));
+        head = head->next;
+    }
+}

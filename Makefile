@@ -54,8 +54,17 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_expandredirection.c \
 			src/cmd/cmd_removequotes.c \
 			src/cmd/cmd_exandsplit.c \
-			src/cmd/cmd_findpaths.c
-
+			src/cmd/cmd_findpaths.c \
+			src/builtins/builtin_manager.c \
+			src/builtins/cd.c \
+			src/builtins/echo.c \
+			src/builtins/env.c \
+			src/builtins/exit.c \
+			src/builtins/export.c \
+			src/builtins/pwd.c \
+			src/builtins/unset.c \
+			src/builtins/utils.c 
+ 
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

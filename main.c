@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 11:00:26 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 13:30:04 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/main.h"
-
-
 
 void sg_handler(int sig_num)
 {
@@ -49,10 +47,4 @@ int main(int argc, char *argv[], char *env[])
         nullstr(&input);
     }
     return (0);
-}
-
-
-void ll(void)
-{
-    system("leaks -q minishell");
 }

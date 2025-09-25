@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proreadline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:29:37 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 11:52:41 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void proreadline(char **input, int *error)
         tmp = *input;
         *input = ltrim(*input, " \n", 0);
         free(tmp);
-        add_history(*input);            
+        add_history(*input);
     }
     if (!(*input))
     {

@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_unset.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 10:02:08 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 17:24:54 by azghibat         ###   ########.fr       */
+/*   Created: 2025/09/25 13:23:01 by azghibat          #+#    #+#             */
+/*   Updated: 2025/09/25 17:35:03 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/main.h"
+# include "../../include/main.h"
 
-void env_unset(t_env **env, char *key)
+void	run_unset(t_cmd *cmd, t_env **env)
 {
-    t_env *target;
-    
-    if (!env || !(*env))
-        return ;
-    target = env_find(*env, key);
-    if (target)
-        target->ishidden = 1;
+	int	i;
+
+	if (!cmd || !env)
+		return ;
+	if (!cmd->args[1])
+	{
+		printf("%s: : invalid parameter name\n", cmd->args[0]);
+		cmd->exitcode = ft_strdup("1");
+		return ;
+	}
+	i = 1;
+	while (cmd->args[i])
+	{
+		env_unset(env, cmd->args[i]);
+		i++;
+	}
+	cmd->exitcode = ft_strdup("0");
 }

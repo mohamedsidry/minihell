@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 11:23:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 17:26:36 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,17 @@ void executor(t_cmd **cmds, t_env **env, int *error);
 void heredoc_manager(t_cmd *cmds, t_env *env);
 char *expand_handler(char *str, t_env *env, t_cmd *cmd);
 
+// buitins
+void 	builtin_manager(t_cmd *cmd, t_env **env, int *error);
+void	run_export(t_cmd *cmd, t_env **env);
+void	run_unset(t_cmd *cmd, t_env **env);
+void    run_pwd();
+void	run_export(t_cmd *cmd, t_env **env);
+void	run_env(t_cmd *cmd, t_env **env);
+void    run_echo(t_cmd *cmd);
+void 	run_cd(t_cmd *cmd, t_env **env);
+void	close_theprogram(t_cmd *cmd, t_env **env);
+int		is_valid(char *key);
 
 
 //

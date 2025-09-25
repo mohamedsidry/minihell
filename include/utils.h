@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 18:44:09 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/25 22:53:19 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,12 @@ void	run_env(t_cmd *cmd, t_env **env);
 void    run_echo(t_cmd *cmd);
 void 	run_cd(t_cmd *cmd, t_env **env);
 void	close_theprogram(t_cmd *cmd, t_env **env);
+
+//redirection_manager
+int	setup_redirection(t_cmd *cmd, int *error);
+
+//fds_manager
+void	restore_fds(int *saved_fds);
+int	save_fds(int *saved_fds);
 
 #endif //UTILS_H

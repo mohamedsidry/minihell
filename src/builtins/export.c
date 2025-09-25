@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:20:04 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/25 18:43:20 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:50:16 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	handle_single_export(char *arg, t_env **env)
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
 	}
+	// fix 25 line
 }
 
 void	run_export(t_cmd *cmd, t_env **env)

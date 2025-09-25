@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 12:01:08 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/25 23:46:34 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int appand_it(char *str, char **result);
 static char *extract_ref(char *str);
 static int is_breaker(int c);
 static int is_special(int c);
+
 char *expand_handler(char *str, t_env *env, t_cmd *cmd)
 {
     char *result;

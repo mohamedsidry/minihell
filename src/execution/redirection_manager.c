@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:34:47 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/09/26 00:24:32 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:23:57 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	redirection_in(char *file)
 {
 	int	fd;
 
-	if (!file || !*file)
+	if (!file || (*file == '$' && ft_isalnum(file[1])))
 		return (ambiguous_redirect_error());
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -46,7 +46,7 @@ static int	redirection_out(char *file, int append)
 	int	fd;
 	int	flags;
 
-	if (!file || !*file)
+	if (!file || (*file == '$' && ft_isalnum(file[1])))
 		return (ambiguous_redirect_error());
 	if (append)
 		flags = O_WRONLY | O_CREAT | O_APPEND;

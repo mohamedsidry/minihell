@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 22:53:19 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/27 10:30:42 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,9 @@ t_cmd   *cmd_removequotes(t_cmd *cmd, void *reff);
 t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff);
 t_cmd   *cmd_findpaths(t_cmd *cmd, void *reff);
 
-// helpers 
-void    proreadline(char **input, int *error);
+// helpers
+void    proreadline(char **input, t_env **env, int *error);
+char    *prompt(t_env *env);
 char    *concat3(char *str1, char *str2, char *sep, int tofree);
 char    *ltrim(char *str, char *set, int usefree);
 int     is_space(int c);

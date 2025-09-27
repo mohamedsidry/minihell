@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exandsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 07:26:02 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 18:01:09 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/27 08:13:23 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ static  char	**set_split(char const *str, char *set);
 
 t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff)
 {
-    // int *err;
     t_cmd *tmp;
     
     if (!cmd || !cmd->args)
         return (cmd);
-    // err = (void *)reff;
     tmp = cmd;
     while (tmp)
     {

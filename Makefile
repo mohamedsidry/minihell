@@ -20,6 +20,7 @@ RMFLAGS = -fr
 
 MAIN 	=	main.c
 SRC 	=	src/helper/proreadline.c \
+			src/helper/prompt.c \
 			src/helper/error.c src/helper/concat3.c \
 			src/helper/ltrim.c src/helper/is_space.c \
 			src/helper/ft_strcmp.c src/helper/ft_realloc.c \

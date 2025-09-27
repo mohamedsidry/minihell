@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 22:51:18 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/26 19:15:25 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void exec_chain(t_cmd **cmds, t_env **env, int *error)
     (void)cmds;
     (void)env;
     (void)error;
-     printf("exec____chain in !\n");
-    //  print_commands(*cmds);
+    printf("exec____chain in !\n");
     // TODO: update env key = _ to the lates command was runned if single command !
 }

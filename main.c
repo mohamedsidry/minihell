@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/26 00:14:02 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:26:13 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ int main(int argc, char *argv[], char *env[])
     env_handler(&new_env, env, CREATE | SYNC);
     while (1)
     {
-        proreadline(&input, &error);
+        proreadline(&input, &new_env, &error);
         lexer(&commands, &input, &new_env, &error);
-        // print_commands(commands);
         executor(&commands, &new_env, &error);
         cmd_clear(&commands);
         nullstr(&input);

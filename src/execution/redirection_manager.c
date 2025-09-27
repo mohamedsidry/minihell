@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:34:47 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/09/26 00:24:32 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/27 15:24:16 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int handle_error(char *file)
 	return (1);
 }
 
-static int ambiguous_redirect_error(void)
+static int ambiguous(void)
 {
 	ft_putstr_fd("minishell: ambiguous redirect\n", 2);
 	return (1);
@@ -32,7 +32,7 @@ static int	redirection_in(char *file)
 	int	fd;
 
 	if (!file || !*file)
-		return (ambiguous_redirect_error());
+		return (ambiguous());
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (handle_error(file));
@@ -46,8 +46,8 @@ static int	redirection_out(char *file, int append)
 	int	fd;
 	int	flags;
 
-	if (!file || !*file)
-		return (ambiguous_redirect_error());
+	if (!file || (*file == '$' && !ft_strchr("~-+^&:", file[1])))
+		return (ambiguous());
 	if (append)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else

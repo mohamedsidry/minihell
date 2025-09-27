@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 23:46:34 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:54:31 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ static char *extract_ref(char *str)
 
 static int is_breaker(int c)
 {
-    return (!ft_isdigit(c) && !ft_isalpha(c));
+    return (!ft_isdigit(c) && !ft_isalpha(c) && c != '_');
 }
 
 static int is_special(int c)
 {
     char *ret;
 
-    ret = ft_strchr("$~_?", c);
+    ret = ft_strchr("$~?!-+^&:#", c);
     if (ret)
         return (1);
     return (0);

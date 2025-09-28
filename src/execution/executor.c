@@ -6,21 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/28 02:42:58 by anasszgh         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../include/main.h"
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 XX:XX:XX by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/28 03:51:13 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +32,6 @@ void exec_builtin(t_cmd **cmds, t_env **env, int *error)
         *error = 1;
         return;
     }
-    // UNCHANGED: Heredoc still uses pip, so we keep this
     if (close_pipe((*cmds)->pip, rw_end))
         return ;
     if (setup_redirection(*cmds, error))

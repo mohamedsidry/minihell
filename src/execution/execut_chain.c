@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 19:39:10 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/28 02:44:42 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	handle_parent_process(t_cmd *cmd, int *prev_pipe_read)
 		close(*prev_pipe_read);
 	if (cmd->next)
 	{
-		close(cmd->pip[1]);
-		*prev_pipe_read = cmd->pip[0];
+		close(cmd->pipeline_fd[1]);
+		*prev_pipe_read = cmd->pipeline_fd[0];
 	}
 	else
 		*prev_pipe_read = -1;
@@ -57,9 +57,9 @@ void	setup_pipes_fds(t_cmd *cmd, t_cmd *next_cmd, int prev_pipe_read)
 	}
 	if (next_cmd)
 	{
-		dup2(cmd->pip[1], STDOUT_FILENO);
-		close(cmd->pip[1]);
-		close(cmd->pip[0]);
+		dup2(cmd->pipeline_fd[1], STDOUT_FILENO);
+		close(cmd->pipeline_fd[1]);
+		close(cmd->pipeline_fd[0]);
 	}
 }
 
@@ -70,7 +70,7 @@ void	setup_pipes_commands(t_cmd *cmd)
 	current = cmd;
 	while (current && current->next)
 	{
-		if (pipe(current->pip) == -1)
+		if (pipe(current->pipeline_fd) == -1)
 		{
 			perror("minishell: pipe");
 			return ;
@@ -85,7 +85,7 @@ void	wait_for_all(t_cmd *cmd)
 	int		status;
 	int		cmd_count;
 
-	cmd_count = 0; // counting how many child is there
+	cmd_count = 0;
 	current = cmd;
 	while (current)
 	{

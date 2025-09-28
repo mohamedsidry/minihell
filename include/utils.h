@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 19:41:48 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:35:52 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,13 @@ void exec_chain(t_cmd *cmds, t_env **env, int *error);
 
 // buitins
 void 	builtin_manager(t_cmd *cmd, t_env **env, int *error);
-void	run_export(t_cmd *cmd, t_env **env);
-void	run_unset(t_cmd *cmd, t_env **env);
-void    run_pwd();
-void	run_export(t_cmd *cmd, t_env **env);
-void	run_env(t_cmd *cmd, t_env **env);
-void    run_echo(t_cmd *cmd);
-void 	run_cd(t_cmd *cmd, t_env **env);
-void	close_theprogram(t_cmd *cmd, t_env **env);
+void	run_unset(t_cmd *cmd, t_env **env, int *error);
+void    run_pwd(int *error);
+void	run_export(t_cmd *cmd, t_env **env, int *error);
+void	run_env(t_cmd *cmd, t_env **env, int *error);
+void    run_echo(t_cmd *cmd, int *error);
+void 	run_cd(t_cmd *cmd, t_env **env, int *error);
+void	close_theprogram(t_cmd *cmd, t_env **env, int *error);
 
 //exec chain
 void    exec_chain(t_cmd *cmds, t_env **env, int *error);

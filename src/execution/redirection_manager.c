@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:34:47 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/09/28 02:42:33 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:16:41 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	redirection_in(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (handle_error(file));
-	dup2(fd, STDIN_FILENO);
+	dup2(fd, 0);
 	close(fd);
 	return (0);
 }
@@ -46,7 +46,7 @@ static int	redirection_out(char *file, int append)
 	int	fd;
 	int	flags;
 
-	if (!file || !*file)
+	if (!file || (*file == '$' && !ft_strchr("~-+^&:", file[1])))
 		return (ambiguous());
 	if (append)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
@@ -55,7 +55,7 @@ static int	redirection_out(char *file, int append)
 	fd = open(file, flags, 0644);
 	if (fd < 0)
 		return (handle_error(file));
-	dup2(fd, STDOUT_FILENO);
+	dup2(fd, 1);
 	close(fd);
 	return (0);
 }
@@ -64,7 +64,7 @@ static int	redirection_heredoc(t_cmd *cmd)
 {
 	if (cmd->pip[0] == -1)
 		return (1);
-	dup2(cmd->pip[0], STDIN_FILENO);
+	dup2(cmd->pip[0], 0);
 	close(cmd->pip[0]);
 	cmd->pip[0] = -1;
 	return (0);

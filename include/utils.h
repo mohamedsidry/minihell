@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 10:30:42 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/29 08:00:29 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int     is_expandable(char *str);
 int     close_pipe(int pipefds[2], t_pipends ends);
 int     open_pipe(int pipefds[2]);
 int     has_redirections(t_cmd *cmd);
-
+int     ambiguous_check(char *file);
 // heredoc utils 
 void executor(t_cmd **cmds, t_env **env, int *error);
 void heredoc_manager(t_cmd *cmds, t_env *env);

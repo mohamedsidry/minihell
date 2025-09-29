@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:34:47 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/09/27 13:23:57 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/28 13:05:33 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,13 @@ static int handle_error(char *file)
 	return (1);
 }
 
-static int ambiguous_redirect_error(void)
-{
-	ft_putstr_fd("minishell: ambiguous redirect\n", 2);
-	return (1);
-}
 
 static int	redirection_in(char *file)
 {
 	int	fd;
 
-	if (!file || (*file == '$' && ft_isalnum(file[1])))
-		return (ambiguous_redirect_error());
+	if (!file || ambiguous_check(file))
+		return (1);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (handle_error(file));
@@ -46,8 +41,8 @@ static int	redirection_out(char *file, int append)
 	int	fd;
 	int	flags;
 
-	if (!file || (*file == '$' && ft_isalnum(file[1])))
-		return (ambiguous_redirect_error());
+	if (!file || ambiguous_check(file))
+		return (1);
 	if (append)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else
@@ -91,7 +86,7 @@ int	setup_redirection(t_cmd *cmd, int *error)
 			result = redirection_heredoc(cmd);
 		i++;
 	}
-	if (result && error)
+	if (result)
 		*error = 1;
 	return (result);
 }

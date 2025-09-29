@@ -66,7 +66,8 @@ SRC 	=	src/helper/proreadline.c \
 			src/builtins/unset.c \
 			src/builtins/utils.c \
 			src/execution/fds_manager.c \
-			src/execution/redirection_manager.c 
+			src/execution/redirection_manager.c \
+			src/helper/ambiguous_check.c
 
  
 

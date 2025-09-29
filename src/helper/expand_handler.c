@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 13:14:59 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/29 08:04:24 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char *extract_ref(char *str)
     idx = 0;
     while (str[idx])
     {
-        if (ft_isalpha(str[++idx]))
+        if (ft_isalpha(str[++idx]) || str[idx] == '_')
         {
             while (ft_isalnum(str[idx]) || str[idx] == '_')
                 idx++;

@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 11:23:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/29 08:00:29 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,9 @@ t_cmd   *cmd_removequotes(t_cmd *cmd, void *reff);
 t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff);
 t_cmd   *cmd_findpaths(t_cmd *cmd, void *reff);
 
-// helpers 
-void    proreadline(char **input, int *error);
+// helpers
+void    proreadline(char **input, t_env **env, int *error);
+char    *prompt(t_env *env);
 char    *concat3(char *str1, char *str2, char *sep, int tofree);
 char    *ltrim(char *str, char *set, int usefree);
 int     is_space(int c);
@@ -96,13 +97,28 @@ int     is_expandable(char *str);
 int     close_pipe(int pipefds[2], t_pipends ends);
 int     open_pipe(int pipefds[2]);
 int     has_redirections(t_cmd *cmd);
-
+int     ambiguous_check(char *file);
 // heredoc utils 
 void executor(t_cmd **cmds, t_env **env, int *error);
 void heredoc_manager(t_cmd *cmds, t_env *env);
 char *expand_handler(char *str, t_env *env, t_cmd *cmd);
 
+// buitins
+void 	builtin_manager(t_cmd *cmd, t_env **env, int *error);
+void	run_export(t_cmd *cmd, t_env **env);
+void	run_unset(t_cmd *cmd, t_env **env);
+void    run_pwd();
+void	run_export(t_cmd *cmd, t_env **env);
+void	run_env(t_cmd *cmd, t_env **env);
+void    run_echo(t_cmd *cmd);
+void 	run_cd(t_cmd *cmd, t_env **env);
+void	close_theprogram(t_cmd *cmd, t_env **env);
 
+//redirection_manager
+int	setup_redirection(t_cmd *cmd, int *error);
 
-//
+//fds_manager
+void	restore_fds(int *saved_fds);
+int	save_fds(int *saved_fds);
+
 #endif //UTILS_H

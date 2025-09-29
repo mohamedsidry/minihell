@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:29:37 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/27 13:10:49 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 static int balanced_quotes(char *input);
 static void backup_readline(char **input);
+static char    *promptreadline(t_env **env);
 
-void proreadline(char **input, int *error)
+void proreadline(char **input, t_env **env, int *error)
 {
     char *tmp;
 
     tmp = NULL;
     nullstr(input);
-    *input = readline("minishell $> ");
-    if (!(*input))
-    {
-        printf("\nExit\n");
-        exit(0);
-    }
+    *input = promptreadline(env);
     if (balanced_quotes(*input))
         backup_readline(input);
     else
@@ -34,7 +30,7 @@ void proreadline(char **input, int *error)
         tmp = *input;
         *input = ltrim(*input, " \n", 0);
         free(tmp);
-        add_history(*input);            
+        add_history(*input);
     }
     if (!(*input))
     {
@@ -45,6 +41,22 @@ void proreadline(char **input, int *error)
         nullstr(input);
 }
 
+static char *promptreadline(t_env **env)
+{
+    char *promptmessage;
+    char *input;
+
+    promptmessage = prompt(*env);
+    input = readline(promptmessage);
+    free(promptmessage);
+    if (!input)
+    {
+        printf("\nExit\n");
+        env_handler(env, NULL, DELETE);
+        exit(0);
+    }
+    return (input);
+}
 static int balanced_quotes(char *input)
 {
     int squotes;
@@ -83,23 +95,3 @@ static void backup_readline(char **input)
     *input = tmp;
     add_history(*input);
 }
-
-
-
-// static int pre_pipe(char *input)
-// {
-//     char *tmp;
-
-//     tmp = ft_strrchr(input, '|');
-//     while (tmp && tmp <= input)
-//     {
-//         tmp--;
-//         if (*tmp == '>')
-//             return (1);
-//         else if (is_space(*tmp))
-//             continue ;
-//         else
-//             return (1);
-//     }
-//     return (1);
-// }

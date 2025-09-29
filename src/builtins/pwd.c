@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_unset.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 10:02:08 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 18:18:29 by anasszgh         ###   ########.fr       */
+/*   Created: 2025/09/25 13:19:08 by azghibat          #+#    #+#             */
+/*   Updated: 2025/09/25 13:32:31 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-void env_unset(t_env **env, char *key)
+void    run_pwd()
 {
-    t_env *target;
-    
-    if (!env || !(*env))
-        return ;
-    target = env_find(*env, key);
-    if (target)
-        target->ishidden = 1;
+	char    *tmp;
+	
+	tmp = getcwd(NULL, 0);
+	if (tmp)
+		printf("%s\n", tmp);
+	else
+		perror("Minishell: pwd");
+	if (tmp)
+		free(tmp);
 }

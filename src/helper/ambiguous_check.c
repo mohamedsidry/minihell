@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_expandargs.c                                   :+:      :+:    :+:   */
+/*   ambiguous_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 11:27:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 07:53:08 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/28 12:52:03 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/28 13:08:07 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-t_cmd   *cmd_expandargs(t_cmd *cmd, void *reff)
+int ambiguous_check(char *file)
 {
-    int idx;
-    char *result;
-    t_env *env;
-
-    idx = 0;
-    env = (t_env *)reff;
-    if (!cmd || !cmd->args)
-        return (cmd);
-   while (cmd->args && cmd->args[idx])
-   {
-        result = expand_handler(cmd->args[idx], env, cmd);
-        free(cmd->args[idx]);
-        cmd->args[idx] = result;
-        idx++;
-   }
-   return (cmd);
+    if (*file == '$' && (ft_isalnum(file[1]) || file[1] == '_'))
+    {
+       ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(file, 2);
+        ft_putstr_fd(": ambiguous redirect\n", 2); 
+        return (1);
+    }
+    return (0);
 }

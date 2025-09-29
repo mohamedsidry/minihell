@@ -6,13 +6,11 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 11:00:26 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/27 13:26:13 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/main.h"
-
-
 
 void sg_handler(int sig_num)
 {
@@ -42,17 +40,11 @@ int main(int argc, char *argv[], char *env[])
     env_handler(&new_env, env, CREATE | SYNC);
     while (1)
     {
-        proreadline(&input, &error);
+        proreadline(&input, &new_env, &error);
         lexer(&commands, &input, &new_env, &error);
         executor(&commands, &new_env, &error);
         cmd_clear(&commands);
         nullstr(&input);
     }
     return (0);
-}
-
-
-void ll(void)
-{
-    system("leaks -q minishell");
 }

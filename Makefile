@@ -20,6 +20,7 @@ RMFLAGS = -fr
 
 MAIN 	=	main.c
 SRC 	=	src/helper/proreadline.c \
+			src/helper/prompt.c \
 			src/helper/error.c src/helper/concat3.c \
 			src/helper/ltrim.c src/helper/is_space.c \
 			src/helper/ft_strcmp.c src/helper/ft_realloc.c \
@@ -54,8 +55,21 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_expandredirection.c \
 			src/cmd/cmd_removequotes.c \
 			src/cmd/cmd_exandsplit.c \
-			src/cmd/cmd_findpaths.c
+			src/cmd/cmd_findpaths.c \
+			src/builtins/builtin_manager.c \
+			src/builtins/cd.c \
+			src/builtins/echo.c \
+			src/builtins/env.c \
+			src/builtins/exit.c \
+			src/builtins/export.c \
+			src/builtins/pwd.c \
+			src/builtins/unset.c \
+			src/builtins/utils.c \
+			src/execution/fds_manager.c \
+			src/execution/redirection_manager.c \
+			src/helper/ambiguous_check.c
 
+ 
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

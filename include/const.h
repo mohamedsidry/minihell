@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   const.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:51:48 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 10:30:59 by msidry           ###   ########.fr       */
+/*   Created: 2025/09/27 10:27:25 by msidry            #+#    #+#             */
+/*   Updated: 2025/09/28 09:02:20 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef CONST_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <sys/wait.h>
-#include "fcntl.h"
-# include "../libft/libft.h"
-# include "utils.h"
-# include "typedef.h"
-# include "test.h"
-# include "const.h"
-#endif //MAIN_H
+#define CONST_H
+
+#define PROMPT "\033[1;33m$USER@host:\033[0m\033[0;34m$CWD\033[0m \
+\033[0;35m.git\033[0;31m[$BRANCH]\033[0m $ "
+
+#endif // CONST_H

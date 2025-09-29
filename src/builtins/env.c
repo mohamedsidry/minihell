@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_unset.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 10:02:08 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 18:18:29 by anasszgh         ###   ########.fr       */
+/*   Created: 2025/09/25 13:22:08 by azghibat          #+#    #+#             */
+/*   Updated: 2025/09/25 15:45:01 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-void env_unset(t_env **env, char *key)
+void	run_env(t_cmd *cmd, t_env **env)
 {
-    t_env *target;
-    
-    if (!env || !(*env))
-        return ;
-    target = env_find(*env, key);
-    if (target)
-        target->ishidden = 1;
+	t_env	*current;
+
+	if (!cmd)
+		return ;
+	current = *env;
+	while (current)
+	{
+		if (!current->ishidden && current->value)
+			printf("%s=%s\n", current->key, current->value);
+		current = current->next;
+	}
+	cmd->exitcode = ft_strdup("0");
 }

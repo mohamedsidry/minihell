@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:23:01 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/25 18:35:20 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:32:22 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,28 @@ static int	is_valid_unset(char *key)
 	return (1);
 }
 
-void	run_unset(t_cmd *cmd, t_env **env)
+void	run_unset(t_cmd *cmd, t_env **env, int *error)
 {
 	int	i;
+	int	has_error;
 
+	*error = 0;
 	if (!cmd || !env)
 		return ;
 	i = 1;
+	has_error = 0;
 	while (cmd->args[i])
 	{
 		if (is_valid_unset(cmd->args[i]))
 			env_unset(env, cmd->args[i]);
 		else
-			ft_putstr_fd("minishell: unset: `", 2),
-			ft_putstr_fd(cmd->args[i], 2),
+		{
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(cmd->args[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
+			has_error = 1;
+		}
 		i++;
 	}
-	cmd->exitcode = ft_strdup("0");
+	*error = has_error;
 }

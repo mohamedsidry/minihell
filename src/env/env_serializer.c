@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_serializer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 09:44:15 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/19 09:52:01 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/28 18:43:40 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
-
 
 char **env_serializer(t_env *envlst)
 {
@@ -24,10 +23,15 @@ char **env_serializer(t_env *envlst)
     size = env_size(envlst);
     idx = 0;
     envarr = ft_calloc(sizeof(char *), size + 1);
+    if (!envarr)
+        return (NULL);
     while (envlst)
     {
-        if (!envlst->ishidden)
+        if (!envlst->ishidden && envlst->value)
+        {
             envarr[idx] = concat3(envlst->key, envlst->value, "=", 0);
+            idx++;
+        }
         envlst = envlst->next;
     }
     return (envarr);

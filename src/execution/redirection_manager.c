@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:34:47 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/09/28 13:05:33 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/29 08:26:20 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ static int handle_error(char *file)
 	return (1);
 }
 
+static int ambiguous_redirect_error(void)
+{
+	ft_putstr_fd("minishell: ambiguous redirect\n", 2);
+	return (1);
+}
 
 static int	redirection_in(char *file)
 {

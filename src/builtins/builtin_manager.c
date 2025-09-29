@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:14:56 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/25 15:12:20 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:35:22 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 void builtin_manager(t_cmd *cmd, t_env **env, int *error)
 {
-    if (!cmd || !env)
+    if (!cmd || !env || !error)
         return ;
+    *error = 0;
     if (!ft_strcmp(cmd->args[0], "echo"))
-        run_echo(cmd);   
+        run_echo(cmd, error);   
     else if (!ft_strcmp(cmd->args[0], "cd"))
-        run_cd(cmd, env);
+        run_cd(cmd, env, error);
     else if (!ft_strcmp(cmd->args[0], "pwd"))
-        run_pwd();
+        run_pwd(error);
     else if (!ft_strcmp(cmd->args[0], "export"))
-        run_export(cmd, env);
+        run_export(cmd, env, error);
     else if (!ft_strcmp(cmd->args[0], "unset"))
-        run_unset(cmd, env);
+        run_unset(cmd, env, error);
     else if (!ft_strcmp(cmd->args[0], "env"))
-        run_env(cmd, env);
+        run_env(cmd, env, error);
     else if (!ft_strcmp(cmd->args[0], "exit"))
-        close_theprogram(cmd, env);
-	(void)error;
+        close_theprogram(cmd, env, error);
+    else
+        *error = 1;
 }

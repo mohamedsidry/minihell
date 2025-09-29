@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/29 08:00:29 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/29 08:20:39 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,27 @@ void executor(t_cmd **cmds, t_env **env, int *error);
 void heredoc_manager(t_cmd *cmds, t_env *env);
 char *expand_handler(char *str, t_env *env, t_cmd *cmd);
 
+// main execution functions
+void exec_builtin(t_cmd **cmds, t_env **env, int *error);
+void exec_chain(t_cmd *cmds, t_env **env, int *error);
+
 // buitins
 void 	builtin_manager(t_cmd *cmd, t_env **env, int *error);
-void	run_export(t_cmd *cmd, t_env **env);
-void	run_unset(t_cmd *cmd, t_env **env);
-void    run_pwd();
-void	run_export(t_cmd *cmd, t_env **env);
-void	run_env(t_cmd *cmd, t_env **env);
-void    run_echo(t_cmd *cmd);
-void 	run_cd(t_cmd *cmd, t_env **env);
-void	close_theprogram(t_cmd *cmd, t_env **env);
+void	run_unset(t_cmd *cmd, t_env **env, int *error);
+void    run_pwd(int *error);
+void	run_export(t_cmd *cmd, t_env **env, int *error);
+void	run_env(t_cmd *cmd, t_env **env, int *error);
+void    run_echo(t_cmd *cmd, int *error);
+void 	run_cd(t_cmd *cmd, t_env **env, int *error);
+void	close_theprogram(t_cmd *cmd, t_env **env, int *error);
+
+//exec chain
+void    exec_chain(t_cmd *cmds, t_env **env, int *error);
+void	execute_pipeline_command(t_cmd *cmd, t_env *env, int *error, int prev_pipe_read);
+void	handle_parent_process(t_cmd *cmd, int *prev_pipe_read);
+void	setup_pipes_fds(t_cmd *cmd, t_cmd *next_cmd, int prev_pipe_read);
+void	setup_pipes_commands(t_cmd *cmd);
+void	wait_for_all(t_cmd *cmd);
 
 //redirection_manager
 int	setup_redirection(t_cmd *cmd, int *error);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:22:08 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/28 18:30:44 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:04:57 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	run_env(t_cmd *cmd, t_env **env, int *error)
 	current = *env;
 	while (current)
 	{
-		if (!current->ishidden && current->value)
+		if (!current->ishidden)
 		{
 			write(STDOUT_FILENO, current->key, ft_strlen(current->key));
 			write(STDOUT_FILENO, "=", 1);

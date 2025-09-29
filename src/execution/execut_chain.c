@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execut_chain.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/28 02:44:42 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:32:38 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	execute_pipeline_command(t_cmd *cmd, t_env *env, int *error, int prev_pipe_read)
 {
 	char	**env_array;
-
 	setup_pipes_fds(cmd, cmd->next, prev_pipe_read);
 	if (setup_redirection(cmd, error))
 		exit(1);

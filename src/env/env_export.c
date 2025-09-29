@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 09:53:14 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/19 10:25:25 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/29 13:34:52 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ t_env *env_export(t_env **env, char *key, char *value)
     target = node_create(payload);
     env_addback(env, target);
     free(payload);
+    free(value);
     return (target);
 }

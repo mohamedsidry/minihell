@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:20:04 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/28 18:35:07 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:20:03 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static int	handle_single_export(char *arg, t_env **env)
 		return (0);
 	}
 	free(key);
-	if (value)
-		free(value);
 	return (1);
 }
 

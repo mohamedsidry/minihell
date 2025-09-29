@@ -64,10 +64,10 @@ SRC 	=	src/helper/proreadline.c \
 			src/builtins/export.c \
 			src/builtins/pwd.c \
 			src/builtins/unset.c \
-			src/builtins/utils.c \
 			src/execution/fds_manager.c \
 			src/execution/redirection_manager.c \
-			src/helper/ambiguous_check.c
+			src/helper/ambiguous_check.c \
+			src/execution/execut_chain.c
 
  
 

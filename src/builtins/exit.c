@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:10:47 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/28 18:31:35 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:41:30 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 {
 	int	exit_code;
 
-	if (!cmd)
-		exit(0);
+
 	write(STDOUT_FILENO, "exit\n", 5);
 	if (cmd->args[1] && cmd->args[2])
 	{
@@ -72,6 +71,7 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 		exit_code = 2;
 	}
-	env_delete(env);
+	env_handler(env, NULL, DELETE);
+    cmd_clear(&cmd);
 	exit(exit_code);
 }

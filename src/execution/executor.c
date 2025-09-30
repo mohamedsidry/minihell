@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/29 08:23:28 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/30 12:10:36 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 void executor(t_cmd **cmds, t_env **env, int *error)
 {
+	int interrupted;
+
+	interrupted = 0;
     if (!cmds || !*cmds || !env || !*env)
         return ;    
-    heredoc_manager(*cmds, *env);
+    heredoc_manager(*cmds, *env, &interrupted);
+	if (interrupted)
+	{
+		cmd_clear(cmds);
+		*error = 1;
+		return ;
+	}
     if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
        exec_builtin(cmds, env, error);
     else

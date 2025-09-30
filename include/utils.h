@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/29 08:20:39 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/30 12:12:19 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int     has_redirections(t_cmd *cmd);
 int     ambiguous_check(char *file);
 // heredoc utils 
 void executor(t_cmd **cmds, t_env **env, int *error);
-void heredoc_manager(t_cmd *cmds, t_env *env);
+void heredoc_manager(t_cmd *cmds, t_env *env, int *err);
 char *expand_handler(char *str, t_env *env, t_cmd *cmd);
 
 // main execution functions

@@ -6,36 +6,37 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 11:24:28 by msidry           ###   ########.fr       */
+/*   Updated: 2025/09/30 12:15:01 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx);
+static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx, int *tt);
 static int forkchild(pid_t *pidptr);
 static void child_task(t_cmd *cmd, t_env *env, size_t idx);
-static void parant_task(t_cmd *cmd, pid_t childpid);
+static void parant_task(t_cmd *cmd, pid_t childpid, int *tt);
 
-void heredoc_manager(t_cmd *cmds, t_env *env)
+void heredoc_manager(t_cmd *cmds, t_env *env, int *interrupted)
 {
     size_t idx;
+
     if (!cmds)
         return ;
-    while (cmds)
+    while (cmds && *interrupted == 0)
     {
         idx = 0;
-        while (cmds->symbols && cmds->symbols[idx])
+        while (cmds->symbols && cmds->symbols[idx] && *interrupted == 0)
         {
             if (!ft_strcmp(cmds->symbols[idx], "<<"))
-                handle_heredoc(cmds, env, idx);
+                handle_heredoc(cmds, env, idx, interrupted);
             idx++;
         }
         cmds = cmds->next;
     }
 }
 
-static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx)
+static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx, int *interrupted)
 {
     pid_t pid;
     
@@ -51,7 +52,7 @@ static void handle_heredoc(t_cmd *cmd, t_env *env, size_t idx)
     if (pid == 0)
         child_task(cmd, env, idx);
     else
-        parant_task(cmd, pid);
+        parant_task(cmd, pid, interrupted);
 }
 
 static int forkchild(pid_t *pidptr)
@@ -67,7 +68,11 @@ static int forkchild(pid_t *pidptr)
     return (0);
 }
 
-
+void sig_handler(sig)
+{
+    (void)sig;
+    exit(130);
+}
 static void child_task(t_cmd *cmd, t_env *env, size_t idx)
 {
     char *limiter;
@@ -80,33 +85,42 @@ static void child_task(t_cmd *cmd, t_env *env, size_t idx)
     close_pipe(cmd->pip, r_end);
     toexpand = (!ft_strchr(cmd->files[idx], '\'') && !ft_strchr(cmd->files[idx], '"'));
     limiter = remove_quotes(&cmd->files[idx], 0);
+    signal(SIGINT, sig_handler);
     while (1)
     {
         tmp = readline("> ");
-        if (!tmp)
+        if (!tmp || !ft_strcmp(tmp, limiter))
             break;
-        if (toexpand && ft_strcmp(tmp, limiter))
+        if (toexpand)
             data = expand_handler(tmp, env, cmd);
         else
             data = ft_strdup(tmp);
-        if (!ft_strcmp(data, limiter))
-            break;
         ft_putendl_fd(data, cmd->pip[1]);
         nullstr(&tmp);
         nullstr(&data);
     }
-    nullstr(&data);
     nullstr(&limiter);
+    nullstr(&tmp);
     close_pipe(cmd->pip, w_end);
     exit (0);
 }
 
 
 
-static void parant_task(t_cmd *cmd, pid_t childpid)
+static void parant_task(t_cmd *cmd, pid_t childpid, int *interrupted)
 {
     int status;
 
     close_pipe(cmd->pip, w_end);
     waitpid(childpid, &status, 0);
+    if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+    {
+        *interrupted = 130;
+        close_pipe(cmd->pip, r_end);
+        while (cmd)
+        {
+            close_pipe(cmd->pip, rw_end);
+            cmd = cmd->next;
+        }
+    }
 }

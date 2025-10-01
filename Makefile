@@ -45,7 +45,6 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_length.c \
 			src/cmd/cmd_trim.c \
 			src/cmd/cmd_buildin.c \
-			src/execution/executor.c \
 			src/execution/heredoc_manager.c \
 			src/cmd/cmd_expandargs.c \
 			src/cmd/cmd_iter2.c \
@@ -67,9 +66,13 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/fds_manager.c \
 			src/execution/redirection_manager.c \
 			src/helper/ambiguous_check.c \
-			src/execution/execut_chain.c
+			src/execution/pipe_utils.c \
+			src/execution/pipe_setup.c \
+			src/execution/child_process.c \
+			src/execution/executor.c \
+			src/execution/exec_chain.c \
+			src/execution/wait_utils.c 
 
- 
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

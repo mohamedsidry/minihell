@@ -3,82 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/30 12:10:36 by msidry           ###   ########.fr       */
+/*   Created: 2025/10/01 02:48:41 by anasszgh          #+#    #+#             */
+/*   Updated: 2025/10/01 03:38:59 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-void executor(t_cmd **cmds, t_env **env, int *error)
+void	executor(t_cmd **cmds, t_env **env, int *error)
 {
-	int interrupted;
+	int	interrupted;
 
 	interrupted = 0;
-    if (!cmds || !*cmds || !env || !*env)
-        return ;    
-    heredoc_manager(*cmds, *env, &interrupted);
+	if (!cmds || !*cmds || !env || !*env)
+		return ;
+	heredoc_manager(*cmds, *env, &interrupted);
 	if (interrupted)
 	{
 		cmd_clear(cmds);
 		*error = 1;
 		return ;
 	}
-    if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
-       exec_builtin(cmds, env, error);
-    else
-       exec_chain(*cmds, env, error);
+	if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
+		exec_builtin(cmds, env, error);
+	else
+		exec_chain(*cmds, env, error);
 }
 
-void exec_builtin(t_cmd **cmds, t_env **env, int *error)
+void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 {
-    int std_io[2];
-    
-    if (save_fds(std_io) == -1)
-    {
-        *error = 1;
-        return;
-    }
-    if (close_pipe((*cmds)->pip, rw_end))
-        return ;
-    if (setup_redirection(*cmds, error))
-    {
-        restore_fds(std_io);
-        return ;
-    }
-    builtin_manager(*cmds, env, error);
-    restore_fds(std_io);
-}
+	int	std_io[2];
 
-void	exec_chain(t_cmd *cmds, t_env **env, int *error)
-{
-	t_cmd	*current;
-	pid_t	pid;
-	int		prev_pipe_read;
-
-	if (!cmds)
-		return ;
-	setup_pipes_commands(cmds);
-	current = cmds;
-	prev_pipe_read = -1;
-	while (current)
+	if (save_fds(std_io) == -1)
 	{
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("minishell: fork");
-			*error = 1;
-			return ;
-		}
-		if (pid == 0)
-			execute_pipeline_command(current, *env, error, prev_pipe_read);
-		else
-			handle_parent_process(current, &prev_pipe_read);
-		current = current->next;
+		*error = 1;
+		return ;
 	}
-	if (prev_pipe_read != -1)
-		close(prev_pipe_read);
-	wait_for_all(cmds);
+	if (close_pipe((*cmds)->pip, rw_end))
+		return ;
+	if (setup_redirection(*cmds, error))
+	{
+		restore_fds(std_io);
+		return ;
+	}
+	builtin_manager(*cmds, env, error);
+	restore_fds(std_io);
 }

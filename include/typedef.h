@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:54:39 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/29 13:31:25 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/01 14:31:40 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ typedef struct s_cmd
     char **symbols;
     int isbuiltin;
     int pip[2];
-    int pipeline_fd[2];
+    int in_fd;
+    int out_fd;
+    pid_t pid;
     char *exitcode;
     char *prevcmd;
+    int idx;
     struct s_cmd *next;
 } t_cmd;
 
@@ -51,5 +54,10 @@ typedef enum e_pipends
     w_end = 2,
     rw_end = 3,
 } t_pipends;
+
+typedef struct s_pipes
+{
+    int fds[2];
+} t_pipes;
 
 #endif //TYPDEF_H

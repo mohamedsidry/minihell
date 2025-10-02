@@ -67,11 +67,14 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/fds_manager.c \
 			src/execution/redirection_manager.c \
 			src/helper/ambiguous_check.c \
-			src/execution/execut_chain.c
+			src/helper/fds_handler.c 
+##src/execution/execut_chain.c \
+			
+			
 
  
 
-TEST = test/print_tokens.c test/print_commands.c
+TEST = test/print_tokens.c test/print_commands.c test/execut_chain2.c
 SRCS = $(MAIN) $(SRC) $(TEST)
 
 INCLUDES =	include/main.h include/utils.h include/typedef.h 

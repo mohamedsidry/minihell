@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 09:30:40 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/01 16:39:37 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_cmd *cmd_create(void)
         return (NULL);
     command->pip[0] = -1;
     command->pip[1] = -1;
+    command->in_fd = -1;
+    command->out_fd = -1;
     return (command);
 }
 
@@ -100,4 +102,5 @@ void cmd_read(t_cmd *command)
     else
         printf("false\n");
     printf("SEPARATOR : '%s'\n", command->separator);
+    printf("INDEX : %d\n", command->idx);
 }

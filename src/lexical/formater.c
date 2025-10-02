@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:02:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 09:57:37 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/01 16:42:55 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,22 @@ void formater(t_cmd **cmds, char **tokens, int *error)
 {
     int idx;
     t_cmd *current;
-
-    idx = 0;
+    int i;
+    
+    idx = -1;
+    i = 0;
     if (!tokens || !(*tokens))
         return ;
-    while (tokens[idx])
+    while (tokens[i])
     {
         current = cmd_create();
-        while (tokens[idx] && ft_strcmp(tokens[idx], "|"))
-            smart_append(current, tokens, &idx);
-        if (tokens[idx] && !ft_strcmp(tokens[idx], "|"))
+        current->idx = ++idx;
+        while (tokens[i] && ft_strcmp(tokens[i], "|"))
+            smart_append(current, tokens, &i);
+        if (tokens[i] && !ft_strcmp(tokens[i], "|"))
         {
-            current->separator = ft_strdup(tokens[idx]);
-            idx++;
+            current->separator = ft_strdup(tokens[i]);
+            i++;
         }
         cmd_addback(cmds, current);
     }

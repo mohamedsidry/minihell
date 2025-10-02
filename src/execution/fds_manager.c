@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fds_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:49:28 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/09/26 18:05:43 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/01 14:52:54 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-int	save_fds(int *saved_fds)
+int	save_fds(int *saved_fds, int *err)
 {
-	if (!saved_fds)
-		return (-1);
 	saved_fds[0] = dup(STDIN_FILENO);
 	saved_fds[1] = dup(STDOUT_FILENO);
 	if (saved_fds[0] == -1 || saved_fds[1] == -1)
@@ -24,6 +22,7 @@ int	save_fds(int *saved_fds)
 			close(saved_fds[0]);
 		if (saved_fds[1] != -1)
 			close(saved_fds[1]);
+		*err = 1;
 		return (-1);
 	}
 	return (0);

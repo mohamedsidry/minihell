@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:14 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/01 03:36:37 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/02 15:25:29 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static int	fork_child(void)
 	return (pid);
 }
 
-static void 	setup_pipes_commands(t_cmd *cmd)
+static void	setup_pipes_commands(t_cmd *cmd)
 {
-	t_cmd *current;
-	
+	t_cmd	*current;
+
 	current = cmd;
 	while (current && current->next)
 	{
@@ -74,5 +74,5 @@ void	exec_chain(t_cmd *cmds, t_env **env, int *error)
 	close_all_pipes(cmds);
 	if (data.prev_read != -1)
 		close(data.prev_read);
-	wait_for_all(cmds);
+	wait_for_all(cmds, error);
 }

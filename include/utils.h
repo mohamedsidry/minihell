@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/01 03:36:49 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/02 15:24:54 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	setup_child_pipes(t_cmd *cmd, int prev_read);
 void	handle_parent_pipes(t_cmd *cmd, int *prev_read);
 // void	setup_pipes_commands(t_cmd *cmd);
 void	execute_child(t_cmd *cmd, t_env *env, int *err, t_data *data);
-void	wait_for_all(t_cmd *cmd);
+void	wait_for_all(t_cmd *cmd, int *error);
 int		setup_redirection(t_cmd *cmd, int *error);
 int		save_fds(int *saved_fds);
 void	restore_fds(int *saved_fds);

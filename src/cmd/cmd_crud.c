@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 09:30:40 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/03 09:38:03 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void cmd_delete(t_cmd *command)
     free2d(&command->files);
     nullstr(&command->prevcmd);
     nullstr(&command->exitcode);
+    close_pipe(command->pip, rw_end);
     ft_bzero(command, sizeof(command));
     free(command);
 }

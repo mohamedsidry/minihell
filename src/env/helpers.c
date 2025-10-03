@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 08:02:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/19 10:26:21 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/03 10:18:17 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void setvalue(t_env *env, char *key, char *value)
         return ;
     free (target->value);
     target->value = value;
+    target->ishidden = 0;
 }
 
 char *getvalue(t_env *env, char *key)
@@ -65,7 +66,7 @@ char *getvalue(t_env *env, char *key)
     t_env *target;
 
     target = env_find(env, key);
-    if (!target)
+    if (!target || target->ishidden)
         return (NULL);
     return (target->value);
 }

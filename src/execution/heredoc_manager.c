@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/01 03:49:49 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:31:09 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,5 @@ static void	parant_task(t_cmd *cmd, pid_t childpid, int *interrupted)
 	close_pipe(cmd->pip, w_end);
 	waitpid(childpid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-	{
 		*interrupted = 130;
-		close_pipe(cmd->pip, r_end);
-		while (cmd)
-		{
-			close_pipe(cmd->pip, rw_end);
-			cmd = cmd->next;
-		}
-	}
 }

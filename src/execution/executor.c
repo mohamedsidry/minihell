@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:41 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/01 03:38:59 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:56:35 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,14 @@ void	executor(t_cmd **cmds, t_env **env, int *error)
 	if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
 		exec_builtin(cmds, env, error);
 	else
+	{
 		exec_chain(*cmds, env, error);
+		setvalue(*env, "_", ft_strdup(""));
+		if (cmd_length(*cmds) == 1 && (*cmds)->args)
+			setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
+		else
+			setvalue(*env, "_", ft_strdup(""));
+	}
 }
 
 void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
@@ -48,6 +55,7 @@ void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 		restore_fds(std_io);
 		return ;
 	}
+	setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
 	builtin_manager(*cmds, env, error);
 	restore_fds(std_io);
 }

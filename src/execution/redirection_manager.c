@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 00:54:25 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 00:59:38 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/04 10:47:49 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ static int	redirection_out(char *file, int append)
 
 static int	redirection_heredoc(t_cmd *cmd)
 {
-	if (cmd->pip[0] == -1)
+	if (cmd->herdoc_pip[0] == -1)
 		return (1);
-	dup2(cmd->pip[0], 0);
-	close(cmd->pip[0]);
-	cmd->pip[0] = -1;
+	dup2(cmd->herdoc_pip[0], 0);
+	close(cmd->herdoc_pip[0]);
+	cmd->herdoc_pip[0] = -1;
 	return (0);
 }
 

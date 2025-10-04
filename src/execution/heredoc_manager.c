@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/03 10:31:09 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 10:47:09 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static void	handle_heredoc(t_cmd *cmd, t_env *env, size_t idx, int *interrupted)
 {
 	pid_t	pid;
 
-	if (close_pipe(cmd->pip, rw_end))
+	if (close_pipe(cmd->herdoc_pip, rw_end))
 		return ;
-	if (open_pipe(cmd->pip))
+	if (open_pipe(cmd->herdoc_pip))
 		return ;
 	if (forkchild(&pid))
 	{
-		if (close_pipe(cmd->pip, rw_end))
+		if (close_pipe(cmd->herdoc_pip, rw_end))
 			return ;
 	}
 	if (pid == 0)
@@ -83,7 +83,7 @@ static void	child_task(t_cmd *cmd, t_env *env, size_t idx)
 
 	data = NULL;
 	tmp = NULL;
-	close_pipe(cmd->pip, r_end);
+	close_pipe(cmd->herdoc_pip, r_end);
 	toexpand = (!ft_strchr(cmd->files[idx], '\'')
 			&& !ft_strchr(cmd->files[idx], '"'));
 	limiter = remove_quotes(&cmd->files[idx], 0);
@@ -97,13 +97,13 @@ static void	child_task(t_cmd *cmd, t_env *env, size_t idx)
 			data = expand_handler(tmp, env, cmd);
 		else
 			data = ft_strdup(tmp);
-		ft_putendl_fd(data, cmd->pip[1]);
+		ft_putendl_fd(data, cmd->herdoc_pip[1]);
 		nullstr(&tmp);
 		nullstr(&data);
 	}
 	nullstr(&limiter);
 	nullstr(&tmp);
-	close_pipe(cmd->pip, w_end);
+	close_pipe(cmd->herdoc_pip, w_end);
 	exit(0);
 }
 
@@ -111,7 +111,7 @@ static void	parant_task(t_cmd *cmd, pid_t childpid, int *interrupted)
 {
 	int	status;
 
-	close_pipe(cmd->pip, w_end);
+	close_pipe(cmd->herdoc_pip, w_end);
 	waitpid(childpid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 		*interrupted = 130;

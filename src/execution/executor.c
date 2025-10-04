@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:41 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 09:53:25 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 10:47:22 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 		*error = 1;
 		return ;
 	}
-	if (close_pipe((*cmds)->pip, rw_end))
+	if (close_pipe((*cmds)->herdoc_pip, rw_end))
 		return ;
 	if (setup_redirection(*cmds, error))
 	{

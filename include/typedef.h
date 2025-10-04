@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:54:39 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/01 03:26:47 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/04 10:12:59 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ typedef struct s_cmd
 {
 	char			*fullcmd;
 	char			**args;
-	char			*separator;
-	char			**files;
 	char			**symbols;
+	char			**files;
 	int				isbuiltin;
 	int				pip[2];
 	int				pipeline_fd[2];
 	char			*exitcode;
 	char			*prevcmd;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_data

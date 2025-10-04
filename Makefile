@@ -40,7 +40,7 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_addback.c \
 			src/cmd/cmd_clear.c \
 			src/cmd/cmd_crud.c \
-			src/cmd/cmd_last.c \
+			src/cmd/cmd_order.c \
 			src/cmd/cmd_iter.c \
 			src/cmd/cmd_length.c \
 			src/cmd/cmd_trim.c \

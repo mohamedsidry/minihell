@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/02 15:24:54 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/04 10:18:21 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ t_cmd	*cmd_addback(t_cmd **cmds, t_cmd *cmd);
 void	cmd_clear(t_cmd **cmds);
 t_cmd	*cmd_create(void);
 void	cmd_delete(t_cmd *command);
-void	cmd_read(t_cmd *command);
 t_cmd	*cmd_last(t_cmd **cmds);
+t_cmd   *cmd_first(t_cmd **cmds);
 size_t	cmd_length(t_cmd *cmds);
 void	cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
 t_cmd	*cmd_trim(t_cmd *cmd);

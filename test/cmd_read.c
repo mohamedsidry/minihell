@@ -1,35 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_addback.c                                      :+:      :+:    :+:   */
+/*   cmd_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 07:46:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 09:43:35 by msidry           ###   ########.fr       */
+/*   Created: 2025/10/04 10:15:23 by msidry            #+#    #+#             */
+/*   Updated: 2025/10/04 10:17:48 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/main.h"
+#include "../include/main.h"
 
-
-t_cmd *cmd_addback(t_cmd **cmds, t_cmd *cmd)
-{
-    t_cmd *tail;
-
-    if (!cmds || !cmd)
-        return (NULL);
-    tail = cmd_last(cmds);
-    if (!tail)
-    {
-        *cmds = cmd;
-        cmd->prev = NULL;
-    }
-    else
-    {
-        tail->next = cmd;
-        cmd->next = NULL;
-        cmd->prev = tail;
-    }
-    return (cmd);
-}

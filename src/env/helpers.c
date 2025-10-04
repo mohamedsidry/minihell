@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 08:02:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/03 10:18:17 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 10:03:57 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,16 @@ t_env *env_last(t_env *env)
 void setvalue(t_env *env, char *key, char *value)
 {
     t_env *target;
-
+    
+    if (!env)
+        return ;
     target = env_find(env, key);
     if (!target)
+    {
+        target = node_create(concat3(key, value, "=", 1 | 2));
+        env_addback(&env, target);
         return ;
+    }
     free (target->value);
     target->value = value;
     target->ishidden = 0;

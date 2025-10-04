@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 07:26:02 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 08:13:23 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 09:37:19 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff)
     tmp = cmd;
     while (tmp)
     {
-        if (tmp->args)
+        if (tmp->args && ft_strcmp(tmp->args[0], "awk"))
             tmp->args = args_split(tmp->args, 1);    
         tmp = tmp->next;
     }

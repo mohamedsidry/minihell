@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:02:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 09:57:37 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 10:14:10 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void formater(t_cmd **cmds, char **tokens, int *error)
         while (tokens[idx] && ft_strcmp(tokens[idx], "|"))
             smart_append(current, tokens, &idx);
         if (tokens[idx] && !ft_strcmp(tokens[idx], "|"))
-        {
-            current->separator = ft_strdup(tokens[idx]);
             idx++;
-        }
         cmd_addback(cmds, current);
     }
     (void)error;  

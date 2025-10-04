@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:41 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/03 10:56:35 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 09:53:25 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	executor(t_cmd **cmds, t_env **env, int *error)
 	else
 	{
 		exec_chain(*cmds, env, error);
-		setvalue(*env, "_", ft_strdup(""));
 		if (cmd_length(*cmds) == 1 && (*cmds)->args)
 			setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
 		else

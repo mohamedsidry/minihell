@@ -25,7 +25,7 @@ t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff)
     tmp = cmd;
     while (tmp)
     {
-        if (tmp->args && ft_strcmp(tmp->args[0], "awk"))
+        if (tmp->args)
             tmp->args = args_split(tmp->args, 1);    
         tmp = tmp->next;
     }
@@ -41,16 +41,20 @@ char **args_split(char **args, int usefree)
     int jdx;
     t_list *list;
 
-    result = NULL;
     idx = 0;
     list = NULL;
     while (args[idx])
     {
-        result = set_split(args[idx], "\t\v \n");
-        jdx = -1;
-        while (result && result[++jdx])
-            ft_lstadd_back(&list, ft_lstnew(ft_strdup(result[jdx])));
-        free2d(&result);
+		if (!ft_strchr(args[idx],'"') && !ft_strchr(args[idx],'\''))
+		{
+			result = set_split(args[idx], "\t\v \n");
+        	jdx = -1;
+        	while (result && result[++jdx])
+            	ft_lstadd_back(&list, ft_lstnew(ft_strdup(result[jdx])));
+        	free2d(&result);
+		}
+		else
+			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[jdx])));
         idx++;
     }
     result = serializer(list);

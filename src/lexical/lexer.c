@@ -33,8 +33,8 @@ void lexer(t_cmd **cmds, char **input, t_env **env, int *error)
     cmd_iter2(cmds, error, cmd_expandstatus); // find $1 and replace it with exit code of prev or '\0' if multi commands !
     cmd_iter2(cmds, *env, cmd_expandprev); // find $_ and replace it with prev program .
     cmd_iter2(cmds, *env, cmd_expandargs); // expand args !
+    cmd_iter2(cmds, error, cmd_exandsplit); // spilt exported args like $a ="ls -la" become [ls , -la] 
     cmd_iter2(cmds, *env, cmd_expandredirection); // expand redirection ! 
     cmd_iter2(cmds, error, cmd_removequotes); //remove quotes;
-    cmd_iter2(cmds, error, cmd_exandsplit); // spilt exported args like $a ="ls -la" become [ls , -la] 
     cmd_iter2(cmds, *env, cmd_findpaths);  // reserve the path cat became /bin/cat and so on !
 }

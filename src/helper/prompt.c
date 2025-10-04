@@ -14,7 +14,7 @@
 
 static char *getbranch(void);
 static char *get_file(char ***paths, char *git);
-static size_t get_terminal_width(void);
+//static size_t get_terminal_width(void);
 
 char *prompt(t_env *env)
 {
@@ -36,8 +36,8 @@ char *prompt(t_env *env)
         promptmessage = find_replace(promptmessage, ".git", "", 1);
     }
     free(branch);
-    if (ft_strlen(promptmessage) > get_terminal_width())
-        promptmessage = find_replace(promptmessage, getvalue(env, "HOME"), "~", 1);
+    //if (ft_strlen(promptmessage) > get_terminal_width())
+    //    promptmessage = find_replace(promptmessage, getvalue(env, "HOME"), "~", 1);
     return (promptmessage);
 }
 
@@ -94,8 +94,8 @@ static char *get_file(char ***pathptr, char *git)
     return (NULL);
 }
 
-static size_t get_terminal_width(void) {
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    return (w.ws_col);
-}
+// static size_t get_terminal_width(void) {
+//     struct winsize w;
+//     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+//     return (w.ws_col);
+// }

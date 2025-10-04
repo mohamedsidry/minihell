@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 01:57:00 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:36:52 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,9 @@ int main(int argc, char *argv[], char *env[])
 	{
 		proreadline(&input, &new_env, &error);
 		lexer(&commands, &input, &new_env, &error);
-		if (commands)
-		{
-			executor(&commands, &new_env, &error);
-			cmd_clear(&commands);
-		}
-		if (input)
-		{
-			free(input);
-			input = NULL;
-		}
+		executor(&commands, &new_env, &error);
+		cmd_clear(&commands);
+		nullstr(&input);
 	}
 	return (0);
 }

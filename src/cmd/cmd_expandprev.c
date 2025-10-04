@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:04:23 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/23 13:00:51 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 14:36:19 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cmd *cmd_expandprev(t_cmd *cmd, void *reff)
     tmp = tmp->next;
     while (tmp)
     {
-        tmp->prevcmd = ft_strdup("");
+        tmp->prevcmd = NULL;
         tmp = tmp->next;
     }
     return (cmd);

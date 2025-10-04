@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_last.c                                         :+:      :+:    :+:   */
+/*   cmd_order.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 07:47:57 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 09:46:20 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 11:48:54 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,11 @@ t_cmd *cmd_last(t_cmd **cmds)
 }
 
 
-t_cmd *cmd_first(t_cmd **cmds)
-{
-    t_cmd *first;
-    
-    if (!cmds || !(*cmds))
+t_cmd *cmd_first(t_cmd *cmds)
+{    
+    if (!cmds)
         return (NULL);
-
-    first = *cmds;
-    while (first->prev)
-        first = first->prev;
-    return (first);
+    while (cmds->prev)
+        cmds = cmds->prev;
+    return (cmds);
 }

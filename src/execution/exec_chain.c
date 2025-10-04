@@ -6,19 +6,13 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:14 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 10:50:26 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 12:28:22 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static void	init_pipeline_data(t_data *data, t_cmd *cmds)
-{
-	data->head = cmds;
-	data->current = cmds;
-	data->prev_read = -1;
-}
-
+static void wait_for_children(t_cmd *cmd, int *err);
 static int	fork_child(void)
 {
 	pid_t	pid;
@@ -32,7 +26,7 @@ static int	fork_child(void)
 	return (pid);
 }
 
-static void	setup_pipes_commands(t_cmd *cmd)
+static int	setup_pipes_commands(t_cmd *cmd, int *error)
 {
 	t_cmd	*current;
 
@@ -42,37 +36,60 @@ static void	setup_pipes_commands(t_cmd *cmd)
 		if (pipe(current->pipeline_fd) == -1)
 		{
 			perror("minishell: pipe");
-			return ;
+			*error = 2;
+			return (1);
 		}
 		current = current->next;
 	}
+	return (0);
 }
 
-void	exec_chain(t_cmd *cmds, t_env **env, int *error)
+void	exec_chain(t_cmd *cmd, t_env **env, int *error)
 {
-	t_data	data;
-	pid_t	pid;
-
-	if (!cmds)
+	int prev_fd;
+	t_cmd *current;
+	
+	prev_fd = -1;
+	current = cmd;
+	if(setup_pipes_commands(cmd, error))
 		return ;
-	setup_pipes_commands(cmds);
-	init_pipeline_data(&data, cmds);
-	while (data.current)
+	while (current)
 	{
-		pid = fork_child();
-		if (pid == -1)
+		current->pid = fork_child();
+		if (current->pid == -1)
 		{
 			*error = 1;
 			return ;
 		}
-		if (pid == 0)
-			execute_child(data.current, *env, error, &data);
+		if (current->pid == 0)
+			execute_child(current, *env, error, prev_fd);
 		else
-			handle_parent_pipes(data.current, &data.prev_read);
-		data.current = data.current->next;
+			handle_parent_pipes(current, &prev_fd);
+		current = current->next;
 	}
-	close_all_pipes(cmds);
-	if (data.prev_read != -1)
-		close(data.prev_read);
-	wait_for_all(cmds, error);
+	close_all_pipes(cmd);
+	if (prev_fd != -1)
+		close(prev_fd);
+	wait_for_children(cmd, error);
+}
+
+
+static void wait_for_children(t_cmd *cmd, int *err)
+{
+	int status;
+	
+	while (cmd)
+	{
+		waitpid(cmd->pid, &status, 0);
+		if (!cmd->next)
+		{
+			if (WIFEXITED(status))
+				*err = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				*err = 128 + WTERMSIG(status);
+			else
+				*err = 0;
+		}
+		cmd = cmd->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 10:18:21 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 11:49:14 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	cmd_clear(t_cmd **cmds);
 t_cmd	*cmd_create(void);
 void	cmd_delete(t_cmd *command);
 t_cmd	*cmd_last(t_cmd **cmds);
-t_cmd   *cmd_first(t_cmd **cmds);
+t_cmd   *cmd_first(t_cmd *cmds);
 size_t	cmd_length(t_cmd *cmds);
 void	cmd_iter(t_cmd **cmds, t_cmd *(func)(t_cmd *cmd));
 t_cmd	*cmd_trim(t_cmd *cmd);
@@ -114,7 +114,7 @@ void	setup_output_pipe(t_cmd *cmd);
 void	setup_child_pipes(t_cmd *cmd, int prev_read);
 void	handle_parent_pipes(t_cmd *cmd, int *prev_read);
 // void	setup_pipes_commands(t_cmd *cmd);
-void	execute_child(t_cmd *cmd, t_env *env, int *err, t_data *data);
+void	execute_child(t_cmd *cmd, t_env *env, int *err, int prev_fd);
 void	wait_for_all(t_cmd *cmd, int *error);
 int		setup_redirection(t_cmd *cmd, int *error);
 int		save_fds(int *saved_fds);

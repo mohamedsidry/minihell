@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_crud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 13:00:19 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/03 09:38:03 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 01:51:15 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@ t_cmd *cmd_create(void)
         return (NULL);
     command->pip[0] = -1;
     command->pip[1] = -1;
+    command->pipeline_fd[0] = -1;
+    command->pipeline_fd[1] = -1;
     return (command);
 }
 
 void cmd_delete(t_cmd *command)
 {
-    if (!command)
-        return ;
-    //TODO: more data to be freed args, files ...
-    free(command->fullcmd);
-    free(command->separator);
-    free2d(&command->args);
-    free2d(&command->symbols);
-    free2d(&command->files);
-    nullstr(&command->prevcmd);
-    nullstr(&command->exitcode);
-    close_pipe(command->pip, rw_end);
-    ft_bzero(command, sizeof(command));
-    free(command);
+	if (!command)
+		return ;
+	free(command->fullcmd);
+	free(command->separator);
+	free(command->exitcode);
+	free(command->prevcmd);
+	free2d(&command->args);
+	free2d(&command->symbols);
+	free2d(&command->files);
+	close_pipe(command->pip, rw_end);
+	free(command);
 }
 
 void cmd_read(t_cmd *command)

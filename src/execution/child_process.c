@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:47:46 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/01 02:47:47 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/04 01:22:20 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	execute_child(t_cmd *cmd, t_env *env, int *err, t_data *data)
 	setup_child_pipes(cmd, data->prev_read);
 	close_all_pipes(data->head);
 	if (setup_redirection(cmd, err))
+	{
+		cmd_clear(&data->head);
+		env_handler(&env, NULL, DELETE);
 		exit(1);
+	}
 	exec_command(cmd, env, err);
 }

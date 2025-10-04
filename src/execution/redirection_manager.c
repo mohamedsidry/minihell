@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 22:34:47 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/01 03:49:40 by anasszgh         ###   ########.fr       */
+/*   Created: 2025/10/04 00:54:25 by anasszgh          #+#    #+#             */
+/*   Updated: 2025/10/04 00:59:38 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static int handle_error(char *file)
+static int	handle_error(char *file)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(file, 2);
@@ -20,7 +20,6 @@ static int handle_error(char *file)
 	perror("");
 	return (1);
 }
-
 
 static int	redirection_in(char *file)
 {
@@ -65,13 +64,31 @@ static int	redirection_heredoc(t_cmd *cmd)
 	return (0);
 }
 
+static int	find_last_heredoc(t_cmd *cmd)
+{
+	int	i;
+	int	last;
+
+	i = 0;
+	last = -1;
+	while (cmd->symbols[i])
+	{
+		if (ft_strcmp(cmd->symbols[i], "<<") == 0)
+			last = i;
+		i++;
+	}
+	return (last);
+}
+
 int	setup_redirection(t_cmd *cmd, int *error)
 {
 	int	i;
 	int	result;
+	int	last_heredoc;
 
 	if (!cmd || !cmd->symbols || !cmd->files)
 		return (0);
+	last_heredoc = find_last_heredoc(cmd);
 	i = 0;
 	result = 0;
 	while (cmd->symbols[i] && !result)
@@ -82,7 +99,7 @@ int	setup_redirection(t_cmd *cmd, int *error)
 			result = redirection_out(cmd->files[i], 1);
 		else if (ft_strcmp(cmd->symbols[i], "<") == 0)
 			result = redirection_in(cmd->files[i]);
-		else if (ft_strcmp(cmd->symbols[i], "<<") == 0)
+		else if (ft_strcmp(cmd->symbols[i], "<<") == 0 && i == last_heredoc)
 			result = redirection_heredoc(cmd);
 		i++;
 	}

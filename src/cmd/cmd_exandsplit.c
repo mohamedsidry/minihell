@@ -11,61 +11,58 @@
 /* ************************************************************************** */
 
 #include "../../include/main.h"
+
 static size_t	subpartscount(char const *str, char *set);
 static size_t	nextpartend(char const *str, char *set);
-char            **args_split(char **args, int userfree);
-static  char	**set_split(char const *str, char *set);
+char			**args_split(char **args, int userfree);
+static char		**set_split(char const *str, char *set);
 
-t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff)
+t_cmd	*cmd_exandsplit(t_cmd *cmd, void *reff)
 {
-    t_cmd *tmp;
-    
-    if (!cmd || !cmd->args)
-        return (cmd);
-    tmp = cmd;
-    while (tmp)
-    {
-        if (tmp->args)
-            tmp->args = args_split(tmp->args, 1);    
-        tmp = tmp->next;
-    }
+	t_cmd	*tmp;
+
+	if (!cmd || !cmd->args)
+		return (cmd);
+	tmp = cmd;
+	while (tmp)
+	{
+		if (tmp->args)
+			tmp->args = args_split(tmp->args, 1);
+		tmp = tmp->next;
+	}
 	(void)reff;
-    return (cmd);
+	return (cmd);
 }
 
-
-char **args_split(char **args, int usefree)
+char	**args_split(char **args, int usefree)
 {
-    char **result;
-    int idx;
-    int jdx;
-    t_list *list;
+	char	**result;
+	int		idx;
+	int		jdx;
+	t_list	*list;
 
-    idx = 0;
-    list = NULL;
-    while (args[idx])
-    {
-		if (!ft_strchr(args[idx],'"') && !ft_strchr(args[idx],'\''))
+	idx = 0;
+	list = NULL;
+	while (args[idx])
+	{
+		if (!ft_strchr(args[idx], '"') && !ft_strchr(args[idx], '\''))
 		{
 			result = set_split(args[idx], "\t\v \n");
-        	jdx = -1;
-        	while (result && result[++jdx])
-            	ft_lstadd_back(&list, ft_lstnew(ft_strdup(result[jdx])));
-        	free2d(&result);
+			jdx = -1;
+			while (result && result[++jdx])
+				ft_lstadd_back(&list, ft_lstnew(ft_strdup(result[jdx])));
+			free2d(&result);
 		}
 		else
 			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[jdx])));
-        idx++;
-    }
-    result = serializer(list);
-    ft_lstclear(&list, free);
-    if (usefree)
-        free2d(&args);
-    return (result);
+		idx++;
+	}
+	result = serializer(list);
+	ft_lstclear(&list, free);
+	if (usefree)
+		free2d(&args);
+	return (result);
 }
-
-
-
 
 static char	**set_split(char const *str, char *set)
 {

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nullstr.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/04 22:41:25 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/04 22:41:29 by azghibat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/main.h"
 
-void nullstr(char **ptr)
+void	nullstr(char **ptr)
 {
-    if (!ptr)
-        return ;
-    free(*ptr);
-    *ptr = NULL;
+	if (!ptr)
+		return ;
+	free(*ptr);
+	*ptr = NULL;
 }

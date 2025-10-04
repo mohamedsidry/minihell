@@ -10,31 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../include/main.h"
 
-t_cmd *cmd_expandredirection(t_cmd *cmd, void *reff)
+t_cmd	*cmd_expandredirection(t_cmd *cmd, void *reff)
 {
-    int idx;
-    char *expanded;
-    
-    expanded = NULL;
-    idx = 0;
-    if (!cmd || ! reff)
-        return (NULL);
-    while (cmd->symbols && cmd->symbols[idx])
-    {
-        if (!ft_strcmp(cmd->symbols[idx], "<") ||
-            !ft_strcmp(cmd->symbols[idx], ">>") ||
-            !ft_strcmp(cmd->symbols[idx], ">"))
-        {
-            expanded = expand_handler(cmd->files[idx], (t_env *)reff, cmd);
-            if (expanded && !*expanded)
-                return(free(expanded), cmd);
-            free(cmd->files[idx]);
-            cmd->files[idx] = expanded;
-        }
-        idx++;
-    }
-    return (cmd);
+	int		idx;
+	char	*expanded;
+
+	expanded = NULL;
+	idx = 0;
+	if (!cmd || !reff)
+		return (NULL);
+	while (cmd->symbols && cmd->symbols[idx])
+	{
+		if (!ft_strcmp(cmd->symbols[idx], "<") || !ft_strcmp(cmd->symbols[idx],
+				">>") || !ft_strcmp(cmd->symbols[idx], ">"))
+		{
+			expanded = expand_handler(cmd->files[idx], (t_env *)reff, cmd);
+			if (expanded && !*expanded)
+				return (free(expanded), cmd);
+			free(cmd->files[idx]);
+			cmd->files[idx] = expanded;
+		}
+		idx++;
+	}
+	return (cmd);
 }

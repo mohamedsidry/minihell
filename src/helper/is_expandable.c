@@ -10,27 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int is_expandable(char *str)
+int	is_expandable(char *str)
 {
-    int squotes;
-    int dquotes;
-    int hasdollar;
+	int	squotes;
+	int	dquotes;
+	int	hasdollar;
 
-    squotes = 0;
-    dquotes = 0;
-    hasdollar = 0;
-    if (!str)
-        return (0);
-    while (*str)
-    {
-        squotes += (*str == '\'' && !(dquotes & 1));
-        dquotes += (*str == '"' && !(squotes & 1));
-        if (!(squotes & 1))
-        {
-            if (*str == '$')
-                hasdollar++;
-        }
-        str++;
-    }
-    return (hasdollar && !(squotes & 1));
+	squotes = 0;
+	dquotes = 0;
+	hasdollar = 0;
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		squotes += (*str == '\'' && !(dquotes & 1));
+		dquotes += (*str == '"' && !(squotes & 1));
+		if (!(squotes & 1))
+		{
+			if (*str == '$')
+				hasdollar++;
+		}
+		str++;
+	}
+	return (hasdollar && !(squotes & 1));
 }

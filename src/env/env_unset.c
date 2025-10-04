@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   env_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:02:08 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/25 18:18:29 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:35:41 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-void env_unset(t_env **env, char *key)
+void	env_unset(t_env **env, char *key)
 {
-    t_env *target;
-    
-    if (!env || !(*env))
-        return ;
-    target = env_find(*env, key);
-    if (target)
-        target->ishidden = 1;
+	t_env	*target;
+
+	if (!env || !(*env))
+		return ;
+	target = env_find(*env, key);
+	if (target)
+		target->ishidden = 1;
 }

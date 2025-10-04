@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:20:04 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/29 13:20:03 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 22:16:07 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ static int	is_valid_export(char *key)
 		return (0);
 	if (key[0] >= '0' && key[0] <= '9')
 		return (0);
-	if (!((key[0] >= 'A' && key[0] <= 'Z')
-			|| (key[0] >= 'a' && key[0] <= 'z')
+	if (!((key[0] >= 'A' && key[0] <= 'Z') || (key[0] >= 'a' && key[0] <= 'z')
 			|| key[0] == '_'))
 		return (0);
 	i = 1;
@@ -29,9 +28,8 @@ static int	is_valid_export(char *key)
 	{
 		if ((key[i] >= 0 && key[i] <= 31) || key[i] == 127)
 			return (0);
-		if (!((key[i] >= 'A' && key[i] <= 'Z')
-				|| (key[i] >= 'a' && key[i] <= 'z')
-				|| (key[i] >= '0' && key[i] <= '9')
+		if (!((key[i] >= 'A' && key[i] <= 'Z') || (key[i] >= 'a'
+					&& key[i] <= 'z') || (key[i] >= '0' && key[i] <= '9')
 				|| key[i] == '_'))
 			return (0);
 		i++;
@@ -81,13 +79,11 @@ static int	handle_single_export(char *arg, t_env **env)
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
-		free(key);
 		if (value)
 			free(value);
-		return (0);
+		return (free(key), 0);
 	}
-	free(key);
-	return (1);
+	return (free(key), 1);
 }
 
 void	run_export(t_cmd *cmd, t_env **env, int *error)

@@ -84,8 +84,8 @@ static void	child_task(t_cmd *cmd, t_env *env, size_t idx)
 	data = NULL;
 	tmp = NULL;
 	close_pipe(cmd->herdoc_pip, r_end);
-	toexpand = (!ft_strchr(cmd->files[idx], '\'')
-			&& !ft_strchr(cmd->files[idx], '"'));
+	toexpand = (!ft_strchr(cmd->files[idx], '\'') && !ft_strchr(cmd->files[idx],
+				'"'));
 	limiter = remove_quotes(&cmd->files[idx], 0);
 	signal(SIGINT, sig_handler);
 	while (1)

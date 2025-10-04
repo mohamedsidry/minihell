@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_chain.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:14 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 12:28:22 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 22:18:08 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static void wait_for_children(t_cmd *cmd, int *err);
+static void	wait_for_children(t_cmd *cmd, int *err);
+
 static int	fork_child(void)
 {
 	pid_t	pid;
@@ -46,12 +47,12 @@ static int	setup_pipes_commands(t_cmd *cmd, int *error)
 
 void	exec_chain(t_cmd *cmd, t_env **env, int *error)
 {
-	int prev_fd;
-	t_cmd *current;
-	
+	int		prev_fd;
+	t_cmd	*current;
+
 	prev_fd = -1;
 	current = cmd;
-	if(setup_pipes_commands(cmd, error))
+	if (setup_pipes_commands(cmd, error))
 		return ;
 	while (current)
 	{
@@ -73,11 +74,10 @@ void	exec_chain(t_cmd *cmd, t_env **env, int *error)
 	wait_for_children(cmd, error);
 }
 
-
-static void wait_for_children(t_cmd *cmd, int *err)
+static void	wait_for_children(t_cmd *cmd, int *err)
 {
-	int status;
-	
+	int	status;
+
 	while (cmd)
 	{
 		waitpid(cmd->pid, &status, 0);

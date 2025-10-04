@@ -12,7 +12,7 @@
 
 #include "include/main.h"
 
-void sg_handler(int sig_num)
+void	sg_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
@@ -22,7 +22,7 @@ void sg_handler(int sig_num)
 	}
 }
 
-int main(int argc, char *argv[], char *env[])
+int	main(int argc, char *argv[], char *env[])
 {
 	char	*input;
 	int		error;

@@ -37,13 +37,15 @@ static void	cd_success_handler(t_env **env, char *old_dir)
 
 static char	*get_target_path(t_cmd *cmd, t_env *env)
 {
+	char	*oldpwd;
+
 	if (!cmd->args[1])
 		return (getvalue(env, "HOME"));
 	if (ft_strcmp(cmd->args[1], "~") == 0)
 		return (getvalue(env, "HOME"));
 	if (ft_strcmp(cmd->args[1], "-") == 0)
 	{
-		char *oldpwd = getvalue(env, "OLDPWD");
+		oldpwd = getvalue(env, "OLDPWD");
 		if (!oldpwd)
 		{
 			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
@@ -62,7 +64,6 @@ void	run_cd(t_cmd *cmd, t_env **env, int *error)
 	*error = 0;
 	old_dir = getcwd(NULL, 0);
 	path = get_target_path(cmd, *env);
-	
 	if (!path)
 	{
 		*error = 1;

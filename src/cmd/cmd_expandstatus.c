@@ -12,23 +12,20 @@
 
 #include "../../include/main.h"
 
-
-t_cmd *cmd_expandstatus(t_cmd *cmd, void *reff)
+t_cmd	*cmd_expandstatus(t_cmd *cmd, void *reff)
 {
-    int *exitcode;
-    t_cmd *tmp;
+	int		*exitcode;
+	t_cmd	*tmp;
 
-    exitcode = (int *)reff;
-    if (!cmd || !reff)
-        return (cmd);
-    tmp = cmd;
-    while (tmp)
-    {
-        free(tmp->exitcode);
-        tmp->exitcode = ft_itoa(*exitcode);
-        tmp = tmp->next;
-    }
-    return (cmd);
+	exitcode = (int *)reff;
+	if (!cmd || !reff)
+		return (cmd);
+	tmp = cmd;
+	while (tmp)
+	{
+		free(tmp->exitcode);
+		tmp->exitcode = ft_itoa(*exitcode);
+		tmp = tmp->next;
+	}
+	return (cmd);
 }
-
-

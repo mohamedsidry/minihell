@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 00:54:25 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 10:47:49 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 22:20:40 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
-
-static int	handle_error(char *file)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(file, 2);
-	ft_putstr_fd(": ", 2);
-	perror("");
-	return (1);
-}
 
 static int	redirection_in(char *file)
 {

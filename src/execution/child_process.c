@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:47:46 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 22:21:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:08:30 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	execute_child(t_cmd *cmd, t_env *env, int *err, int prev_fd)
 	t_cmd	*head;
 
 	head = cmd_first(cmd);
+	setup_child_signals();
 	setup_child_pipes(cmd, prev_fd);
 	close_all_pipes(head);
 	if (setup_redirection(cmd, err))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:41 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 10:47:22 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 17:28:11 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ void	executor(t_cmd **cmds, t_env **env, int *error)
 	if (interrupted)
 	{
 		cmd_clear(cmds);
-		*error = 1;
+		*error = 130;
+		setup_interactive_signals();
 		return ;
 	}
 	if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
 		exec_builtin(cmds, env, error);
 	else
 	{
+		setup_parent_exec_signals();
 		exec_chain(*cmds, env, error);
+		setup_interactive_signals();
 		if (cmd_length(*cmds) == 1 && (*cmds)->args)
 			setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
 		else

@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:46:55 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:37:01 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,19 @@ void	proreadline(char **input, t_env **env, int *error)
 
 static char	*promptreadline(t_env **env)
 {
-	char	*promptmessage;
-	char	*input;
+	char		*promptmessage;
+	char		*input;
+	int			signal_recei;
 
 	promptmessage = prompt(*env);
+	signal_recei = 0;
 	input = readline(promptmessage);
 	free(promptmessage);
+	if (!input && signal_recei == SIGINT)
+	{
+		signal_recei = 0;
+		return (ft_strdup(""));
+	}
 	if (!input)
 	{
 		printf("\nExit\n");
@@ -76,12 +83,20 @@ static int	balanced_quotes(char *input)
 
 static void	backup_readline(char **input)
 {
-	char	*tmp;
+	char		*tmp;
+	int			signal_recei;
 
 	tmp = NULL;
+	signal_recei = 0;
 	while (balanced_quotes(*input))
 	{
 		tmp = readline("> ");
+		if (!tmp && signal_recei == SIGINT)
+		{
+			signal_recei = 0;
+			nullstr(input);
+			return ;
+		}
 		if (!tmp)
 		{
 			if (balanced_quotes(*input))

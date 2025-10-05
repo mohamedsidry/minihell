@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 13:56:40 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 15:34:18 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	run_env(t_cmd *cmd, t_env **env, int *error);
 void	run_echo(t_cmd *cmd, int *error);
 void	run_cd(t_cmd *cmd, t_env **env, int *error);
 void	close_theprogram(t_cmd *cmd, t_env **env, int *error);
+int     ambiguous_error(char *pattern);
 
 void	executor(t_cmd **cmds, t_env **env, int *error);
 void	exec_builtin(t_cmd **cmds, t_env **env, int *error);

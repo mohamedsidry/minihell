@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_removequotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 07:55:55 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:33:37 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 15:30:58 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	removecmdquotes(t_cmd *cmd)
 	idx = 0;
 	while (cmd->files && cmd->files[idx])
 	{
-		if (ft_strcmp(cmd->symbols[idx], "<<"))
+		if (!ft_strchr(cmd->files[idx], '*'))
 			cmd->files[idx] = remove_quotes(&cmd->files[idx], 1);
 		idx++;
 	}

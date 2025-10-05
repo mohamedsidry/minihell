@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 00:54:25 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 22:20:40 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 15:50:54 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ static int	redirection_in(char *file)
 
 	if (!file || ambiguous_check(file))
 		return (1);
+	if (ft_strchr(file, '*'))
+		file = remove_quotes(&file, 0);
+	else
+		file = ft_strdup(file);	
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (handle_error(file));
+		return (handle_error(file), free(file), 1);
 	dup2(fd, 0);
 	close(fd);
 	return (0);
@@ -37,12 +41,16 @@ static int	redirection_out(char *file, int append)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
+	if (ft_strchr(file, '*'))
+		file = remove_quotes(&file, 0);
+	else
+		file = ft_strdup(file);	
 	fd = open(file, flags, 0644);
 	if (fd < 0)
-		return (handle_error(file));
+		return (handle_error(file), free(file), 1);
 	dup2(fd, 1);
 	close(fd);
-	return (0);
+	return (free(file), 0);
 }
 
 static int	redirection_heredoc(t_cmd *cmd)

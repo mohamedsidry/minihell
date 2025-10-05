@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 00:54:25 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/05 15:50:54 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:26:41 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	redirection_in(char *file)
 	if (ft_strchr(file, '*'))
 		file = remove_quotes(&file, 0);
 	else
-		file = ft_strdup(file);	
+		file = ft_strdup(file);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (handle_error(file), free(file), 1);
@@ -44,7 +44,7 @@ static int	redirection_out(char *file, int append)
 	if (ft_strchr(file, '*'))
 		file = remove_quotes(&file, 0);
 	else
-		file = ft_strdup(file);	
+		file = ft_strdup(file);
 	fd = open(file, flags, 0644);
 	if (fd < 0)
 		return (handle_error(file), free(file), 1);

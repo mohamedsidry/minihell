@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 20:52:12 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 19:13:32 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:22:09 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,4 @@ char	*handle_txt(char *str)
 		idx++;
 	}
 	return (ft_substr(str, 0, idx));
-}
-
-char	*handle_pipe(char *str)
-{
-	if (*(str + 1) == '&')
-		return (ft_substr(str, 0, 2));
-	return (ft_substr(str, 0, 1));
 }

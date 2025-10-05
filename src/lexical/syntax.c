@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:48:59 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/21 08:49:24 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:20:42 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	valid_syntax2(char **token, int *error)
 			if (!token[idx + 1])
 				return (*error = 258, syntax_error("newline"));
 			else if (is_redirection(token[idx + 1]) || !ft_strncmp(token[idx
-					+ 1], "|&", 3))
+						+ 1], "|&", 3))
 				return (*error = 258, syntax_error(token[idx + 1]));
 		}
 		idx++;

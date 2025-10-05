@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 10:47:09 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:23:52 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,6 @@ static int	forkchild(pid_t *pidptr)
 		return (1);
 	}
 	return (0);
-}
-
-void	sig_handler(int sig)
-{
-	(void)sig;
-	exit(130);
 }
 
 static void	child_task(t_cmd *cmd, t_env *env, size_t idx)

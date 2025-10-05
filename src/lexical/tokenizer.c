@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 19:30:06 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 13:57:16 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:22:16 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	tokenizer(char ***container, char *input, int *error)
 	}
 	*container = serializer(lst_tokens);
 	ft_lstclear(&lst_tokens, free);
-	if (valid_syntax2(*container, error)) // check after redirections
+	if (valid_syntax2(*container, error))
 		return (free2d(container));
-	clean_tokens(*container); // ">|", "&>", ">&" become ">"  "|&"" become "|". "<&" become "<"
+	clean_tokens(*container);
 }
 
 static char	*extract_token(char *str)
@@ -89,4 +89,11 @@ void	clean_tokens(char **tokens)
 		}
 		idx++;
 	}
+}
+
+char	*handle_pipe(char *str)
+{
+	if (*(str + 1) == '&')
+		return (ft_substr(str, 0, 2));
+	return (ft_substr(str, 0, 1));
 }

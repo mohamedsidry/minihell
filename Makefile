@@ -72,7 +72,8 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/executor.c \
 			src/execution/exec_chain.c \
 			src/execution/wait_utils.c \
-			src/cmd/cmd_expandwildcard.c
+			src/cmd/cmd_expandwildcard.c \ 
+			src/execution/signals.c
 
 
 TEST = test/print_tokens.c test/print_commands.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 15:34:18 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:25:24 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	run_env(t_cmd *cmd, t_env **env, int *error);
 void	run_echo(t_cmd *cmd, int *error);
 void	run_cd(t_cmd *cmd, t_env **env, int *error);
 void	close_theprogram(t_cmd *cmd, t_env **env, int *error);
-int     ambiguous_error(char *pattern);
+int		ambiguous_error(char *pattern);
 
 void	executor(t_cmd **cmds, t_env **env, int *error);
 void	exec_builtin(t_cmd **cmds, t_env **env, int *error);
@@ -121,5 +121,6 @@ int		setup_redirection(t_cmd *cmd, int *error);
 int		save_fds(int *saved_fds);
 void	restore_fds(int *saved_fds);
 int		handle_error(char *file);
+void	sig_handler(int sig);
 
 #endif

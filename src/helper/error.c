@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 19:09:48 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 15:28:33 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 16:29:26 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	syntax_error(char *token)
 	return (1);
 }
 
-int ambiguous_error(char *pattern)
+int	ambiguous_error(char *pattern)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(pattern, 2);

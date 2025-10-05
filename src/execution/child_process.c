@@ -63,5 +63,11 @@ void	execute_child(t_cmd *cmd, t_env *env, int *err, int prev_fd)
 		env_handler(&env, NULL, DELETE);
 		exit(1);
 	}
+	if (!cmd->args)
+	{
+		cmd_clear(&head);
+		env_handler(&env, NULL, DELETE);
+		exit(0);
+	}
 	exec_command(cmd, env, err);
 }

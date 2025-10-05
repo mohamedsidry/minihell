@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:31:39 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 14:01:40 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 21:59:02 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static char	*getbranch(void);
 static char	*get_file(char ***paths, char *git);
-// static size_t get_terminal_width(void);
 
 char	*prompt(t_env *env)
 {

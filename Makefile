@@ -4,8 +4,8 @@ NAME = minishell
 # Compiling flags
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-READLINE_PATH = /opt/homebrew/opt/readline
+CFLAGS = -Wall -Werror -Wextra 
+READLINE_PATH = /Users/azghibat/.brew/opt/readline
 CFLAGS = -Wall -Werror -Wextra -I$(READLINE_PATH)/include
 CSTAGE = -c
 

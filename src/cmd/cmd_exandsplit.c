@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exandsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 07:26:02 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 09:37:19 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 19:06:29 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**args_split(char **args, int usefree)
 			free2d(&result);
 		}
 		else
-			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[jdx])));
+			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[idx])));
 		idx++;
 	}
 	result = serializer(list);

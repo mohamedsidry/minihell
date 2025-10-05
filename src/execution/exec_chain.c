@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:14 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/04 22:18:08 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:41:39 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	exec_chain(t_cmd *cmd, t_env **env, int *error)
 	prev_fd = -1;
 	current = cmd;
 	if (setup_pipes_commands(cmd, error))
-		return ;
+		return (close_all_pipes(cmd));
 	while (current)
 	{
 		current->pid = fork_child();

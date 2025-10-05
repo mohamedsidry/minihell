@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:10:47 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/04 22:14:06 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 19:14:01 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,17 @@ static int	extract_error_number(char *code)
 void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 {
 	int	exit_code;
+	t_cmd	*head;
 
 	write(STDOUT_FILENO, "exit\n", 5);
+	head = cmd_first(cmd);
 	if (cmd->args[1] && cmd->args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		*error = 1;
-		return ;
+		env_handler(env, NULL, DELETE);
+		cmd_clear(&head);
+		exit(1);
 	}
 	if (!cmd->args[1])
 		exit_code = 0;
@@ -71,6 +75,6 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 		exit_code = 2;
 	}
 	env_handler(env, NULL, DELETE);
-	cmd_clear(&cmd);
+	cmd_clear(&head);
 	exit(exit_code);
 }

@@ -3,20 +3,15 @@ NAME = minishell
 
 # Compiling flags
 CC = cc
-<<<<<<< HEAD
+
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-=======
 READLINE_PATH = /Users/azghibat/.brew/opt/readline
 CFLAGS = -Wall -Werror -Wextra -I$(READLINE_PATH)/include
->>>>>>> fixed the norms + signal (ctrl + c) just make sure to add the path of readline in Makefile variable
 CSTAGE = -c
 
 # Cleaning flags
 RM = rm
 RMFLAGS = -fr
-
-<<<<<<< HEAD
-
 
 # Sources Includes and Depandencies .
 
@@ -76,8 +71,6 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/exec_chain.c \
 			src/cmd/cmd_expandwildcard.c 
 
-=======
-# Sources Includes and Dependencies
 MAIN = main.c
 SRC = src/helper/proreadline.c \
 	src/helper/prompt.c \
@@ -133,7 +126,6 @@ SRC = src/helper/proreadline.c \
 	src/execution/exec_chain.c \
 	src/cmd/cmd_expandwildcard.c \
 	src/execution/signals.c
->>>>>>> fixed the norms + signal (ctrl + c) just make sure to add the path of readline in Makefile variable
 
 TEST = test/print_tokens.c test/print_commands.c
 SRCS = $(MAIN) $(SRC) $(TEST)

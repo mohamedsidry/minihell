@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 17:37:01 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:37:11 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*promptreadline(t_env **env)
 	}
 	if (!input)
 	{
-		printf("\nExit\n");
+		printf("Exit");
 		env_handler(env, NULL, DELETE);
 		exit(0);
 	}

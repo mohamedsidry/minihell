@@ -18,12 +18,10 @@ t_cmd	*cmd_expandwildcard(t_cmd *cmd, void *reff)
 {
 	int		idx;
 	char	*result;
-	t_env	*env;
 	int		*error;
 
 	error = (int *)reff;
 	idx = 0;
-	env = (t_env *)reff;
 	if (!cmd)
 		return (cmd);
 	while (cmd->args && cmd->args[idx])

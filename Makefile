@@ -6,7 +6,7 @@ NAME = minishell
 # Compiling flags
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 CSTAGE = -c
 
 # Cleaning flags
@@ -45,6 +45,7 @@ SRC 	=	src/helper/proreadline.c \
 			src/cmd/cmd_length.c \
 			src/cmd/cmd_trim.c \
 			src/cmd/cmd_buildin.c \
+			src/execution/signals.c \
 			src/execution/heredoc_manager.c \
 			src/cmd/cmd_expandargs.c \
 			src/cmd/cmd_iter2.c \
@@ -71,9 +72,7 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/child_process.c \
 			src/execution/executor.c \
 			src/execution/exec_chain.c \
-			src/execution/wait_utils.c \
-			src/cmd/cmd_expandwildcard.c \ 
-			src/execution/signals.c
+			src/cmd/cmd_expandwildcard.c 
 
 
 TEST = test/print_tokens.c test/print_commands.c

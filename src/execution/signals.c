@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:23:03 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 17:29:05 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:12:17 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ void	setup_parent_exec_signals(void)
 
 void	setup_interactive_signals(void)
 {
-	int	signal_receiv;
-
 	signal(SIGINT, sg_handler);
 	signal(SIGQUIT, SIG_IGN);
-	signal_receiv = 0;
 }

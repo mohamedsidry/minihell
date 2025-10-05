@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 22:26:58 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 17:01:26 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:28:54 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
-
-typedef struct s_data
-{
-	t_cmd			*head;
-	t_cmd			*current;
-	int				prev_read;
-}					t_data;
 
 typedef enum e_pipends
 {

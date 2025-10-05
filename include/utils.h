@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 17:09:17 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:13:02 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "typedef.h"
 
-int	g_signal_received;
+int	g_signal_receiv;
 
 void	env_handler(t_env **myenv, char *env[], t_action action);
 void	env_create(t_env **myenv, char *env[]);
@@ -96,6 +96,7 @@ int		open_pipe(int pipefds[2]);
 int		has_redirections(t_cmd *cmd);
 int		ambiguous_check(char *file);
 void	heredoc_manager(t_cmd *cmds, t_env *env, int *err);
+void	herdoc_loop(t_cmd *cmd, t_env *env, char *limiter, int toexpand);
 char	*expand_handler(char *str, t_env *env, t_cmd *cmd);
 char	*find_replace(char *src, char *target, char *new, int usefree);
 void	builtin_manager(t_cmd *cmd, t_env **env, int *error);
@@ -118,7 +119,6 @@ void	setup_output_pipe(t_cmd *cmd);
 void	setup_child_pipes(t_cmd *cmd, int prev_read);
 void	handle_parent_pipes(t_cmd *cmd, int *prev_read);
 void	execute_child(t_cmd *cmd, t_env *env, int *err, int prev_fd);
-void	wait_for_all(t_cmd *cmd, int *error);
 int		setup_redirection(t_cmd *cmd, int *error);
 int		save_fds(int *saved_fds);
 void	restore_fds(int *saved_fds);

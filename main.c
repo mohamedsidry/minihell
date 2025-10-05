@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 19:43:45 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:13:35 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/main.h"
 
-int	signal_receiv = 0;
+int	g_signal_receiv = 0;
 
 void	sg_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
-		signal_receiv = SIGINT;
+		g_signal_receiv = SIGINT;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

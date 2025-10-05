@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_chain.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:14 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/05 18:41:39 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:27:12 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
 static void	wait_for_children(t_cmd *cmd, int *err);
+static void	kill_all_children(t_cmd *cmd);
 
-static int	fork_child(void)
+static int	fork_child(t_cmd *cmd)
 {
 	pid_t	pid;
 
@@ -22,6 +23,7 @@ static int	fork_child(void)
 	if (pid == -1)
 	{
 		perror("minishell: fork");
+		kill_all_children(cmd);
 		return (-1);
 	}
 	return (pid);
@@ -56,7 +58,7 @@ void	exec_chain(t_cmd *cmd, t_env **env, int *error)
 		return (close_all_pipes(cmd));
 	while (current)
 	{
-		current->pid = fork_child();
+		current->pid = fork_child(cmd);
 		if (current->pid == -1)
 		{
 			*error = 1;
@@ -90,6 +92,16 @@ static void	wait_for_children(t_cmd *cmd, int *err)
 			else
 				*err = 0;
 		}
+		cmd = cmd->next;
+	}
+}
+
+static void	kill_all_children(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->pid > 0)
+			kill(cmd->pid, SIGKILL);
 		cmd = cmd->next;
 	}
 }

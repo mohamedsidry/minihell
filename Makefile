@@ -5,7 +5,7 @@ NAME = minishell
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-READLINE_PATH = /Users/azghibat/.brew/opt/readline
+READLINE_PATH = /opt/homebrew/opt/readline
 CFLAGS = -Wall -Werror -Wextra -I$(READLINE_PATH)/include
 CSTAGE = -c
 
@@ -69,7 +69,8 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/child_process.c \
 			src/execution/executor.c \
 			src/execution/exec_chain.c \
-			src/cmd/cmd_expandwildcard.c 
+			src/cmd/cmd_expandwildcard.c \
+			src/execution/heredoc_helper.c
 
 MAIN = main.c
 SRC = src/helper/proreadline.c \
@@ -98,6 +99,7 @@ SRC = src/helper/proreadline.c \
 	src/cmd/cmd_length.c \
 	src/cmd/cmd_trim.c \
 	src/cmd/cmd_buildin.c \
+	src/execution/heredoc_helper.c \
 	src/execution/heredoc_manager.c \
 	src/cmd/cmd_expandargs.c \
 	src/cmd/cmd_iter2.c \
@@ -127,8 +129,7 @@ SRC = src/helper/proreadline.c \
 	src/cmd/cmd_expandwildcard.c \
 	src/execution/signals.c
 
-TEST = test/print_tokens.c test/print_commands.c
-SRCS = $(MAIN) $(SRC) $(TEST)
+SRCS = $(MAIN) $(SRC)
 INCLUDES = include/main.h include/utils.h include/typedef.h
 
 # LIBFT

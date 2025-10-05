@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exandsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 07:26:02 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 19:06:29 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:03:42 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	**args_split(char **args, int usefree)
 	int		jdx;
 	t_list	*list;
 
-	idx = 0;
+	idx = -1;
 	list = NULL;
-	while (args[idx])
+	while (args[++idx])
 	{
 		if (!ft_strchr(args[idx], '"') && !ft_strchr(args[idx], '\''))
 		{
@@ -55,7 +55,6 @@ char	**args_split(char **args, int usefree)
 		}
 		else
 			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[idx])));
-		idx++;
 	}
 	result = serializer(list);
 	ft_lstclear(&list, free);

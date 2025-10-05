@@ -1,50 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stripquotes.c                                      :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:43:59 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/22 11:48:56 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 20:46:10 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
+static void	remove_quotes_helper(char *buffer, char *str);
+
 char	*remove_quotes(char **str, int usefree)
 {
-	char	*tmp;
 	char	*result;
-	int		idx;
-	char	quote_char;
 
 	if (!str || !(*str))
 		return (NULL);
-	tmp = *str;
 	result = ft_calloc(ft_strlen(*str) + 1, sizeof(char));
-	idx = 0;
-	while (*tmp)
+	if (!result)
 	{
-		if (ft_strchr("'\"", *tmp) && ft_strchr(tmp + 1, *tmp))
-		{
-			quote_char = *tmp;
-			tmp++;
-			while (*tmp && *tmp != quote_char)
-			{
-				result[idx++] = *tmp;
-				tmp++;
-			}
-			if (*tmp == quote_char)
-				tmp++;
-		}
-		else
-		{
-			result[idx++] = *tmp;
-			tmp++;
-		}
+		if (usefree)
+			nullstr(str);
+		return (NULL);
 	}
+	remove_quotes_helper(result, *str);
 	if (usefree)
 		nullstr(str);
 	return (result);
+}
+
+static void	remove_quotes_helper(char *buffer, char *str)
+{
+	int		idx;
+	char	quote_char;
+
+	idx = 0;
+	while (*str)
+	{
+		if (ft_strchr("'\"", *str) && ft_strchr(str + 1, *str))
+		{
+			quote_char = *str;
+			str++;
+			while (*str && *str != quote_char)
+			{
+				buffer[idx++] = *str;
+				str++;
+			}
+			if (*str == quote_char)
+				str++;
+		}
+		else
+		{
+			buffer[idx++] = *str;
+			str++;
+		}
+	}
+	buffer[idx] = '\0';
 }

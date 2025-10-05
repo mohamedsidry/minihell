@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 11:46:11 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 16:23:52 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:11:54 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,15 @@ static int	forkchild(pid_t *pidptr)
 static void	child_task(t_cmd *cmd, t_env *env, size_t idx)
 {
 	char	*limiter;
-	char	*data;
 	int		toexpand;
 	char	*tmp;
 
-	data = NULL;
 	tmp = NULL;
 	close_pipe(cmd->herdoc_pip, r_end);
 	toexpand = (!ft_strchr(cmd->files[idx], '\'') && !ft_strchr(cmd->files[idx],
 				'"'));
 	limiter = remove_quotes(&cmd->files[idx], 0);
-	signal(SIGINT, sig_handler);
-	while (1)
-	{
-		tmp = readline("> ");
-		if (!tmp || !ft_strcmp(tmp, limiter))
-			break ;
-		if (toexpand)
-			data = expand_handler(tmp, env, cmd);
-		else
-			data = ft_strdup(tmp);
-		ft_putendl_fd(data, cmd->herdoc_pip[1]);
-		nullstr(&tmp);
-		nullstr(&data);
-	}
+	herdoc_loop(cmd, env, limiter, toexpand);
 	nullstr(&limiter);
 	nullstr(&tmp);
 	close_pipe(cmd->herdoc_pip, w_end);

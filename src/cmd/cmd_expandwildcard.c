@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_expandwildcard.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 13:15:28 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 16:13:15 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:04:28 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ static char	*star_handler(void)
 	opdir = opendir(cwd);
 	if (!opdir)
 		return (free(cwd), NULL);
-	while ((file = readdir(opdir)))
+	while (1)
 	{
+		file = readdir(opdir);
+		if (!file)
+			break ;
 		if (file->d_name[0] != '.')
 			result = concat3(result, file->d_name, " ", 1);
 	}

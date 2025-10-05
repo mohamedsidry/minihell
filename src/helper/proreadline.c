@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proreadline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 18:37:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:35:34 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,33 +84,28 @@ static int	balanced_quotes(char *input)
 static void	backup_readline(char **input)
 {
 	char		*tmp;
-	int			signal_recei;
 
 	tmp = NULL;
-	signal_recei = 0;
 	while (balanced_quotes(*input))
 	{
 		tmp = readline("> ");
-		if (!tmp && signal_recei == SIGINT)
-		{
-			signal_recei = 0;
-			nullstr(input);
-			return ;
-		}
+		if (!tmp)
+			return (nullstr(input));
 		if (!tmp)
 		{
 			if (balanced_quotes(*input))
-			{
-				error_message(" minishell: unexpected EOF");
-				error_message("while looking for matching `''\n");
-			}
+				error_message(QERROR);
 			add_history(*input);
 			return ;
 		}
 		*input = concat3(*input, tmp, "\n", 1 | 2);
 	}
-	tmp = ltrim(*input, "\t\n\v ", 0);
-	nullstr(input);
+	tmp = ltrim(*input, "\t\n\v ", 1);
 	*input = tmp;
 	add_history(*input);
 }
+
+// static void	backup_helper(char **input)
+// {
+
+// }

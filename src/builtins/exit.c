@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:10:47 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 19:14:01 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:01:02 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	extract_error_number(char *code)
 
 void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 {
-	int	exit_code;
+	int		exit_code;
 	t_cmd	*head;
 
 	write(STDOUT_FILENO, "exit\n", 5);

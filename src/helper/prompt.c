@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:31:39 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:41:44 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 14:01:40 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*prompt(t_env *env)
 		promptmessage = find_replace(promptmessage, ".git", "", 1);
 	}
 	free(branch);
+	promptmessage = find_replace(promptmessage, getvalue(env, "HOME"), "~", 1);
 	return (promptmessage);
 }
 

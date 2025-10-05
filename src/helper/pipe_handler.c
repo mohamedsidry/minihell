@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:07:08 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:43:54 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:56:56 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ int	open_pipe(int pipefds[2])
 		return (perror("minishell"), 1);
 	return (0);
 }
-2

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:20:29 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:56:40 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_cmd	*cmd_expandredirection(t_cmd *cmd, void *reff);
 t_cmd	*cmd_removequotes(t_cmd *cmd, void *reff);
 t_cmd	*cmd_exandsplit(t_cmd *cmd, void *reff);
 t_cmd	*cmd_findpaths(t_cmd *cmd, void *reff);
+t_cmd	*cmd_expandwildcard(t_cmd *cmd, void *reff);
 
 void	proreadline(char **input, t_env **env, int *error);
 char	*prompt(t_env *env);
@@ -94,7 +95,7 @@ int		has_redirections(t_cmd *cmd);
 int		ambiguous_check(char *file);
 void	heredoc_manager(t_cmd *cmds, t_env *env, int *err);
 char	*expand_handler(char *str, t_env *env, t_cmd *cmd);
-
+char	*find_replace(char *src, char *target, char *new, int usefree);
 void	builtin_manager(t_cmd *cmd, t_env **env, int *error);
 void	run_unset(t_cmd *cmd, t_env **env, int *error);
 void	run_pwd(int *error);

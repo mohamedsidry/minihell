@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:51:48 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 10:30:59 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/05 17:19:04 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <fcntl.h>
+# include <dirent.h>
 # include <signal.h>
 # include <sys/wait.h>
-#include "fcntl.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
-# include "utils.h"
-# include "typedef.h"
-# include "test.h"
 # include "const.h"
-#endif //MAIN_H
+# include "typedef.h"
+# include "utils.h"
+
+#endif

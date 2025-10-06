@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   has_redirections.c                                 :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 12:25:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:40:27 by azghibat         ###   ########.fr       */
+/*   Created: 2025/10/05 21:58:10 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 21:58:11 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-int	has_redirections(t_cmd *cmd)
+void	sig_handler(int sig)
 {
-	int	idx;
+	(void)sig;
+	exit(130);
+}
 
-	if (!cmd)
-		return (0);
-	while (cmd)
-	{
-		idx = -1;
-		while (cmd->symbols && cmd->symbols[++idx])
-		{
-			return (1);
-		}
-		cmd = cmd->next;
-	}
-	return (0);
+void	setup_child_signals(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	setup_parent_exec_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	setup_interactive_signals(void)
+{
+	signal(SIGINT, sg_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

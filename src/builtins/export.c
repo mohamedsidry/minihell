@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 13:20:04 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/25 18:50:16 by anasszgh         ###   ########.fr       */
+/*   Created: 2025/10/05 21:56:33 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 21:56:35 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
-
-static void	print_exported_vars(t_env *env);
-static void	handle_single_export(char *arg, t_env **env);
-static int	is_valid_export(char *key);
 
 static int	is_valid_export(char *key)
 {
@@ -24,8 +20,7 @@ static int	is_valid_export(char *key)
 		return (0);
 	if (key[0] >= '0' && key[0] <= '9')
 		return (0);
-	if (!((key[0] >= 'A' && key[0] <= 'Z')
-			|| (key[0] >= 'a' && key[0] <= 'z')
+	if (!((key[0] >= 'A' && key[0] <= 'Z') || (key[0] >= 'a' && key[0] <= 'z')
 			|| key[0] == '_'))
 		return (0);
 	i = 1;
@@ -33,9 +28,8 @@ static int	is_valid_export(char *key)
 	{
 		if ((key[i] >= 0 && key[i] <= 31) || key[i] == 127)
 			return (0);
-		if (!((key[i] >= 'A' && key[i] <= 'Z')
-				|| (key[i] >= 'a' && key[i] <= 'z')
-				|| (key[i] >= '0' && key[i] <= '9')
+		if (!((key[i] >= 'A' && key[i] <= 'Z') || (key[i] >= 'a'
+					&& key[i] <= 'z') || (key[i] >= '0' && key[i] <= '9')
 				|| key[i] == '_'))
 			return (0);
 		i++;
@@ -49,16 +43,21 @@ static void	print_exported_vars(t_env *env)
 	{
 		if (!env->ishidden)
 		{
-			printf("declare -x %s", env->key);
+			write(STDOUT_FILENO, "declare -x ", 11);
+			write(STDOUT_FILENO, env->key, ft_strlen(env->key));
 			if (env->value && ft_strlen(env->value) > 0)
-				printf("=\"%s\"", env->value);
-			printf("\n");
+			{
+				write(STDOUT_FILENO, "=\"", 2);
+				write(STDOUT_FILENO, env->value, ft_strlen(env->value));
+				write(STDOUT_FILENO, "\"", 1);
+			}
+			write(STDOUT_FILENO, "\n", 1);
 		}
 		env = env->next;
 	}
 }
 
-static void	handle_single_export(char *arg, t_env **env)
+static int	handle_single_export(char *arg, t_env **env)
 {
 	char	*key;
 	char	*value;
@@ -70,42 +69,43 @@ static void	handle_single_export(char *arg, t_env **env)
 	}
 	else
 	{
-		key = arg;
+		key = ft_strdup(arg);
 		value = NULL;
 	}
 	if (is_valid_export(key))
-	{
-		if (value)
-			env_export(env, key, value);
-		else
-			env_export(env, key, "");
-	}
+		env_export(env, key, value);
 	else
 	{
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
+		if (value)
+			free(value);
+		return (free(key), 0);
 	}
-	// fix 25 line
+	return (free(key), 1);
 }
 
-void	run_export(t_cmd *cmd, t_env **env)
+void	run_export(t_cmd *cmd, t_env **env, int *error)
 {
 	int	i;
+	int	has_error;
 
+	*error = 0;
 	if (!cmd || !env)
 		return ;
 	if (!cmd->args[1])
 	{
 		print_exported_vars(*env);
-		cmd->exitcode = ft_strdup("0");
 		return ;
 	}
 	i = 1;
+	has_error = 0;
 	while (cmd->args[i])
 	{
-		handle_single_export(cmd->args[i], env);
+		if (!handle_single_export(cmd->args[i], env))
+			has_error = 1;
 		i++;
 	}
-	cmd->exitcode = ft_strdup("0");
+	*error = has_error;
 }

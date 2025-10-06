@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ltrim.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/04 22:40:57 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/04 22:41:19 by azghibat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/main.h"
 
-char *ltrim(char *str, char *set, int usefree)
+char	*ltrim(char *str, char *set, int usefree)
 {
-    char *result;
-    size_t idx;
+	char	*result;
+	size_t	idx;
 
-    idx = 0;
-    if (!str || !set)
-        return (str);
-    while (str[idx])
-    {
-        if (!ft_strchr(set, str[idx]))
-            break;
-        idx++;
-    }
-    result = ft_strdup(&str[idx]);
-    if (usefree)
-        free(str);
-    return (result);
+	idx = 0;
+	if (!str || !set)
+		return (str);
+	while (str[idx])
+	{
+		if (!ft_strchr(set, str[idx]))
+			break ;
+		idx++;
+	}
+	result = ft_strdup(&str[idx]);
+	if (usefree)
+		free(str);
+	return (result);
 }

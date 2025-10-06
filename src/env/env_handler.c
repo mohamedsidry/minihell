@@ -12,13 +12,12 @@
 
 #include "../../include/main.h"
 
-void env_handler(t_env **myenv, char *env[], t_action action)
+void	env_handler(t_env **myenv, char *env[], t_action action)
 {
-    if (action & CREATE)
-        env_create(myenv, env);
-    if (action & SYNC)
-        env_sync(myenv);
-    if (action & DELETE)
-        env_delete(myenv);
+	if (action & CREATE)
+		env_create(myenv, env);
+	if (action & SYNC)
+		env_sync(myenv);
+	if (action & DELETE)
+		env_delete(myenv);
 }
-

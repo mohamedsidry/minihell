@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   has_redirections.c                                 :+:      :+:    :+:   */
+/*   pipe_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 12:25:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:40:27 by azghibat         ###   ########.fr       */
+/*   Created: 2025/10/05 21:57:50 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 21:57:51 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-int	has_redirections(t_cmd *cmd)
+void	setup_child_pipes(t_cmd *cmd, int prev_read)
 {
-	int	idx;
+	setup_input_pipe(prev_read);
+	setup_output_pipe(cmd);
+}
 
-	if (!cmd)
-		return (0);
-	while (cmd)
+void	handle_parent_pipes(t_cmd *cmd, int *prev_read)
+{
+	if (*prev_read != -1)
+		close(*prev_read);
+	if (cmd->next)
 	{
-		idx = -1;
-		while (cmd->symbols && cmd->symbols[++idx])
-		{
-			return (1);
-		}
-		cmd = cmd->next;
+		close(cmd->pipeline_fd[1]);
+		*prev_read = cmd->pipeline_fd[0];
 	}
-	return (0);
+	else
+		*prev_read = -1;
 }

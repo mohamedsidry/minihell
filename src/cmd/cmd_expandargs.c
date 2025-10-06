@@ -12,22 +12,22 @@
 
 #include "../../include/main.h"
 
-t_cmd   *cmd_expandargs(t_cmd *cmd, void *reff)
+t_cmd	*cmd_expandargs(t_cmd *cmd, void *reff)
 {
-    int idx;
-    char *result;
-    t_env *env;
+	int		idx;
+	char	*result;
+	t_env	*env;
 
-    idx = 0;
-    env = (t_env *)reff;
-    if (!cmd || !cmd->args)
-        return (cmd);
-   while (cmd->args && cmd->args[idx])
-   {
-        result = expand_handler(cmd->args[idx], env, cmd);
-        free(cmd->args[idx]);
-        cmd->args[idx] = result;
-        idx++;
-   }
-   return (cmd);
+	idx = 0;
+	env = (t_env *)reff;
+	if (!cmd || !cmd->args)
+		return (cmd);
+	while (cmd->args && cmd->args[idx])
+	{
+		result = expand_handler(cmd->args[idx], env, cmd);
+		free(cmd->args[idx]);
+		cmd->args[idx] = result;
+		idx++;
+	}
+	return (cmd);
 }

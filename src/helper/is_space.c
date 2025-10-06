@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 17:58:44 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/20 08:17:35 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/04 22:40:51 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int is_space(int c)
+int	is_space(int c)
 {
-    return ((c >= 9 && c <= 13) || (c == 32));
+	return ((c >= 9 && c <= 13) || (c == 32));
 }

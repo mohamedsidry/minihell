@@ -3,65 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exandsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 07:26:02 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 08:13:23 by msidry           ###   ########.fr       */
+/*   Created: 2025/10/05 22:01:02 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 22:01:03 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
+
 static size_t	subpartscount(char const *str, char *set);
 static size_t	nextpartend(char const *str, char *set);
-char            **args_split(char **args, int userfree);
-static  char	**set_split(char const *str, char *set);
+char			**args_split(char **args, int userfree);
+static char		**set_split(char const *str, char *set);
 
-t_cmd   *cmd_exandsplit(t_cmd *cmd, void *reff)
+t_cmd	*cmd_exandsplit(t_cmd *cmd, void *reff)
 {
-    t_cmd *tmp;
-    
-    if (!cmd || !cmd->args)
-        return (cmd);
-    tmp = cmd;
-    while (tmp)
-    {
-        if (tmp->args)
-            tmp->args = args_split(tmp->args, 1);    
-        tmp = tmp->next;
-    }
+	t_cmd	*tmp;
+
+	if (!cmd || !cmd->args)
+		return (cmd);
+	tmp = cmd;
+	while (tmp)
+	{
+		if (tmp->args)
+			tmp->args = args_split(tmp->args, 1);
+		tmp = tmp->next;
+	}
 	(void)reff;
-    return (cmd);
+	return (cmd);
 }
 
-
-char **args_split(char **args, int usefree)
+char	**args_split(char **args, int usefree)
 {
-    char **result;
-    int idx;
-    int jdx;
-    t_list *list;
+	char	**result;
+	int		idx;
+	int		jdx;
+	t_list	*list;
 
-    result = NULL;
-    idx = 0;
-    list = NULL;
-    while (args[idx])
-    {
-        result = set_split(args[idx], "\t\v \n");
-        jdx = -1;
-        while (result && result[++jdx])
-            ft_lstadd_back(&list, ft_lstnew(ft_strdup(result[jdx])));
-        free2d(&result);
-        idx++;
-    }
-    result = serializer(list);
-    ft_lstclear(&list, free);
-    if (usefree)
-        free2d(&args);
-    return (result);
+	idx = -1;
+	list = NULL;
+	while (args[++idx])
+	{
+		if (!ft_strchr(args[idx], '"') && !ft_strchr(args[idx], '\''))
+		{
+			result = set_split(args[idx], "\t\v \n");
+			jdx = -1;
+			while (result && result[++jdx])
+				ft_lstadd_back(&list, ft_lstnew(ft_strdup(result[jdx])));
+			free2d(&result);
+		}
+		else
+			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[idx])));
+	}
+	result = serializer(list);
+	ft_lstclear(&list, free);
+	if (usefree)
+		free2d(&args);
+	return (result);
 }
-
-
-
 
 static char	**set_split(char const *str, char *set)
 {

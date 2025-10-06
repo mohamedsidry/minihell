@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   has_redirections.c                                 :+:      :+:    :+:   */
+/*   heredoc_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 12:25:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:40:27 by azghibat         ###   ########.fr       */
+/*   Created: 2025/10/05 21:57:37 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 21:57:38 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-int	has_redirections(t_cmd *cmd)
+void	herdoc_loop(t_cmd *cmd, t_env *env, char *limiter, int toexpand)
 {
-	int	idx;
+	char	*data;
+	char	*tmp;
 
-	if (!cmd)
-		return (0);
-	while (cmd)
+	data = NULL;
+	tmp = NULL;
+	signal(SIGINT, sig_handler);
+	while (1)
 	{
-		idx = -1;
-		while (cmd->symbols && cmd->symbols[++idx])
-		{
-			return (1);
-		}
-		cmd = cmd->next;
+		tmp = readline("> ");
+		if (!tmp || !ft_strcmp(tmp, limiter))
+			break ;
+		if (toexpand)
+			data = expand_handler(tmp, env, cmd);
+		else
+			data = ft_strdup(tmp);
+		ft_putendl_fd(data, cmd->herdoc_pip[1]);
+		nullstr(&tmp);
+		nullstr(&data);
 	}
-	return (0);
 }

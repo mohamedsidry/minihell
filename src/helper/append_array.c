@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../include/main.h"
 
-
-char **append_array(char **arr, void *toadd)
+char	**append_array(char **arr, void *toadd)
 {
-    t_list *lst;
-    char **newarr;
+	t_list	*lst;
+	char	**newarr;
 
-    lst = dserializer(arr);
-    ft_lstadd_back(&lst, ft_lstnew(ft_strdup(toadd)));
-    newarr = serializer(lst);
-    ft_lstclear(&lst, free);
-    free2d(&arr);
-    return (newarr);
+	lst = dserializer(arr);
+	ft_lstadd_back(&lst, ft_lstnew(ft_strdup(toadd)));
+	newarr = serializer(lst);
+	ft_lstclear(&lst, free);
+	free2d(&arr);
+	return (newarr);
 }

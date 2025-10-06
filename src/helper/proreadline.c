@@ -3,95 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   proreadline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:53:24 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/27 13:10:49 by msidry           ###   ########.fr       */
+/*   Created: 2025/10/05 21:59:08 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 21:59:11 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static int balanced_quotes(char *input);
-static void backup_readline(char **input);
-static char    *promptreadline(t_env **env);
+static int	balanced_quotes(char *input);
+static void	backup_readline(char **input);
+static char	*promptreadline(t_env **env);
 
-void proreadline(char **input, t_env **env, int *error)
+void	proreadline(char **input, t_env **env, int *error)
 {
-    char *tmp;
+	char	*tmp;
 
-    tmp = NULL;
-    nullstr(input);
-    *input = promptreadline(env);
-    if (balanced_quotes(*input))
-        backup_readline(input);
-    else
-    {
-        tmp = *input;
-        *input = ltrim(*input, " \n", 0);
-        free(tmp);
-        add_history(*input);
-    }
-    if (!(*input))
-    {
-        error_message("minishell: syntax error: unexpected end of file\n");
-        *error = 258;
-    }
-    if (*input && !(*input[0]))
-        nullstr(input);
+	tmp = NULL;
+	nullstr(input);
+	*input = promptreadline(env);
+	if (balanced_quotes(*input))
+		backup_readline(input);
+	else
+	{
+		tmp = *input;
+		*input = ltrim(*input, " \n", 0);
+		free(tmp);
+		add_history(*input);
+	}
+	if (!(*input))
+	{
+		error_message("minishell: syntax error: unexpected end of file\n");
+		*error = 258;
+	}
+	if (*input && !(*input[0]))
+		nullstr(input);
 }
 
-static char *promptreadline(t_env **env)
+static char	*promptreadline(t_env **env)
 {
-    char *promptmessage;
-    char *input;
+	char		*promptmessage;
+	char		*input;
+	int			signal_recei;
 
-    promptmessage = prompt(*env);
-    input = readline(promptmessage);
-    free(promptmessage);
-    if (!input)
-    {
-        printf("\nExit\n");
-        env_handler(env, NULL, DELETE);
-        exit(0);
-    }
-    return (input);
-}
-static int balanced_quotes(char *input)
-{
-    int squotes;
-    int dquotes;
-
-    squotes = 0;
-    dquotes = 0;
-    
-    while (*input)
-    {
-        squotes += (*input == '\'' && !(dquotes & 1));
-        dquotes += (*input == '"' && !(squotes & 1));
-        input++;
-    }
-    return ((squotes & 1) || (dquotes & 1));
+	promptmessage = prompt(*env);
+	signal_recei = 0;
+	input = readline(promptmessage);
+	free(promptmessage);
+	if (!input && signal_recei == SIGINT)
+	{
+		signal_recei = 0;
+		return (ft_strdup(""));
+	}
+	if (!input)
+	{
+		printf("Exit");
+		env_handler(env, NULL, DELETE);
+		exit(0);
+	}
+	return (input);
 }
 
-static void backup_readline(char **input)
+static int	balanced_quotes(char *input)
 {
-    char *tmp;
-    tmp = NULL;
-    while (balanced_quotes(*input))
-    {
-        tmp = readline("> ");
-        if (!tmp)
-        {
-            if (balanced_quotes(*input))
-                error_message(" minishell: unexpected EOF while looking for matching `''\n");
-            add_history(*input);
-            return ;
-        }
-        *input = concat3(*input, tmp, "\n", 1 | 2);
-    }
-    tmp = ltrim(*input, "\t\n\v ", 0);
-    nullstr(input);
-    *input = tmp;
-    add_history(*input);
+	int	squotes;
+	int	dquotes;
+
+	squotes = 0;
+	dquotes = 0;
+	while (*input)
+	{
+		squotes += (*input == '\'' && !(dquotes & 1));
+		dquotes += (*input == '"' && !(squotes & 1));
+		input++;
+	}
+	return ((squotes & 1) || (dquotes & 1));
 }
+
+static void	backup_readline(char **input)
+{
+	char		*tmp;
+
+	tmp = NULL;
+	while (balanced_quotes(*input))
+	{
+		tmp = readline("> ");
+		if (!tmp)
+			return (nullstr(input));
+		if (!tmp)
+		{
+			if (balanced_quotes(*input))
+				error_message(QERROR);
+			add_history(*input);
+			return ;
+		}
+		*input = concat3(*input, tmp, "\n", 1 | 2);
+	}
+	tmp = ltrim(*input, "\t\n\v ", 1);
+	*input = tmp;
+	add_history(*input);
+}
+
+// static void	backup_helper(char **input)
+// {
+
+// }

@@ -3,54 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 09:58:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/26 19:15:25 by msidry           ###   ########.fr       */
+/*   Created: 2025/10/05 21:57:21 by azghibat          #+#    #+#             */
+/*   Updated: 2025/10/05 21:57:22 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static void exec_builtin(t_cmd **cmd, t_env **env, int *error);
-static void exec_chain(t_cmd **cmds, t_env **env, int *error);
-
-void executor(t_cmd **cmds, t_env **env, int *error)
+void	executor(t_cmd **cmds, t_env **env, int *error)
 {
-    if (!cmds || !*cmds || !env || !*env)
-        return ;    
-    heredoc_manager(*cmds, *env);
-    if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
-       exec_builtin(cmds, env, error);
-    else
-       exec_chain(cmds, env, error);
+	int	interrupted;
+
+	interrupted = 0;
+	if (!cmds || !*cmds || !env || !*env)
+		return ;
+	heredoc_manager(*cmds, *env, &interrupted);
+	if (interrupted)
+	{
+		cmd_clear(cmds);
+		*error = 130;
+		setup_interactive_signals();
+		return ;
+	}
+	if ((cmd_length(*cmds) == 1) && cmd_builtin(*cmds)->isbuiltin)
+		exec_builtin(cmds, env, error);
+	else
+	{
+		setup_parent_exec_signals();
+		exec_chain(*cmds, env, error);
+		setup_interactive_signals();
+		if (cmd_length(*cmds) == 1 && (*cmds)->args)
+			setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
+		else
+			setvalue(*env, "_", ft_strdup(""));
+	}
 }
 
-static void exec_builtin(t_cmd **cmds, t_env **env, int *error)
+void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 {
-    int std_io[2];
-    
-    if (save_fds(std_io) == -1)
-    {
-        *error = 1;
-        return;
-    }
-    if (close_pipe((*cmds)->pip, rw_end))
-        return ;
-    if (setup_redirection(*cmds, error))
-    {
-        restore_fds(std_io);
-        return ;
-    }
-    builtin_manager(*cmds, env, error);
-    restore_fds(std_io);
-}
+	int	std_io[2];
 
-static void exec_chain(t_cmd **cmds, t_env **env, int *error)
-{
-    (void)cmds;
-    (void)env;
-    (void)error;
-    printf("exec____chain in !\n");
-    // TODO: update env key = _ to the lates command was runned if single command !
+	if (save_fds(std_io) == -1)
+	{
+		*error = 1;
+		return ;
+	}
+	if (close_pipe((*cmds)->herdoc_pip, rw_end))
+		return ;
+	if (setup_redirection(*cmds, error))
+	{
+		restore_fds(std_io);
+		return ;
+	}
+	setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
+	builtin_manager(*cmds, env, error);
+	restore_fds(std_io);
 }

@@ -15,8 +15,6 @@
 
 # include "typedef.h"
 
-int	g_signal_receiv;
-
 void	env_handler(t_env **myenv, char *env[], t_action action);
 void	env_create(t_env **myenv, char *env[]);
 void	env_delete(t_env **myenv);

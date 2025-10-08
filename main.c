@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:47:37 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 19:43:45 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/05 19:47:39 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	main(int argc, char *argv[], char *env[])
 	int		error;
 	t_env	*new_env;
 	t_cmd	*commands;
-
 	input = NULL;
 	new_env = NULL;
 	commands = NULL;

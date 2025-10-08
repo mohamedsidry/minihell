@@ -6,7 +6,7 @@
 /*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:48:41 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/05 17:28:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:13:39 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	executor(t_cmd **cmds, t_env **env, int *error)
 		exec_chain(*cmds, env, error);
 		setup_interactive_signals();
 		if (cmd_length(*cmds) == 1 && (*cmds)->args)
-			setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
+			setvalue(*env, ft_strdup("_"), ft_strdup((*cmds)->args[0]));
 		else
-			setvalue(*env, "_", ft_strdup(""));
+			setvalue(*env, ft_strdup("_"), ft_strdup(""));
 	}
 }
 
@@ -57,7 +57,7 @@ void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 		restore_fds(std_io);
 		return ;
 	}
-	setvalue(*env, "_", ft_strdup((*cmds)->args[0]));
+	setvalue(*env, ft_strdup("_"), ft_strdup((*cmds)->args[0]));
 	builtin_manager(*cmds, env, error);
 	restore_fds(std_io);
 }

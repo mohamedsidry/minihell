@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:11:27 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/29 12:00:32 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:27:06 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	cd_success_handler(t_env **env, char *old_dir)
 
 	new_dir = getcwd(NULL, 0);
 	if (old_dir)
-		setvalue(*env, "OLDPWD", old_dir);
+		setvalue(*env, ft_strdup("OLDPWD"), old_dir);
 	if (new_dir)
-		setvalue(*env, "PWD", new_dir);
+		setvalue(*env, ft_strdup("PWD"), new_dir);
 }
 
 static char	*get_target_path(t_cmd *cmd, t_env *env)

@@ -4,9 +4,9 @@ NAME = minishell
 # Compiling flags
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 READLINE_PATH = /Users/azghibat/.brew/opt/readline
-CFLAGS = -Wall -Werror -Wextra -I$(READLINE_PATH)/include
+CFLAGS =  -I$(READLINE_PATH)/include
 CSTAGE = -c
 
 # Cleaning flags

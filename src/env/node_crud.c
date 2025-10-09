@@ -31,7 +31,6 @@ t_env	*node_create(char *payload)
 		node->e_value = NULL;
 		node->x_value = NULL;
 	}
-	
 	return (node);
 }
 

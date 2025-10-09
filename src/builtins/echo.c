@@ -41,8 +41,8 @@ void	run_echo(t_cmd *cmd, int *error)
 	new_line = 1;
 	while (cmd->args[i] && check_n_flag(cmd->args[i]))
 	{
-   		new_line = 0;
-    	i++;
+		new_line = 0;
+		i++;
 	}
 	while (cmd->args[i])
 	{

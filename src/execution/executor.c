@@ -12,7 +12,7 @@
 
 #include "../../include/main.h"
 
-static void prev_app(t_env **env, t_cmd *cmd);
+static void	prev_app(t_env **env, t_cmd *cmd);
 
 void	executor(t_cmd **cmds, t_env **env, int *error)
 {
@@ -61,19 +61,18 @@ void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 	restore_fds(std_io);
 }
 
-
-static void prev_app(t_env **env, t_cmd *cmd)
+static void	prev_app(t_env **env, t_cmd *cmd)
 {
-    t_cmd *head;
-    char *payload;
+	t_cmd	*head;
+	char	*payload;
 
-    if (!cmd)
-        return ;
-    head = cmd_first(cmd);
-    if (cmd_length(head) == 1 && head->args && head->args[0])
-        payload = concat3("_", head->args[0], "=", 0);
-    else
-        payload = concat3("_", "", "=", 0);
-    env_update(env, payload);
-    nullstr(&payload);
+	if (!cmd)
+		return ;
+	head = cmd_first(cmd);
+	if (cmd_length(head) == 1 && head->args && head->args[0])
+		payload = concat3("_", head->args[0], "=", 0);
+	else
+		payload = concat3("_", "", "=", 0);
+	env_update(env, payload);
+	nullstr(&payload);
 }

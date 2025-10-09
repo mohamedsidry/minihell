@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:28 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/09 19:01:35 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/09 22:06:11 by azghibat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
-
-long long	ft_atoll(const char *str)
-{
-	long long	result;
-	int			sign;
-	int			i;
-
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
-}
 
 static int	is_numeric(char *str)
 {
@@ -101,6 +76,17 @@ static int	extract_exit_code(char *code)
 	return (error);
 }
 
+static void	exit_code_helper(t_cmd *cmd, int exit_code)
+{
+	if (exit_code == -1 || exit_code == 255)
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(cmd->args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit_code = 255;
+	}
+}
+
 void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 {
 	int		exit_code;
@@ -108,7 +94,13 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 
 	write(STDOUT_FILENO, "exit\n", 5);
 	head = cmd_first(cmd);
-	if (cmd->args[1] && cmd->args[2])
+	if (!is_numeric(cmd->args[1]) && is_numeric(cmd->args[2]))
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		exit_code = 255;
+		exit(255);
+	}
+	else if (cmd->args[1] && cmd->args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		*error = 1;
@@ -117,13 +109,7 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 	exit_code = 0;
 	if (cmd->args[1])
 		exit_code = extract_exit_code(cmd->args[1]);
-	if (exit_code == -1 || exit_code == 255)
-	{
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(cmd->args[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
-		exit_code = 255;
-	}
+	exit_code_helper(cmd, exit_code);
 	env_handler(env, NULL, NULL, DELETE);
 	cmd_clear(&head);
 	exit(exit_code);

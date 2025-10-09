@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 00:54:25 by anasszgh          #+#    #+#             */
-/*   Updated: 2025/10/05 17:07:49 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/08 16:19:46 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,32 @@
 static int	redirection_in(char *file)
 {
 	int	fd;
+	char	*clean_file;
 
 	if (!file || ambiguous_check(file))
 		return (1);
 	if (ft_strchr(file, '*'))
-		file = remove_quotes(&file, 0);
+		clean_file = remove_quotes(&file, 0);
 	else
-		file = ft_strdup(file);
-	fd = open(file, O_RDONLY);
+		clean_file = ft_strdup(file);
+	fd = open(clean_file, O_RDONLY);
 	if (fd < 0)
-		return (handle_error(file), free(file), 1);
+	{
+		handle_error(clean_file);
+		free(clean_file);
+		return (1);
+	}
 	dup2(fd, 0);
 	close(fd);
+	free(clean_file);
 	return (0);
 }
 
 static int	redirection_out(char *file, int append)
 {
-	int	fd;
-	int	flags;
+	int		fd;
+	int		flags;
+	char	*clean_file;
 
 	if (!file || ambiguous_check(file))
 		return (1);
@@ -42,15 +49,19 @@ static int	redirection_out(char *file, int append)
 	else
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
 	if (ft_strchr(file, '*'))
-		file = remove_quotes(&file, 0);
+		clean_file = remove_quotes(&file, 0);
 	else
-		file = ft_strdup(file);
-	fd = open(file, flags, 0644);
+		clean_file = ft_strdup(file);
+	fd = open(clean_file, flags, 0644);
 	if (fd < 0)
-		return (handle_error(file), free(file), 1);
+	{
+		handle_error(clean_file);
+		free(clean_file);
+		return (1);
+	}
 	dup2(fd, 1);
 	close(fd);
-	return (free(file), 0);
+	return (free(clean_file), 0);
 }
 
 static int	redirection_heredoc(t_cmd *cmd)

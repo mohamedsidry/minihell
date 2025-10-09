@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 08:02:20 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 10:03:57 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/08 22:15:33 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,27 @@ t_env	*env_last(t_env *env)
 void	setvalue(t_env *env, char *key, char *value)
 {
 	t_env	*target;
+	char	*payload;
 
 	if (!env)
-		return ;
+		return (free(key), free(value));
 	target = env_find(env, key);
 	if (!target)
 	{
-		target = node_create(concat3(key, value, "=", 1 | 2));
+		if (value)
+			payload = concat3(key, "=", value, 0);
+		else
+			payload = ft_strdup(key);
+		target = node_create(payload);
 		env_addback(&env, target);
+		free(payload);
+		free(key);
+		free(value);
 		return ;
 	}
-	free(target->value);
+	free(key);
+	if (target->value)
+		free(target->value);
 	target->value = value;
 	target->ishidden = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:53:54 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/05 21:13:02 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:03:20 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define UTILS_H
 
 # include "typedef.h"
-
-int	g_signal_receiv;
 
 void	env_handler(t_env **myenv, char *env[], t_action action);
 void	env_create(t_env **myenv, char *env[]);
@@ -123,6 +121,7 @@ int		setup_redirection(t_cmd *cmd, int *error);
 int		save_fds(int *saved_fds);
 void	restore_fds(int *saved_fds);
 int		handle_error(char *file);
+void	free_array(char **arr);
 
 void	sg_handler(int sig_num);
 void	sig_handler(int sig);

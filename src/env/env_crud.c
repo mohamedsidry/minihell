@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_crud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 21:15:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:35:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:30:49 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ t_env	*env_addback(t_env **myenv, t_env *node)
 void	env_sync(t_env **env)
 {
 	t_env	*lvlnode;
-	t_env	*pathnode;
-	char	*cwd;
+	char	*new_shlvl;
 
 	if (!env)
 		return ;
@@ -73,15 +72,10 @@ void	env_sync(t_env **env)
 	if (!lvlnode)
 		env_addback(env, node_create("SHLVL=1"));
 	else
-		setvalue(*env, "SHLVL", ft_itoa(ft_atoi(lvlnode->value) + 1));
-	pathnode = env_find(*env, "PATH");
-	cwd = getcwd(NULL, 0);
-	if (!pathnode)
-		env_addback(env, node_create(concat3("PATH", cwd, "=", 2)));
-	else if (ft_strnstr(pathnode->value, cwd, ft_strlen(pathnode->value)))
-		return (free(cwd));
-	else
-		setvalue(*env, "PATH", concat3(pathnode->value, cwd, ":", 2));
+	{
+		new_shlvl = ft_itoa(ft_atoi(lvlnode->value) + 1);
+		setvalue(*env, ft_strdup("SHLVL"), new_shlvl);
+	}
 }
 
 void	env_read(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:09:58 by azghibat          #+#    #+#             */
-/*   Updated: 2025/09/28 18:28:46 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:28:29 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ void	run_echo(t_cmd *cmd, int *error)
 
 	*error = 0;
 	if (!cmd->args || !cmd->args[1])
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return ;
-	}
+		return (write(STDOUT_FILENO, "\n", 1), (void)0);
 	i = 1;
 	new_line = 1;
-	if (check_n_flag(cmd->args[1]))
+	while (cmd->args[i] && check_n_flag(cmd->args[i]))
 	{
 		new_line = 0;
 		i++;

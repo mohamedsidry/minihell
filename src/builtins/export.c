@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:20:04 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/04 22:16:07 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:30:42 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	print_exported_vars(t_env *env)
 		{
 			write(STDOUT_FILENO, "declare -x ", 11);
 			write(STDOUT_FILENO, env->key, ft_strlen(env->key));
-			if (env->value && ft_strlen(env->value) > 0)
+			if (env->value)
 			{
 				write(STDOUT_FILENO, "=\"", 2);
 				write(STDOUT_FILENO, env->value, ft_strlen(env->value));
@@ -73,17 +73,16 @@ static int	handle_single_export(char *arg, t_env **env)
 		value = NULL;
 	}
 	if (is_valid_export(key))
-		env_export(env, key, value);
-	else
 	{
-		ft_putstr_fd("minishell: export: `", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
-		if (value)
-			free(value);
-		return (free(key), 0);
+		env_export(env, key, value);
+		return (1);
 	}
-	return (free(key), 1);
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	free(key);
+	free(value);
+	return (0);
 }
 
 void	run_export(t_cmd *cmd, t_env **env, int *error)

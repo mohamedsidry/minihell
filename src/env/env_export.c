@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 09:53:14 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:35:27 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:16:10 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@ t_env	*env_export(t_env **env, char *key, char *value)
 	char	*payload;
 
 	if (!env)
-		return (NULL);
+		return (free(key), free(value), NULL);
 	target = env_find(*env, key);
 	if (target)
 	{
-		setvalue(*env, key, value);
+		if (value)
+			setvalue(*env, ft_strdup(key), ft_strdup(value));
 		target->ishidden = 0;
+		free(key);
+		free(value);
 		return (target);
 	}
-	payload = concat3(key, value, "=", 0);
+	if (value)
+		payload = concat3(key, "=", value, 0);
+	else
+		payload = ft_strdup(key);
 	target = node_create(payload);
 	env_addback(env, target);
 	free(payload);
+	free(key);
 	free(value);
 	return (target);
 }

@@ -6,7 +6,7 @@
 /*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 09:44:15 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/28 18:43:40 by anasszgh         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:09:26 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**env_serializer(t_env *envlst)
 	{
 		if (!envlst->ishidden && envlst->value)
 		{
-			envarr[idx] = concat3(envlst->key, envlst->value, "=", 0);
+			envarr[idx] = concat3(envlst->key, "=", envlst->value, 0);
 			idx++;
 		}
 		envlst = envlst->next;

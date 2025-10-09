@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_serializer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:00:44 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 22:00:45 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 11:19:53 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ char	**env_serializer(t_env *envlst)
 		return (NULL);
 	while (envlst)
 	{
-		if (!envlst->ishidden && envlst->value)
+		if (!envlst->ishidden && envlst->e_value)
 		{
-			envarr[idx] = concat3(envlst->key, envlst->value, "=", 0);
+			envarr[idx] = concat3(envlst->key, envlst->e_value, "=", 0);
 			idx++;
 		}
 		envlst = envlst->next;

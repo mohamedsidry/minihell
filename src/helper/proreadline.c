@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proreadline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:59:08 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:59:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 11:46:13 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*promptreadline(t_env **env)
 	if (!input)
 	{
 		printf("Exit");
-		env_handler(env, NULL, DELETE);
+		env_handler(env, NULL, NULL, DELETE);
 		exit(0);
 	}
 	return (input);
@@ -104,8 +104,3 @@ static void	backup_readline(char **input)
 	*input = tmp;
 	add_history(*input);
 }
-
-// static void	backup_helper(char **input)
-// {
-
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:33 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:56:35 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:26:41 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static void	print_exported_vars(t_env *env)
 		{
 			write(STDOUT_FILENO, "declare -x ", 11);
 			write(STDOUT_FILENO, env->key, ft_strlen(env->key));
-			if (env->value && ft_strlen(env->value) > 0)
+			if (env->x_value)
 			{
 				write(STDOUT_FILENO, "=\"", 2);
-				write(STDOUT_FILENO, env->value, ft_strlen(env->value));
+				write(STDOUT_FILENO, env->x_value, ft_strlen(env->x_value));
 				write(STDOUT_FILENO, "\"", 1);
 			}
 			write(STDOUT_FILENO, "\n", 1);
@@ -60,27 +60,18 @@ static void	print_exported_vars(t_env *env)
 static int	handle_single_export(char *arg, t_env **env)
 {
 	char	*key;
-	char	*value;
 
 	if (ft_strchr(arg, '='))
-	{
 		key = getprefix(arg, '=');
-		value = getsuffix(arg, '=');
-	}
 	else
-	{
 		key = ft_strdup(arg);
-		value = NULL;
-	}
 	if (is_valid_export(key))
-		env_export(env, key, value);
+		env_export(env, arg);
 	else
 	{
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
-		if (value)
-			free(value);
 		return (free(key), 0);
 	}
 	return (free(key), 1);

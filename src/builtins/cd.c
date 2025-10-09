@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:07 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:56:09 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:25:00 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,21 @@ static void	cd_error_handler(t_cmd *cmd, int *error, char *old_dir)
 static void	cd_success_handler(t_env **env, char *old_dir)
 {
 	char	*new_dir;
+	char	*payload;
 
 	new_dir = getcwd(NULL, 0);
 	if (old_dir)
-		setvalue(*env, "OLDPWD", old_dir);
+	{
+		payload = concat3("OLDPWD", old_dir, "=", 2);
+		env_update(env, payload);
+		nullstr(&payload);
+	}
 	if (new_dir)
-		setvalue(*env, "PWD", new_dir);
+	{
+		payload = concat3("PWD", new_dir, "=", 2);
+		env_update(env, payload);
+		nullstr(&payload);
+	}
 }
 
 static char	*get_target_path(t_cmd *cmd, t_env *env)

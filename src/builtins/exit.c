@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:28 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:56:30 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:02:42 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		*error = 1;
-		env_handler(env, NULL, DELETE);
+		env_handler(env, NULL, NULL, DELETE);
 		cmd_clear(&head);
 		exit(1);
 	}
@@ -74,7 +74,7 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 		exit_code = 2;
 	}
-	env_handler(env, NULL, DELETE);
+	env_handler(env, NULL, NULL, DELETE);
 	cmd_clear(&head);
 	exit(exit_code);
 }

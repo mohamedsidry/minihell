@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:00:05 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 22:00:06 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:04:12 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 
 # include "typedef.h"
 
-void	env_handler(t_env **myenv, char *env[], t_action action);
+void	env_handler(t_env **myenv, char *av[], char *ev[], t_action act);
 void	env_create(t_env **myenv, char *env[]);
 void	env_delete(t_env **myenv);
 t_env	*env_addback(t_env **myenv, t_env *node);
-void	env_sync(t_env **env);
+void	env_sync(t_env **env, char *argv[]);
 void	env_read(t_env *env);
 t_env	*env_find(t_env *env, char *key);
 size_t	env_size(t_env *env);
 t_env	*env_last(t_env *env);
+t_env	*env_update(t_env **myenv, char *payload);
 t_env	*node_create(char *payload);
 void	node_delete(t_env *node);
-t_env	*node_update(t_env *node, char *key, char *value, int state);
+t_env	*node_update(t_env *node, char *key, char *eval, char *xval);
 void	node_read(t_env *node);
 char	*getprefix(char *str, int sep);
 char	*getsuffix(char *str, int sep);
 void	setvalue(t_env *env, char *key, char *value);
 char	*getvalue(t_env *env, char *key);
 char	**env_serializer(t_env *envlst);
-t_env	*env_export(t_env **env, char *key, char *value);
+t_env	*env_export(t_env **env, char *keyvalue);
 void	env_unset(t_env **env, char *key);
-
 void	lexer(t_cmd **cmds, char **input, t_env **env, int *error);
 int		valid_syntax1(char **input, int *error);
 int		valid_syntax2(char **token, int *error);
@@ -106,7 +106,6 @@ void	run_echo(t_cmd *cmd, int *error);
 void	run_cd(t_cmd *cmd, t_env **env, int *error);
 void	close_theprogram(t_cmd *cmd, t_env **env, int *error);
 int		ambiguous_error(char *pattern);
-
 void	executor(t_cmd **cmds, t_env **env, int *error);
 void	exec_builtin(t_cmd **cmds, t_env **env, int *error);
 void	exec_chain(t_cmd *cmds, t_env **env, int *error);

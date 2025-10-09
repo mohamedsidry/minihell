@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:00:00 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 22:00:01 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 09:57:45 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 typedef struct s_env
 {
 	char			*key;
-	char			*value;
+	char			*e_value;
+	char			*x_value;
 	int				ishidden;
 	struct s_env	*next;
 }					t_env;

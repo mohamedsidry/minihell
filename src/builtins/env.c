@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:21 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:56:23 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:05:01 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	run_env(t_cmd *cmd, t_env **env, int *error)
 {
-	t_env	*current;
-
 	*error = 0;
 	if (!cmd || !env)
 		return ;
@@ -25,16 +23,5 @@ void	run_env(t_cmd *cmd, t_env **env, int *error)
 		*error = 1;
 		return ;
 	}
-	current = *env;
-	while (current)
-	{
-		if (!current->ishidden)
-		{
-			write(STDOUT_FILENO, current->key, ft_strlen(current->key));
-			write(STDOUT_FILENO, "=", 1);
-			write(STDOUT_FILENO, current->value, ft_strlen(current->value));
-			write(STDOUT_FILENO, "\n", 1);
-		}
-		current = current->next;
-	}
+	env_read(*env);
 }

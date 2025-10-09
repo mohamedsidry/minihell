@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:57:05 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:57:06 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 11:47:49 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	exec_command(t_cmd *cmd, t_env *env, int *error)
 	{
 		builtin_manager(cmd, &env, error);
 		cmd_clear(&head);
-		env_handler(&env, NULL, DELETE);
+		env_handler(&env, NULL, NULL, DELETE);
 		exit(*error);
 	}
 	env_array = env_serializer(env);
@@ -45,7 +45,7 @@ static void	exec_command(t_cmd *cmd, t_env *env, int *error)
 	else
 		handle_error(cmd->args[0]);
 	cmd_clear(&head);
-	env_handler(&env, NULL, DELETE);
+	env_handler(&env, NULL, NULL, DELETE);
 	nullstr(&error_message);
 	exit(127);
 }
@@ -61,13 +61,13 @@ void	execute_child(t_cmd *cmd, t_env *env, int *err, int prev_fd)
 	if (setup_redirection(cmd, err))
 	{
 		cmd_clear(&head);
-		env_handler(&env, NULL, DELETE);
+		env_handler(&env, NULL, NULL, DELETE);
 		exit(1);
 	}
 	if (!cmd->args)
 	{
 		cmd_clear(&head);
-		env_handler(&env, NULL, DELETE);
+		env_handler(&env, NULL, NULL, DELETE);
 		exit(0);
 	}
 	exec_command(cmd, env, err);

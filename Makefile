@@ -5,7 +5,7 @@ NAME = minishell
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra 
-READLINE_PATH = /Users/azghibat/.brew/opt/readline
+READLINE_PATH = /Users/msidry/.brew/opt/readline
 CFLAGS = -Wall -Werror -Wextra -I$(READLINE_PATH)/include
 CSTAGE = -c
 
@@ -26,7 +26,7 @@ SRC 	=	src/helper/proreadline.c \
 			src/helper/is_operator.c src/helper/is_redirection.c src/helper/is_builtin.c \
 			src/helper/remove_quotes.c src/helper/pipe_handler.c src/helper/is_expandable.c src/helper/expand_handler.c \
 			src/helper/find_replace.c \
-			src/env/env_handler.c src/env/env_crud.c \
+			src/env/env_handler.c src/env/env_crud.c src/env/env_sync.c \
 			src/env/node_crud.c src/env/helpers.c \
 			src/env/getprefix.c src/env/getsuffix.c \
 			src/env/env_serializer.c src/env/env_export.c \
@@ -71,63 +71,6 @@ SRC 	=	src/helper/proreadline.c \
 			src/execution/exec_chain.c \
 			src/cmd/cmd_expandwildcard.c \
 			src/execution/heredoc_helper.c
-
-MAIN = main.c
-SRC = src/helper/proreadline.c \
-	src/helper/prompt.c \
-	src/helper/error.c src/helper/concat3.c \
-	src/helper/ltrim.c src/helper/is_space.c \
-	src/helper/ft_strcmp.c src/helper/ft_realloc.c \
-	src/helper/free2d.c src/helper/append_array.c \
-	src/helper/serializers.c src/helper/nullstr.c \
-	src/helper/is_operator.c src/helper/is_redirection.c src/helper/is_builtin.c \
-	src/helper/remove_quotes.c src/helper/pipe_handler.c src/helper/is_expandable.c src/helper/expand_handler.c \
-	src/helper/find_replace.c \
-	src/env/env_handler.c src/env/env_crud.c \
-	src/env/node_crud.c src/env/helpers.c \
-	src/env/getprefix.c src/env/getsuffix.c \
-	src/env/env_serializer.c src/env/env_export.c \
-	src/env/env_unset.c src/lexical/lexer.c \
-	src/lexical/syntax.c src/lexical/tokenizer.c \
-	src/lexical/token_handler.c \
-	src/lexical/formater.c \
-	src/cmd/cmd_addback.c \
-	src/cmd/cmd_clear.c \
-	src/cmd/cmd_crud.c \
-	src/cmd/cmd_order.c \
-	src/cmd/cmd_iter.c \
-	src/cmd/cmd_length.c \
-	src/cmd/cmd_trim.c \
-	src/cmd/cmd_buildin.c \
-	src/execution/heredoc_helper.c \
-	src/execution/heredoc_manager.c \
-	src/cmd/cmd_expandargs.c \
-	src/cmd/cmd_iter2.c \
-	src/cmd/cmd_expandstatus.c \
-	src/cmd/cmd_expandprev.c \
-	src/helper/has_redirections.c \
-	src/cmd/cmd_expandredirection.c \
-	src/cmd/cmd_removequotes.c \
-	src/cmd/cmd_exandsplit.c \
-	src/cmd/cmd_findpaths.c \
-	src/builtins/builtin_manager.c \
-	src/builtins/cd.c \
-	src/builtins/echo.c \
-	src/builtins/env.c \
-	src/builtins/exit.c \
-	src/builtins/export.c \
-	src/builtins/pwd.c \
-	src/builtins/unset.c \
-	src/execution/fds_manager.c \
-	src/execution/redirection_manager.c \
-	src/helper/ambiguous_check.c \
-	src/execution/pipe_utils.c \
-	src/execution/pipe_setup.c \
-	src/execution/child_process.c \
-	src/execution/executor.c \
-	src/execution/exec_chain.c \
-	src/cmd/cmd_expandwildcard.c \
-	src/execution/signals.c
 
 SRCS = $(MAIN) $(SRC)
 INCLUDES = include/main.h include/utils.h include/typedef.h

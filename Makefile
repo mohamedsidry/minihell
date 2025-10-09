@@ -4,9 +4,9 @@ NAME = minishell
 # Compiling flags
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra 
-READLINE_PATH = /Users/msidry/.brew/opt/readline
-CFLAGS = -Wall -Werror -Wextra -I$(READLINE_PATH)/include
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+READLINE_PATH = /opt/homebrew/opt/readline
+CFLAGS = -I$(READLINE_PATH)/include
 CSTAGE = -c
 
 # Cleaning flags

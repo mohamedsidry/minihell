@@ -3,50 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:28 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/09 12:02:42 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:01:35 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/main.h"
 
-static void	extracter_helper(char *code, int num);
-static int	extract_error_number(char *code);
-
-static void	extracter_helper(char *code, int num)
+long long	ft_atoll(const char *str)
 {
-	while (code[num])
+	long long	result;
+	int			sign;
+	int			i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (code[num] < '0' || code[num] > '9')
-		{
-			ft_putstr_fd("Minishell: exit: numeric argument required\n", 2);
-			exit(255);
-		}
-		num++;
+		if (str[i] == '-')
+			sign = -1;
+		i++;
 	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * sign);
 }
 
-static int	extract_error_number(char *code)
+static int	is_numeric(char *str)
 {
-	int			error;
-	long long	num;
+	int	i;
 
-	if (!code)
+	if (!str || !str[0])
+		return (0);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	check_overflow(char *str)
+{
+	int		len;
+	int		sign;
+	char	*max;
+
+	sign = 1;
+	if (str[0] == '-' || str[0] == '+')
+	{
+		if (str[0] == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str == '0')
+		str++;
+	len = ft_strlen(str);
+	if (len > 19)
+		return (1);
+	if (len < 19)
+		return (0);
+	max = "9223372036854775807";
+	if (sign == -1)
+		max = "9223372036854775808";
+	if (ft_strcmp(str, max) > 0)
+		return (1);
+	return (0);
+}
+
+static int	extract_exit_code(char *code)
+{
+	long long	num;
+	int			error;
+
+	if (!is_numeric(code))
 		return (-1);
-	num = 0;
-	if (code[0] == '-' || code[0] == '+')
-		num++;
-	extracter_helper(code, num);
-	error = 0;
-	num = ft_atoi(code);
-	if (num > 255)
-		error = num % 256;
-	else if (num < 0)
-		error = 256 + (num % 256);
-	else
-		error = num;
+	if (check_overflow(code))
+		return (255);
+	num = ft_atoll(code);
+	error = num % 256;
+	if (error < 0)
+		error += 256;
 	return (error);
 }
 
@@ -61,18 +112,17 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		*error = 1;
-		env_handler(env, NULL, NULL, DELETE);
-		cmd_clear(&head);
-		exit(1);
+		return ;
 	}
-	if (!cmd->args[1])
-		exit_code = 0;
-	else
-		exit_code = extract_error_number(cmd->args[1]);
-	if (exit_code < 0)
+	exit_code = 0;
+	if (cmd->args[1])
+		exit_code = extract_exit_code(cmd->args[1]);
+	if (exit_code == -1 || exit_code == 255)
 	{
-		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
-		exit_code = 2;
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(cmd->args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit_code = 255;
 	}
 	env_handler(env, NULL, NULL, DELETE);
 	cmd_clear(&head);

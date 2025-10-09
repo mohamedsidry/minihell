@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:15 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:56:18 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:40:39 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	run_echo(t_cmd *cmd, int *error)
 	}
 	i = 1;
 	new_line = 1;
-	if (check_n_flag(cmd->args[1]))
+	while (cmd->args[i] && check_n_flag(cmd->args[i]))
 	{
-		new_line = 0;
-		i++;
+   		new_line = 0;
+    	i++;
 	}
 	while (cmd->args[i])
 	{

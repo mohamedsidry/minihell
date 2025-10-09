@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:57:21 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/09 12:43:30 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:47:55 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void	exec_builtin(t_cmd **cmds, t_env **env, int *error)
 
 static void prev_app(t_env **env, t_cmd *cmd)
 {
-	t_cmd *head;
-	char *payload;
+    t_cmd *head;
+    char *payload;
 
-	if (!cmd)
-		return ;
-	head = cmd_first(cmd);
-	if (cmd_length(head) == 1 && head->args)
-		payload = concat3("_", cmd->args[0], "=", 0);
-	else
-		payload = concat3("_", "", "=", 0);
-	env_update(env, payload);
-	nullstr(&payload);
+    if (!cmd)
+        return ;
+    head = cmd_first(cmd);
+    if (cmd_length(head) == 1 && head->args && head->args[0])
+        payload = concat3("_", head->args[0], "=", 0);
+    else
+        payload = concat3("_", "", "=", 0);
+    env_update(env, payload);
+    nullstr(&payload);
 }

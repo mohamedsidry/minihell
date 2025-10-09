@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:07 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/09 12:25:00 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:01:30 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ static void	cd_error_handler(t_cmd *cmd, int *error, char *old_dir)
 		free(old_dir);
 }
 
-static void	cd_success_handler(t_env **env, char *old_dir)
+static void	update_pwd_vars(t_env **env, char *old_dir, char *new_dir)
 {
-	char	*new_dir;
 	char	*payload;
 
-	new_dir = getcwd(NULL, 0);
 	if (old_dir)
 	{
 		payload = concat3("OLDPWD", old_dir, "=", 2);
@@ -44,13 +42,19 @@ static void	cd_success_handler(t_env **env, char *old_dir)
 	}
 }
 
+static void	cd_success_handler(t_env **env, char *old_dir)
+{
+	char	*new_dir;
+
+	new_dir = getcwd(NULL, 0);
+	update_pwd_vars(env, old_dir, new_dir);
+}
+
 static char	*get_target_path(t_cmd *cmd, t_env *env)
 {
 	char	*oldpwd;
 
-	if (!cmd->args[1])
-		return (getvalue(env, "HOME"));
-	if (ft_strcmp(cmd->args[1], "~") == 0)
+	if (!cmd->args[1] || ft_strcmp(cmd->args[1], "~") == 0)
 		return (getvalue(env, "HOME"));
 	if (ft_strcmp(cmd->args[1], "-") == 0)
 	{
@@ -75,6 +79,7 @@ void	run_cd(t_cmd *cmd, t_env **env, int *error)
 	path = get_target_path(cmd, *env);
 	if (!path)
 	{
+		free(old_dir);
 		*error = 1;
 		return ;
 	}

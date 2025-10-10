@@ -5,7 +5,7 @@ NAME = minishell
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
-READLINE_PATH = /Users/azghibat/.brew/opt/readline
+READLINE_PATH = /Users/msidry/.brew/opt/readline
 CFLAGS = -I$(READLINE_PATH)/include
 CSTAGE = -c
 

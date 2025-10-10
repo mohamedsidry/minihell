@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:56:28 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/09 22:06:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/10 09:46:20 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	close_theprogram(t_cmd *cmd, t_env **env, int *error)
 
 	write(STDOUT_FILENO, "exit\n", 5);
 	head = cmd_first(cmd);
-	if (!is_numeric(cmd->args[1]) && is_numeric(cmd->args[2]))
+	if ((cmd->args[1] && cmd->args[1])
+		&& !is_numeric(cmd->args[1]) && is_numeric(cmd->args[2]))
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		exit_code = 255;

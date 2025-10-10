@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:58:03 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:58:04 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 19:50:39 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	redirection_in(char *file)
 		return (handle_error(file), free(file), 1);
 	dup2(fd, 0);
 	close(fd);
+	free(file);
 	return (0);
 }
 

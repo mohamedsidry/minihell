@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_crud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 21:15:51 by msidry            #+#    #+#             */
-/*   Updated: 2025/10/04 22:35:11 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:07:10 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	env_create(t_env **myenv, char *env[])
 	{
 		node = node_create(env[idx]);
 		if (!node)
-		{
-			env_delete(myenv);
-			return ;
-		}
+			return (env_delete(myenv));
 		env_addback(myenv, node);
 		idx++;
 	}
@@ -61,37 +58,37 @@ t_env	*env_addback(t_env **myenv, t_env *node)
 	return (node);
 }
 
-void	env_sync(t_env **env)
-{
-	t_env	*lvlnode;
-	t_env	*pathnode;
-	char	*cwd;
-
-	if (!env)
-		return ;
-	lvlnode = env_find(*env, "SHLVL");
-	if (!lvlnode)
-		env_addback(env, node_create("SHLVL=1"));
-	else
-		setvalue(*env, "SHLVL", ft_itoa(ft_atoi(lvlnode->value) + 1));
-	pathnode = env_find(*env, "PATH");
-	cwd = getcwd(NULL, 0);
-	if (!pathnode)
-		env_addback(env, node_create(concat3("PATH", cwd, "=", 2)));
-	else if (ft_strnstr(pathnode->value, cwd, ft_strlen(pathnode->value)))
-		return (free(cwd));
-	else
-		setvalue(*env, "PATH", concat3(pathnode->value, cwd, ":", 2));
-}
-
 void	env_read(t_env *env)
 {
 	if (!env)
 		return ;
 	while (env)
 	{
-		if (!env->ishidden)
+		if (!env->ishidden && env->e_value)
 			node_read(env);
 		env = env->next;
 	}
+}
+
+t_env	*env_update(t_env **myenv, char *payload)
+{
+	char	*key;
+	char	*e_value;
+	char	*x_value;
+	t_env	*target;
+
+	if (!myenv || !payload)
+		return (NULL);
+	key = getprefix(payload, '=');
+	if (!key)
+		key = ft_strdup(payload);
+	target = env_find(*myenv, key);
+	if (!target)
+		return (free(key), env_addback(myenv, node_create(payload)));
+	e_value = getsuffix(payload, '=');
+	if (e_value && !e_value[0])
+		nullstr(&e_value);
+	x_value = ft_strdup(e_value);
+	target = node_update(target, key, e_value, x_value);
+	return (target);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:59:37 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:59:41 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:49:19 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ int	main(int argc, char *argv[], char *env[])
 	new_env = NULL;
 	commands = NULL;
 	(void)argc;
-	(void)argv;
 	signal(SIGINT, sg_handler);
 	signal(SIGQUIT, SIG_IGN);
-	env_handler(&new_env, env, CREATE | SYNC);
+	env_handler(&new_env, argv, env, CREATE | SYNC);
 	while (1)
 	{
 		proreadline(&input, &new_env, &error);

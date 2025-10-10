@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azghibat <azghibat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anasszgh <anasszgh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 21:57:37 by azghibat          #+#    #+#             */
-/*   Updated: 2025/10/05 21:57:38 by azghibat         ###   ########.fr       */
+/*   Updated: 2025/10/09 19:49:27 by anasszgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	herdoc_loop(t_cmd *cmd, t_env *env, char *limiter, int toexpand)
 	{
 		tmp = readline("> ");
 		if (!tmp || !ft_strcmp(tmp, limiter))
+		{
+			free(tmp);
 			break ;
+		}
 		if (toexpand)
 			data = expand_handler(tmp, env, cmd);
 		else

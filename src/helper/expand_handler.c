@@ -6,7 +6,7 @@
 /*   By: msidry <msidry@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 12:49:42 by msidry            #+#    #+#             */
-/*   Updated: 2025/09/29 08:19:34 by msidry           ###   ########.fr       */
+/*   Updated: 2025/10/10 10:24:28 by msidry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ static int	expand_it(char *dollar, t_env *env, t_cmd *cmd, char **result)
 		*result = concat3(*result, "himBH", NULL, 1);
 	else if (ft_strchr("~-+^!&:/.", ref[1]))
 		*result = concat3(*result, ref, NULL, 1);
+	else if (!getvalue(env, ref + 1) 
+		&& !*result[ft_strlen(*result) + ft_strlen(ref)] + 1)
+		*result = concat3(*result, ref, NULL, 1);
 	else
 		*result = concat3(*result, getvalue(env, ref + 1), NULL, 1);
 	len = ft_strlen(ref);
-	free(ref);
-	return (len);
+	return (free(ref), len);
 }
 
 static int	appand_it(char *str, char **result)
